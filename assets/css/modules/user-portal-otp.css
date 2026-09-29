@@ -1,0 +1,20 @@
+.rv-test-otp {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .8rem 1rem;
+    border: 1px dashed #d97706;
+    border-radius: 10px;
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.rv-test-otp > i { font-size: 1.5rem; }
+.rv-test-otp div { display: grid; gap: .2rem; }
+.rv-test-otp span { font-size: .78rem; }
+.rv-test-otp code {
+    color: #78350f;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: .12em;
+}

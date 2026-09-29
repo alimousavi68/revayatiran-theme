@@ -1,0 +1,52 @@
+/* Shared archive UX: dossiers, analysts, and authorized situation room. */
+.post-type-archive-analyst_post,
+.post-type-archive-special_dossier,
+.post-type-archive-situation_room { overflow-x: clip; }
+.rv-archive { --archive-gap: clamp(1rem, 2vw, 1.5rem); width: 100%; max-width: 100%; overflow-x: clip; }
+.rv-archive > section > .container { max-width: 1280px; }
+.rv-archive-result-count { margin: 0 0 .85rem; color: var(--text-muted); font-size: .75rem; }
+.rv-archive-grid { display: grid; gap: var(--archive-gap); align-items: stretch; }
+.rv-archive-grid > article,
+.an-archive-grid > article { min-width: 0; height: 100%; }
+.rv-archive-grid--dossiers,
+.rv-archive-grid--situation { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.rv-archive-search { display: grid; grid-template-columns: auto minmax(12rem, 1fr) auto; align-items: center; gap: .6rem; width: min(100%, 34rem); padding: .45rem .55rem .45rem .45rem; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.rv-archive-search > i { color: var(--text-muted); font-size: 1.1rem; }
+.rv-archive-search input[type="search"] { min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text); font: inherit; font-size: .8rem; }
+.rv-archive-search button { border: 0; border-radius: 9px; padding: .55rem .85rem; background: var(--accent); color: #fff; font: inherit; font-size: .75rem; font-weight: 800; cursor: pointer; }
+.rv-archive-sort select:focus-visible,
+.rv-archive-search input:focus-visible,
+.rv-archive-search button:focus-visible,
+.rv-archive a:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 40%, transparent); outline-offset: 3px; }
+.rv-archive .archive-card img,
+.rv-archive .an-card--grid__thumb { aspect-ratio: 16 / 9; object-fit: cover; }
+.rv-archive .archive-card h3,
+.rv-archive .an-card--grid__title { text-wrap: balance; }
+.rv-archive .archive-card { content-visibility: auto; contain-intrinsic-size: 420px; }
+.rv-archive--analysts .an-archive-header,
+.rv-archive--analysts .an-toolbar,
+.rv-archive--analysts .an-filter-tabs { min-width: 0; max-width: 100%; }
+.rv-archive--analysts .an-filter-tabs { width: 100%; overscroll-behavior-inline: contain; }
+
+@media (max-width: 900px) {
+    .rv-archive-grid--dossiers,
+    .rv-archive-grid--situation { grid-template-columns: 1fr; }
+    .rv-archive-search { width: 100%; }
+}
+
+@media (max-width: 520px) {
+    .rv-archive > section > .container { width: min(calc(100% - 24px), var(--container)); }
+    .rv-archive--analysts .an-archive-header { align-items: flex-start; }
+    .rv-archive--analysts .an-archive-header > div { min-width: 0; max-width: 100%; }
+    .rv-archive--analysts .an-archive-header h1 { font-size: 1.05rem; overflow-wrap: anywhere; }
+    .rv-archive--analysts .an-archive-header .text-xs { white-space: normal; }
+    .rv-archive--analysts .an-filter-tab { padding-inline: .75rem; }
+    .rv-archive--analysts .an-card--grid { width: 100%; max-width: 100%; }
+    .rv-archive-search { grid-template-columns: auto minmax(0, 1fr); }
+    .rv-archive-search button { grid-column: 1 / -1; width: 100%; }
+    .rv-archive-result-count { margin-top: .25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rv-archive *, .rv-archive *::before, .rv-archive *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}

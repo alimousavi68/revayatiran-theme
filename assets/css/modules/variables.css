@@ -1,0 +1,338 @@
+@font-face {
+    font-family: "IRANYekanX";
+    src: url("../fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff2") format("woff2"),
+        url("../fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff") format("woff"),
+        url("../fonts/IRANYekanX(Pro)/Variable Font/IRANYekanXVF.ttf") format("truetype");
+    font-weight: 100 1000;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+:root {
+    --primary: #B80000;
+    --primary-dark: #8A0000;
+    --header-backdrop: #E2E8F0;
+    --bg: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-soft: #f8fafc;
+    --surface: rgba(255, 255, 255, 0.96);
+    --surface-strong: #ffffff;
+    --surface-dark: #1e5f74;
+    --surface-darker: #0d1b2d;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --text-soft: #94a3b8;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --accent: var(--primary);
+    --accent-rgb: 184, 0, 0;
+    --accent-strong: #700000;
+    --accent-deep: #1e293b;
+    --accent-alt: #f87171;
+    --accent-gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent-strong) 100%);
+    --alert: var(--primary);
+    --white: #ffffff;
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.03);
+    --shadow-medium: 0 12px 32px rgba(0, 0, 0, 0.05);
+    --shadow-hard: 0 16px 48px rgba(0, 0, 0, 0.07);
+    --radius-lg: 8px;
+    --radius-md: 6px;
+    --radius-sm: 4px;
+    --radius-pill: 999px;
+    --container: 1280px;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --header-height: 76px;
+}
+
+html[data-theme="dark"] {
+    --bg: #0d1626;
+    --bg-elevated: #1e5f74;
+    --bg-soft: #162842;
+    --surface: rgba(18, 35, 61, 0.96);
+    --surface-strong: #1e5f74;
+    --surface-dark: #0d1b2d;
+    --surface-darker: #08111d;
+    --text: #edf2f8;
+    --text-muted: #bcc7d5;
+    --text-soft: #94a3b7;
+    --border: rgba(188, 199, 213, 0.16);
+    --border-strong: rgba(188, 199, 213, 0.24);
+    --accent: var(--primary);
+    --accent-deep: #edf2f8;
+    --accent-alt: #94a3b7;
+    --alert: var(--primary);
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-medium: 0 12px 32px rgba(0, 0, 0, 0.12);
+    --shadow-hard: 0 16px 48px rgba(0, 0, 0, 0.16);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "IRANYekanX", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.75;
+    transition: background 280ms var(--ease-out), color 280ms var(--ease-out);
+    /* تنظیمات وریبل ایران‌یکان ایکس: محور dots از 0 تا 4 */
+    font-variation-settings: "dots" 0;
+}
+
+/* Headings Typography Standardization */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "IRANYekanX", sans-serif;
+    line-height: 1.55;
+    letter-spacing: 0;
+}
+
+/* Safe Persian Justification */
+p,
+.article-body p,
+.tactical-desc,
+.daily-featured__excerpt,
+.info-panel__excerpt,
+.dossier-excerpt,
+.observatory-item__excerpt,
+.analysis-excerpt,
+.hero-feature__content p {
+    text-align: justify;
+    text-justify: inter-word;
+    text-align-last: right;
+    word-spacing: 0.5px;
+}
+
+@media (max-width: 480px) {
+
+    p,
+    .article-body p,
+    .tactical-desc,
+    .daily-featured__excerpt,
+    .info-panel__excerpt,
+    .dossier-excerpt,
+    .observatory-item__excerpt,
+    .analysis-excerpt,
+    .hero-feature__content p {
+        text-align: right;
+        text-align-last: auto;
+    }
+}
+
+html[data-theme="dark"] .an-cta--premium {
+    background: var(--primary);
+}
+
+html[data-theme="dark"] body {
+    background: linear-gradient(180deg, var(--bg) 0%, #08111d 100%);
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    font: inherit;
+}
+
+button,
+a,
+.panel-card,
+.stack-card,
+.situation-card,
+.media-card,
+.ranking-row,
+.timeline-item,
+.news-card,
+.news-list-card {
+    transition:
+        transform 240ms var(--ease-out),
+        box-shadow 240ms var(--ease-out),
+        border-color 240ms var(--ease-out),
+        background-color 240ms var(--ease-out),
+        color 240ms var(--ease-out),
+        opacity 240ms var(--ease-out);
+}
+
+::selection {
+    background: var(--accent);
+    color: var(--white);
+}
+
+.container {
+    width: min(calc(100% - 32px), var(--container));
+    margin: 0 auto;
+}
+
+/* ─── SEARCH OVERLAY — PREMIUM ──────────────────────────── */
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: linear-gradient(180deg, rgba(8, 14, 26, 0.97) 0%, rgba(13, 22, 38, 0.99) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s var(--ease-out), visibility 0.35s var(--ease-out);
+}
+
+.search-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.search-overlay__close {
+    position: absolute;
+    top: 24px;
+    left: 24px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.5);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background 200ms, color 200ms, border-color 200ms;
+}
+
+.search-overlay__close:hover {
+    background: rgba(var(--accent-rgb), 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    border-color: rgba(var(--accent-rgb), 0.3);
+}
+
+.search-overlay__close i {
+    font-size: 20px;
+}
+
+.search-form {
+    width: min(calc(100% - 40px), 760px);
+    text-align: center;
+    transform: translateY(24px);
+    transition: transform 0.4s var(--ease-out);
+}
+
+.search-overlay.is-active .search-form {
+    transform: translateY(0);
+}
+
+.search-eyebrow {
+    color: rgba(255, 255, 255, 0.35);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 28px;
+}
+
+.search-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(var(--accent-rgb), 0.6);
+    color: var(--white);
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 800;
+    padding: 16px 0;
+    text-align: center;
+    font-family: "IRANYekanX", sans-serif;
+    transition: border-color 200ms;
+}
+
+.search-input:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.search-hints {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.search-hint-tag {
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 200ms, color 200ms, border-color 200ms;
+}
+
+.search-hint-tag:hover {
+    background: rgba(var(--accent-rgb), 0.15);
+    border-color: rgba(var(--accent-rgb), 0.3);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.search-esc-hint {
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 12px;
+    margin-top: 28px;
+}
+
+.search-esc-hint kbd {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.06);
+    font-family: inherit;
+    font-size: 11px;
+}
+
+.page-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.page-progress span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--accent-strong));
+    box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.5);
+    transition: width 100ms linear;
+}

@@ -1,0 +1,24 @@
+.rv-submission-actions { display: flex; flex-wrap: wrap; gap: .65rem; }
+.rv-submission-actions button { width: auto; }
+.rv-submission-actions .rv-button-secondary { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.rv-submission-item__main { min-width: 0; }
+.rv-submission-item__actions { display: flex; align-items: center; gap: .65rem; flex-shrink: 0; }
+.rv-submission-item__actions a { display: inline-flex; align-items: center; gap: .3rem; color: var(--accent); font-size: .75rem; font-weight: 700; }
+.rv-editorial-note { display: flex; gap: .5rem; max-width: 650px; margin: .6rem 0 0; padding: .65rem .8rem; border-radius: 9px; background: #fff7ed; color: #9a3412; font-size: .76rem; line-height: 1.8; }
+.rv-editorial-note i { margin-top: .2rem; font-size: 1rem; }
+.rv-status--changes_requested { background: #fff7ed; color: #c2410c; }
+.rv-status--rejected { background: #fef2f2; color: #b91c1c; }
+.rv-status--approved { background: #ecfdf5; color: #047857; }
+.rv-notification-count { display: inline-grid; place-items: center; min-width: 1.45rem; height: 1.45rem; margin-inline-start: .35rem; border-radius: 999px; background: var(--accent); color: #fff; font-size: .7rem; }
+.rv-notifications__read-all { border: 0; background: transparent; color: var(--accent); font: inherit; font-size: .75rem; font-weight: 700; cursor: pointer; }
+.rv-notification-list { display: grid; gap: .55rem; }
+.rv-notification { display: flex; align-items: flex-start; gap: .7rem; padding: .75rem .85rem; border: 1px solid var(--border); border-radius: 11px; color: var(--text-muted); }
+.rv-notification.is-unread { border-color: color-mix(in srgb, var(--accent) 35%, var(--border)); background: color-mix(in srgb, var(--accent) 6%, var(--surface)); color: var(--text); }
+.rv-notification > i { margin-top: .15rem; color: var(--accent); font-size: 1.15rem; }
+.rv-notification p { margin: 0; font-size: .8rem; line-height: 1.8; }
+.rv-notification time { display: block; margin-top: .15rem; color: var(--text-muted); font-size: .68rem; }
+
+@media (max-width: 620px) {
+    .rv-submission-list article { align-items: flex-start; flex-direction: column; }
+    .rv-submission-item__actions { width: 100%; justify-content: space-between; }
+}

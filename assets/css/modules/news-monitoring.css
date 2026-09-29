@@ -1,0 +1,352 @@
+/* ═══════════════════════════════════════════════════════════════
+   PHASE 4 — NEWS SWIPER + GATED CONTENT
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Swiper: News Monitoring slider ──────────────────────────── */
+.news-swiper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 34px !important;
+    padding-top: 6px !important;
+}
+
+.news-swiper .swiper-slide {
+    height: auto;
+}
+
+/* ارتفاع ثابت برای کارت‌ها درون swiper */
+.news-swiper .news-card {
+    height: 270px;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+.news-swiper .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.14);
+}
+
+/* دستگیره‌های ناوبری بعدی و قبلی مدرن و شیک */
+.news-swiper-prev,
+.news-swiper-next,
+.analysts-swiper-prev,
+.analysts-swiper-next {
+    width: 44px !important;
+    height: 44px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1.5px solid var(--border-color, rgba(0,0,0,0.12)) !important;
+    border-radius: 50% !important;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1) !important;
+    color: var(--text-primary, var(--text)) !important;
+    top: 42% !important;
+    transform: translateY(-50%) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 10 !important;
+}
+
+html[data-theme="dark"] .news-swiper-prev,
+html[data-theme="dark"] .news-swiper-next,
+html[data-theme="dark"] .analysts-swiper-prev,
+html[data-theme="dark"] .analysts-swiper-next {
+    background: rgba(17, 29, 46, 0.9) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+}
+
+.news-swiper-prev::after,
+.news-swiper-next::after,
+.analysts-swiper-prev::after,
+.analysts-swiper-next::after {
+    display: none !important;
+}
+
+.news-swiper-prev i,
+.news-swiper-next i,
+.analysts-swiper-prev i,
+.analysts-swiper-next i {
+    font-size: 20px !important;
+    line-height: 1 !important;
+    transition: transform 0.25s ease !important;
+}
+
+.news-swiper-prev:hover,
+.news-swiper-next:hover,
+.analysts-swiper-prev:hover,
+.analysts-swiper-next:hover {
+    background: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(var(--accent-rgb), 0.35) !important;
+}
+
+.news-swiper-prev:hover i,
+.analysts-swiper-prev:hover i {
+    transform: scale(1.15) translateX(2px);
+}
+
+.news-swiper-next:hover i,
+.analysts-swiper-next:hover i {
+    transform: scale(1.15) translateX(-2px);
+}
+
+.news-swiper-prev.swiper-button-disabled,
+.news-swiper-next.swiper-button-disabled,
+.analysts-swiper-prev.swiper-button-disabled,
+.analysts-swiper-next.swiper-button-disabled {
+    opacity: 0.25 !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+}
+
+/* در RTL دکمه prev سمت راست و next سمت چپ قرار می‌گیرد */
+[dir="rtl"] .news-swiper-prev,
+.news-swiper-prev,
+[dir="rtl"] .analysts-swiper-prev,
+.analysts-swiper-prev {
+    right: -12px !important;
+    left: auto !important;
+}
+
+[dir="rtl"] .news-swiper-next,
+.news-swiper-next,
+[dir="rtl"] .analysts-swiper-next,
+.analysts-swiper-next {
+    left: -12px !important;
+    right: auto !important;
+}
+
+@media (max-width: 768px) {
+
+    [dir="rtl"] .news-swiper-prev,
+    .news-swiper-prev,
+    [dir="rtl"] .analysts-swiper-prev,
+    .analysts-swiper-prev {
+        right: 4px !important;
+    }
+
+    [dir="rtl"] .news-swiper-next,
+    .news-swiper-next,
+    [dir="rtl"] .analysts-swiper-next,
+    .analysts-swiper-next {
+        left: 4px !important;
+    }
+}
+
+/* Pagination dots */
+.news-swiper-pagination,
+.analysts-swiper-pagination {
+    bottom: 0px !important;
+}
+
+.news-swiper-pagination .swiper-pagination-bullet,
+.analysts-swiper-pagination .swiper-pagination-bullet {
+    background: var(--text-muted);
+    opacity: 0.35;
+    width: 7px;
+    height: 7px;
+    transition: all 0.25s ease;
+}
+
+.news-swiper-pagination .swiper-pagination-bullet-active,
+.analysts-swiper-pagination .swiper-pagination-bullet-active {
+    background: var(--primary);
+    opacity: 1;
+    width: 22px;
+    border-radius: 4px;
+}
+
+/* Fallback: اگر Swiper لود نشد، کارت‌ها در grid نمایش داده می‌شوند */
+.swiper:not(.swiper-initialized) .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.swiper:not(.swiper-initialized) .swiper-slide {
+    width: auto !important;
+}
+
+.swiper:not(.swiper-initialized)~.swiper-button-next,
+.swiper:not(.swiper-initialized)~.swiper-button-prev,
+.swiper:not(.swiper-initialized)~.swiper-pagination {
+    display: none;
+}
+
+
+/* ── Situation Room: Gated List (Soft Paywall) ──────────────── */
+.sr-gated-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.sr-gated-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.sr-gated-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.sr-gated-item:hover {
+    border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.05);
+    transform: translateY(-1px);
+}
+
+.sr-gated-item__lock {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-primary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 16px;
+    color: var(--primary);
+    margin-top: 2px;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.sr-gated-item:hover .sr-gated-item__lock {
+    background: rgba(var(--accent-rgb), 0.08);
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+}
+
+.sr-gated-item__body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.sr-gated-item__title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.45;
+    margin: 0;
+}
+
+/* متن محو‌شده با blur */
+.sr-gated-item__excerpt--blurred {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+    filter: blur(4.5px);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.3s;
+}
+
+.sr-gated-item:hover .sr-gated-item__excerpt--blurred {
+    filter: blur(5.5px);
+}
+
+/* ── Curtain & Fading effect ─────────────────── */
+.sr-gated-curtain {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.sr-gated-list--faded {
+    opacity: 0.45;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.15) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.15) 100%);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ── Unified Gated CTA Card ─────────────────── */
+.sr-gated-cta {
+    margin-top: -36px;
+    position: relative;
+    z-index: 2;
+    border-radius: 16px;
+    background: var(--bg-primary);
+    border: 1.5px solid color-mix(in srgb, var(--primary) 28%, var(--border-color));
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+    padding: 20px 26px;
+    backdrop-filter: blur(12px);
+}
+
+[data-theme="dark"] .sr-gated-cta {
+    background: var(--bg-secondary);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+}
+
+.sr-gated-cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.sr-gated-cta__icon {
+    font-size: 26px;
+    color: var(--primary);
+    flex-shrink: 0;
+}
+
+.sr-gated-cta__text {
+    flex: 1;
+    min-width: 240px;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.sr-gated-cta__actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .sr-gated-cta__inner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .sr-gated-cta__actions {
+        width: 100%;
+    }
+
+    .sr-gated-cta__actions .button--compact {
+        flex: 1;
+        justify-content: center;
+    }
+}
+

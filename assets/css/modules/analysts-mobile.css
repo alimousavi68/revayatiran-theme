@@ -1,0 +1,238 @@
+/* ═══════════════════════════════════════════════════════════════
+   ANALYSTS NETWORK — MOBILE RESPONSIVE OVERHAUL (320px - 768px)
+   ═══════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+    #analysts-network .an-grid-layout {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+    }
+
+    #analysts-network .an-main-column,
+    #analysts-network .an-sidebar-column {
+        width: 100% !important;
+        max-width: 100% !important;
+        gap: 24px !important;
+        position: static !important;
+    }
+
+    /* ۱. پست بزرگ هیرو — رفع کامل بیرون‌زدگی و کراپ شدن مدال/تگ بالای تصویر */
+    .an-hero--editorial {
+        min-height: auto !important;
+        height: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+        border-radius: 16px !important;
+        overflow: hidden !important;
+        position: relative !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .an-hero__content-panel {
+        position: relative !important;
+        z-index: 3 !important;
+        width: 100% !important;
+        padding: 20px 14px 14px !important;
+        box-sizing: border-box !important;
+        margin-top: 110px !important;
+    }
+
+    .an-hero__badge--accent {
+        padding: 4px 10px !important;
+        font-size: 11px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .an-hero--editorial .an-hero__title {
+        font-size: 17px !important;
+        line-height: 1.5 !important;
+        margin: 0 0 8px !important;
+    }
+
+    .an-hero--editorial .an-hero__desc {
+        font-size: 12.5px !important;
+        line-height: 1.6 !important;
+        margin: 0 0 14px !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 3 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+
+    .an-hero__author-row {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        padding-top: 12px !important;
+        width: 100% !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .an-hero--editorial .an-hero__author {
+        gap: 10px !important;
+    }
+
+    .an-hero--editorial .an-hero__avatar {
+        width: 42px !important;
+        height: 42px !important;
+        border-radius: 10px !important;
+    }
+
+    .an-hero--editorial .an-hero__author-info strong {
+        font-size: 13px !important;
+    }
+
+    .an-hero--editorial .an-hero__author-info span {
+        font-size: 11px !important;
+    }
+
+    .an-hero__meta-group {
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .an-hero--editorial .an-hero__score {
+        padding: 3px 8px !important;
+        font-size: 11px !important;
+    }
+
+    .an-hero--editorial .an-hero__score strong {
+        font-size: 13px !important;
+    }
+
+    .an-hero__date {
+        font-size: 11px !important;
+    }
+
+    .an-hero__read-btn {
+        padding: 7px 14px !important;
+        font-size: 12px !important;
+        border-radius: 10px !important;
+        margin-inline-start: auto !important;
+    }
+
+    /* ۲. تبدیل لیست ۶ کارت تحلیل برتر به کروسل اسکرولی لمسی (نظیر رصد اخبار) */
+    .an-top-analyses__grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding-bottom: 14px !important;
+        gap: 12px !important;
+        scrollbar-width: none !important;
+        margin-inline: -16px !important;
+        padding-inline: 16px !important;
+    }
+
+    .an-top-analyses__grid::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .an-top-analyses__grid > .an-text-card {
+        flex: 0 0 84% !important;
+        max-width: 84% !important;
+        min-width: 260px !important;
+        scroll-snap-align: start !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    .an-text-card {
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+
+    .an-text-card__avatar-wrap {
+        width: 60px !important;
+        height: 60px !important;
+        border-radius: 12px !important;
+    }
+
+    .an-text-card__title {
+        font-size: 13.5px !important;
+        line-height: 1.45 !important;
+    }
+
+    /* ۳. باکس برترین تحلیل‌گران کناری (انعطاف ارتفاع) */
+    .an-showcase--premium {
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 16px !important;
+        border-radius: 16px !important;
+    }
+
+    /* ۴. ویجت عضویت در شبکه تحلیل‌گران (رفع لغزش و کراپ شدن دکمه‌ها) */
+    .an-cta--premium {
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+        padding: 16px !important;
+        border-radius: 16px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin-top: 0 !important;
+    }
+
+    .an-cta-premium__info {
+        gap: 10px !important;
+    }
+
+    .an-cta-actions {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        gap: 8px !important;
+        margin-top: 10px !important;
+    }
+
+    .an-cta-btn--primary,
+    .an-cta-btn--secondary {
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+        padding: 9px 12px !important;
+        font-size: 13px !important;
+        text-align: center !important;
+        justify-content: center !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* ۵. بهینه‌سازی ویژه برای صفحه نمایش‌های بسیار کوچک (زیر 380px مانند 320px) */
+@media (max-width: 380px) {
+    .an-hero__content-panel {
+        padding: 14px 12px 12px !important;
+        margin-top: 80px !important;
+    }
+
+    .an-hero--editorial .an-hero__title {
+        font-size: 15.5px !important;
+    }
+
+    .an-hero__meta-group {
+        flex-wrap: wrap !important;
+        gap: 6px !important;
+    }
+
+    .an-top-analyses__grid > .an-text-card {
+        flex: 0 0 90% !important;
+        max-width: 90% !important;
+        min-width: 240px !important;
+    }
+
+    .an-cta-actions {
+        flex-direction: column !important;
+    }
+
+    .an-cta-btn--primary,
+    .an-cta-btn--secondary {
+        width: 100% !important;
+    }
+}

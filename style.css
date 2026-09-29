@@ -1,0 +1,21 @@
+/*
+Theme Name: روایت ایران (Revayat Iran)
+Theme URI: https://revayatiran.ir
+Author: تیم فنی و مهندسی روایت ایران
+Author URI: https://revayatiran.ir
+Description: پوسته کلاسیک پیشرفته، سریع و امن پایگاه تحلیلی و رسانه‌ای روایت ایران بر پایه معماری ماژولار و بهینه‌سازی حداکثری دسترسی و کارایی.
+Version: 1.0.0
+Requires at least: 6.2
+Tested up to: 6.7
+Requires PHP: 8.0
+License: Proprietary
+License URI: https://revayatiran.ir/license
+Text Domain: revayatiran
+Domain Path: /languages
+Tags: news, magazine, rtl-language-support, custom-colors, custom-menu, featured-images, full-width-template
+*/
+
+/*
+ * استایل‌های نهایی و کامپایل‌شده پوسته در مسیر زیر قرار دارند و از طریق inc/enqueue.php لود می‌شوند:
+ * assets/css/style.css
+ */

@@ -1,0 +1,52 @@
+/* ==========================================================================
+   REVAYAT IRAN — MODULAR STYLESHEET INDEX
+   Maps each conceptual UI component & PHP partial to its dedicated CSS module
+   ========================================================================== */
+
+/* 1. Base Design Tokens: Fonts, CSS Variables, Theme Palettes, Dark Mode & Search Overlay */
+@import "./modules/variables.css";
+
+/* 2. Site Header: Top Bar, Main Navigation Shell, Dropdowns, Menu Toggle & Mobile Menu Panel (components/header.php) */
+@import "./modules/header.css";
+
+/* 3. Hero Showcase: Feature Hero Story, 4-Brief Card Stack & Stage Layout (components/hero.php) */
+@import "./modules/hero.css";
+
+/* 4. Global Shared Components: Common Card Foundations, Meta Rows, Badges, Tabs & Base Utilities */
+@import "./modules/layout-shared.css";
+
+/* 5. Special Dossiers: Multi-layered Investigative Dossier Cards (components/special-dossiers.php) */
+@import "./modules/special-dossiers.css";
+
+/* 6. Media Observatory: Framing Analysis & Confrontation Narrative Cards (components/media-observatory.php) */
+@import "./modules/media-observatory.css";
+
+/* 7. Site Footer: Multi-column Navigation, Branding, Copyright & Designer Credit (components/footer.php) */
+@import "./modules/footer.css";
+
+/* 8. Global Responsive Breakpoints: Tablet, Mobile & Desktop Adaptive Layout Rules */
+@import "./modules/responsive.css";
+
+/* 9. Section Header Études: Editorial Ribbon (A), Data Pills (B) & Typographic (C) */
+@import "./modules/section-etudes.css";
+
+/* 10. Interactive UI Widgets: Smooth Back-to-Top Progress Circle, Pulse Keyframes & Animations */
+@import "./modules/ui-components.css";
+
+/* 11. Daily Narrative: Interactive Thumbnail Reel, Stage Hero & Dynamic Story Panel (components/daily-narrative.php) */
+@import "./modules/daily-narrative.css";
+
+/* 12. Analysts Network: 2-Column Grid, Editorial Hero, Top Analysis Slider & Authority Showcase (components/analysts-network.php) */
+@import "./modules/analysts-network.css";
+
+/* 13. News Monitoring: Swiper News Carousel, Category Filter Tabs & Navigation Controls (components/news-monitoring.php) */
+@import "./modules/news-monitoring.css";
+
+/* 14. Floating Social FAB: Speed-dial Quick Access Drawer for Social Channels */
+@import "./modules/social-fab.css";
+
+/* 15. Situation Room: Tactical Command Center, Gated List & Glassmorphic Paywall CTA (components/situation-room.php) */
+@import "./modules/situation-room.css";
+
+/* 16. Analysts Network Mobile: Mobile-specific 320px-768px Viewport Overhauls & Layout Rules */
+@import "./modules/analysts-mobile.css";

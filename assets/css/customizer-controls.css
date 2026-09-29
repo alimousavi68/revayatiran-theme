@@ -1,0 +1,30 @@
+.rv-customizer-group{list-style:none;margin:12px 0;border:1px solid #dcdcde;border-radius:8px;background:#fff;overflow:hidden;box-shadow:0 2px 6px #00000006}
+.rv-customizer-group summary{padding:14px 12px;cursor:pointer;font-weight:600;color:#1d2327;background:#f6f7f7;list-style-position:inside;border-inline-start:3px solid #b80000}
+.rv-customizer-group summary:focus-visible{outline:2px solid #2271b1;outline-offset:-3px}
+.rv-customizer-group details[open]>summary{border-bottom:1px solid #dcdcde}
+.rv-customizer-group__controls{margin:0;padding:14px 12px;display:flow-root}
+.rv-customizer-group__controls .customize-control{float:none;width:auto;margin-bottom:18px}
+.rv-customizer-group__controls .customize-control:last-child{margin-bottom:0}
+.rv-home-link{margin-block:12px}
+.rv-query-control{margin-top:10px}
+.rv-query-search{width:100%;margin-block:4px 8px;box-sizing:border-box}
+.rv-query-options{max-height:190px;overflow-y:auto;border:1px solid #dcdcde;border-radius:5px;background:#fff;padding:8px}
+.rv-query-option{display:flex;align-items:center;gap:7px;padding:6px 0;cursor:pointer;overflow-wrap:anywhere}
+.rv-query-option[hidden]{display:none}
+.rv-query-option input[type=checkbox]{margin:0;flex-shrink:0}
+.rv-query-option small{font-size:10px;color:#646970;margin-inline-start:auto;direction:ltr;overflow-wrap:anywhere}
+.rv-query-clear{display:block;margin-block:8px}
+.rv-tax-filter{min-width:0;border:1px solid #c3c4c7;border-radius:6px;padding:12px;margin-bottom:14px;background:#f9f9fa}
+.rv-tax-filter>legend,.rv-term-picker>legend{font-weight:600;padding-inline:4px}
+.rv-query-label{display:block;margin-block:8px}
+.rv-query-label select{display:block;width:100%;margin-top:7px}
+.rv-filter-remove{display:block;margin-block:10px}
+.rv-term-picker{min-width:0;border:0;padding:0;margin-block:14px}
+.rv-query-status{font-size:11px;color:#646970;margin-block:4px 7px}
+.rv-query-error{color:#b32d2e;font-size:12px}
+.rv-term-chips{display:flex;flex-wrap:wrap;gap:4px;margin-block:7px}
+.rv-term-chip{border:1px solid #c3c4c7;border-radius:12px;background:white;padding:3px 8px;cursor:pointer;max-width:100%;overflow-wrap:anywhere;font-size:11px}
+.rv-tax-filter button:focus-visible,.rv-term-chip:focus-visible{outline:2px solid #2271b1;outline-offset:2px}
+.rv-query-control [hidden]{display:none!important}
+.rv-query-option>span{flex:1;min-width:0}
+.rv-query-option small{max-width:30%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}

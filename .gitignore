@@ -1,0 +1,27 @@
+# Local and generated files
+.DS_Store
+Thumbs.db
+.env
+.env.*
+*.log
+*.map
+node_modules/
+
+# The theme uses only the variable font files below; keep vendor previews local.
+/assets/fonts/**/*.html
+/assets/fonts/**/*.css
+/assets/fonts/**/*.gif
+/assets/fonts/**/*.png
+/assets/fonts/**/*.psd
+/assets/fonts/**/iranyekan-Help.pdf
+/assets/fonts/**/*.ttf
+/assets/fonts/**/*.woff
+/assets/fonts/**/*.woff2
+!/assets/fonts/IRANYekanX(Pro)/Variable Font/IRANYekanXVF.ttf
+!/assets/fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff
+!/assets/fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff2
+
+# Icon font generator sources are not needed by the running theme.
+/assets/vendor/phosphor/Phosphor.json
+/assets/vendor/phosphor/*/selection.json
+/assets/vendor/phosphor/index.js
