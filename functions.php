@@ -24,6 +24,8 @@ $revayat_inc_files = [
     '/inc/navigation.php',     // موقعیت‌های منو و ناوبری
     '/inc/nav-walker.php',     // واکر استاندارد ناوبری وردپرس (Pass 2B Commit 5)
     '/inc/template-tags.php',  // توابع کمکی رندرینگ تمپلیت‌ها
+    '/inc/single-sidebar.php', // Editable reading-page sidebars.
+    '/inc/dossier-editor.php', // Native dossier writing controls.
     '/inc/media.php',          // لایه انتزاعی رسانه و تصاویر (ADR-003)
     '/inc/demo-data.php',      // لایه موقت داده‌های دمو (Pass 2B Migration)
     '/inc/data-provider.php',  // پل ارتباطی تامین داده‌ها و فال‌بک نرم (Pass 3A Bridge)

@@ -53,3 +53,32 @@ if (!function_exists('revayat_get_primary_category')) {
         return null;
     }
 }
+
+/** Decide whether multimedia introduction is already present in authored content. */
+function revayat_media_intro_visibility(string $content, string $cover, string $excerpt): array {
+    $normalize = static function ($text) {
+        return trim(preg_replace('/\s+/u', ' ', html_entity_decode(wp_strip_all_tags($text), ENT_QUOTES, 'UTF-8')));
+    };
+    $photo_key = static function ($url) {
+        $path = wp_parse_url(html_entity_decode($url, ENT_QUOTES, 'UTF-8'), PHP_URL_PATH) ?: '';
+        $host = strtolower(wp_parse_url($url, PHP_URL_HOST) ?: wp_parse_url(home_url(), PHP_URL_HOST));
+        return $host . preg_replace('/-\d+x\d+(?=\.[a-z0-9]+$)/i', '', $path);
+    };
+    $show_cover = (bool) $cover;
+    if ($cover && preg_match_all('/<img\b[^>]*\bsrc\s*=\s*([\'\"])(.*?)\1/is', $content, $images)) {
+        foreach ($images[2] as $src) {
+            if ($photo_key($src) === $photo_key($cover)) { $show_cover = false; break; }
+        }
+    }
+    $show_excerpt = (bool) $normalize($excerpt);
+    if (preg_match('/<p\b[^>]*>(.*?)<\/p>/is', $content, $paragraph)) {
+        if ($normalize($paragraph[1]) === $normalize($excerpt)) { $show_excerpt = false; }
+    }
+    return ['cover' => $show_cover, 'excerpt' => $show_excerpt];
+}
+
+/** Keep public reading-page forms compact while preserving native validation/cookies. */
+add_filter('comment_form_default_fields', function ($fields) {
+    if (is_singular(['post', 'analyst_post', 'multimedia', 'special_dossier'])) { unset($fields['url'], $fields['cookies']); }
+    return $fields;
+});

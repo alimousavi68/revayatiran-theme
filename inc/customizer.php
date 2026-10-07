@@ -62,9 +62,8 @@ function revayat_home_components(): array {
             'side' => array( 'پرونده‌های تکمیلی', '.dossier-sidebar-list' ),
             'image' => array( 'تصویر پرونده', '.dossier-hero-visual' ),
             'excerpt' => array( 'چکیده پرونده', '.dossier-excerpt' ),
-            'stats' => array( 'آمار ضمایم', '.dossier-features-row' ),
             'meta' => array( 'تاریخ و دبیر', '.dossier-top-meta, .dossier-mini-card__meta, .dossier-lead-author' ),
-            'live' => array( 'نشان پرونده فعال', '.live-indicator' ),
+            'live' => array( 'نشان در حال پیگیری', '.live-indicator' ),
         ),
         'media-observatory' => $common + array(
             'frames' => array( 'مقایسه فریم‌ها', '.obs-framing-box' ),

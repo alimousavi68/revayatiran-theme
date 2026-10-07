@@ -76,7 +76,7 @@ $top_analysts = $network_data['analysts']  ?? [];
                             <div class="an-hero__meta-group">
                                 <div class="an-hero__score">
                                     <span><?php esc_html_e('اعتبار: ', 'revayatiran'); ?></span>
-                                    <strong><?php echo esc_html($editorial['score'] ?? '۴.۹'); ?></strong>
+									<strong><?php echo esc_html($editorial['score'] ?? '—'); ?></strong>
                                     <i class="ph ph-check"></i>
                                     <span class="an-votes"><?php echo esc_html($editorial['votes_count'] ?? ''); ?></span>
                                 </div>
@@ -92,7 +92,7 @@ $top_analysts = $network_data['analysts']  ?? [];
                 <!-- لیست تحلیل‌های برتر (Swiper Carousel) -->
                 <div class="an-top-analyses--elegant relative">
                     <div class="an-sub-header flex items-center justify-between mb-3">
-                        <h4 class="m-0"><i class="ph ph-trend-up"></i> <?php esc_html_e('تحلیل‌های برتر از نگاه مخاطبان', 'revayatiran'); ?></h4>
+						<h4 class="m-0"><i class="ph ph-trend-up"></i> <?php echo ! empty( $analyses ) ? esc_html__( 'یادداشت‌های شبکه تحلیلگران', 'revayatiran' ) : esc_html__( 'هنوز یادداشتی منتشر نشده است', 'revayatiran' ); ?></h4>
                         <a href="<?php echo esc_url(home_url('/analyses/')); ?>" class="an-sub-header__link"><?php esc_html_e('آرشیو تحلیل‌ها', 'revayatiran'); ?> <i class="ph ph-caret-left"></i></a>
                     </div>
 
@@ -129,8 +129,8 @@ $top_analysts = $network_data['analysts']  ?? [];
                     </div>
 
                     <div class="an-showcase__list">
-                        <?php foreach ($top_analysts as $analyst) : ?>
-                        <a href="#" class="an-analyst-card an-analyst-card--ranked">
+						<?php foreach ($top_analysts as $analyst) : ?>
+						<a href="<?php echo esc_url( $analyst['url'] ?? '#' ); ?>" class="an-analyst-card an-analyst-card--ranked">
                             <div class="an-analyst-card__rank"><?php echo esc_html($analyst['rank']); ?></div>
                             <div class="an-analyst-card__avatar-wrap an-analyst-card__avatar-wrap--authority">
                                 <img src="<?php echo esc_url(revayat_resolve_image_url($analyst['avatar_url'] ?? null, 'avatar')); ?>" alt="<?php echo esc_attr($analyst['name']); ?>">
@@ -157,7 +157,8 @@ $top_analysts = $network_data['analysts']  ?? [];
                                 </div>
                             </div>
                         </a>
-                        <?php endforeach; ?>
+						<?php endforeach; ?>
+						<?php if ( empty( $top_analysts ) ) : ?><p class="an-empty-state"><?php esc_html_e( 'پس از ثبت رأی‌های معتبر، رتبه‌بندی تحلیلگران در این بخش نمایش داده می‌شود.', 'revayatiran' ); ?></p><?php endif; ?>
                     </div>
                 </div>
 
@@ -169,7 +170,7 @@ $top_analysts = $network_data['analysts']  ?? [];
                             <h4 class="m-0 text-base text-white font-bold"><?php esc_html_e('عضویت در شبکه تحلیل‌گران', 'revayatiran'); ?></h4>
                         </div>
                         <p class="an-cta-desc text-white/85 text-xs sm:text-sm leading-relaxed m-0">
-                            <?php esc_html_e('با پیوستن به شبکه تحلیلگران اختصاصی روایت ایران، یادداشت‌های راهبردی خود را مستقیماً منتشر کنید و با دیگر پژوهشگران در ارتباط باشید.', 'revayatiran'); ?>
+							<?php esc_html_e('با پیوستن به شبکه تحلیلگران روایت ایران، یادداشت‌های راهبردی خود را برای بررسی و انتشار تحریریه ارسال کنید.', 'revayatiran'); ?>
                         </p>
                     </div>
                     <div class="an-cta-actions">

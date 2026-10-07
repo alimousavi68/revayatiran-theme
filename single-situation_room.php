@@ -307,11 +307,7 @@ while (have_posts()) :
                                     <i class="ph ph-shield-check align-middle text-primary"></i>
                                     <?php esc_html_e('کپی و بازنشر این برآورد صرفاً با ذکر کد سند مجاز است.', 'revayatiran'); ?>
                                 </span>
-                                <div class="flex items-center gap-2">
-                                    <button type="button" onclick="navigator.clipboard.writeText(window.location.href); alert('<?php echo esc_js(__('پیوند سند در حافظه کپی شد.', 'revayatiran')); ?>');" class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-primary/10 hover:text-primary text-gray-600 dark:text-gray-400 flex items-center justify-center transition-colors text-sm" aria-label="<?php esc_attr_e('کپی لینک سند', 'revayatiran'); ?>">
-                                        <i class="ph ph-link"></i>
-                                    </button>
-                                </div>
+                                <?php get_template_part('template-parts/single/share', null, ['private' => true]); ?>
                             </div>
                         </div>
 

@@ -208,6 +208,7 @@ while (have_posts()) :
             </section>
 
             <!-- ═══ واکاوی‌های مرتبط در دیده‌بان رسانه ═══ -->
+            <?php get_template_part('template-parts/single/share'); ?>
             <?php 
             $related_posts = function_exists('revayat_get_related_posts') ? revayat_get_related_posts($post_id, 3) : [];
             if (!empty($related_posts)) :

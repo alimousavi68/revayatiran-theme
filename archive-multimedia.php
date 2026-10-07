@@ -2,7 +2,6 @@
 /** Archive: multimedia. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 get_header();
-$has_sidebar = is_active_sidebar( 'public-archive-sidebar' );
 $paged  = max( 1, (int) get_query_var( 'paged', 1 ) );
 $format = isset( $_GET['format'] ) && is_string( $_GET['format'] ) ? sanitize_key( wp_unslash( $_GET['format'] ) ) : 'all';
 $data   = revayat_get_archive_data( 'multimedia', array( 'paged' => $paged, 'format' => $format, 'posts_per_page' => 12 ) );
@@ -17,7 +16,7 @@ $format_labels = array_column( $filters, 'label', 'slug' );
   <p><?php esc_html_e( 'مجموعه ویدئوها، پادکست‌ها و روایت‌های تصویری تحریریه', 'revayatiran' ); ?></p>
  </div></header>
  <div class="container rv-vertical__body">
- <div class="rv-archive-layout<?php echo $has_sidebar ? ' has-sidebar' : ''; ?>">
+ <div class="rv-archive-layout">
  <div class="rv-archive-content">
   <?php if ( $filters ) : ?><nav class="rv-filter-row" aria-label="<?php esc_attr_e( 'فیلتر قالب رسانه', 'revayatiran' ); ?>">
    <?php foreach ( $filters as $filter ) : $active = ( $format === ( $filter['slug'] ?? 'all' ) ); ?>
@@ -37,7 +36,6 @@ $format_labels = array_column( $filters, 'label', 'slug' );
   </div><?php else : ?><section class="rv-empty"><i class="ph ph-film-strip"></i><h2><?php esc_html_e( 'رسانه‌ای یافت نشد', 'revayatiran' ); ?></h2><p><?php esc_html_e( 'برای این فیلتر هنوز محتوایی منتشر نشده است.', 'revayatiran' ); ?></p></section><?php endif; ?>
   <?php if ( ( $data['max_pages'] ?? 1 ) > 1 ) : ?><nav class="rv-pagination" aria-label="<?php esc_attr_e( 'صفحه‌بندی', 'revayatiran' ); ?>"><?php echo wp_kses_post( paginate_links( array( 'current' => $paged, 'total' => (int) $data['max_pages'], 'mid_size' => 1, 'prev_text' => __( 'قبلی', 'revayatiran' ), 'next_text' => __( 'بعدی', 'revayatiran' ), 'add_args' => 'all' !== $format ? array( 'format' => $format ) : array() ) ) ); ?></nav><?php endif; ?>
  </div>
- <?php get_template_part( 'template-parts/archive/sidebar' ); ?>
  </div>
  </div>
 </section>

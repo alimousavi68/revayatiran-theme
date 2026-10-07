@@ -24,29 +24,26 @@ while (have_posts()) :
     $excerpt         = $dossier['excerpt'] ?? get_the_excerpt();
     $date            = $dossier['date'] ?? get_the_date();
     $thumbnail       = !empty($dossier['media']['url']) ? $dossier['media']['url'] : (has_post_thumbnail() ? get_the_post_thumbnail_url($post_id, 'full') : '');
-    $topic           = $dossier['taxonomies']['dossier_topic'] ?? esc_html__('پرونده ویژه', 'revayatiran');
+    $topic_terms     = wp_get_post_terms($post_id, 'dossier_topic', ['fields' => 'names']);
+    $topic           = !is_wp_error($topic_terms) ? implode('، ', $topic_terms) : '';
     $meta            = $dossier['meta'] ?? [];
     $is_live         = !empty($meta['is_live']);
-    $dossier_code    = $meta['dossier_code'] ?? 'DOS-2026-EUR';
     $editor_lead     = !empty($meta['editor_lead']) ? $meta['editor_lead'] : __('تحریریه راهبردی', 'revayatiran');
     $last_update     = $meta['last_update'] ?? '';
-    $stats           = $meta['stats'] ?? [];
-    $docs_count      = !empty($stats['docs']) ? $stats['docs'] : 12;
-    $frames_count    = !empty($stats['frames']) ? $stats['frames'] : 45;
-    $notes_count     = !empty($stats['notes']) ? $stats['notes'] : 8;
     $timeline_events = $meta['timeline_events'] ?? [];
     $related         = function_exists('revayat_get_related_posts') ? revayat_get_related_posts($post_id, 3) : [];
+    $dossier_links   = class_exists('Revayat_Companion_Dossier_Links') ? Revayat_Companion_Dossier_Links::get($post_id) : [];
     ?>
 
-    <main class="bg-gray-50/50 dark:bg-black/20 min-h-screen pt-8 md:pt-12 pb-16">
+    <main class="rv-dossier-single bg-gray-50/50 dark:bg-black/20 min-h-screen pt-8 md:pt-12 pb-16">
         <div class="container">
 
             <!-- ═══ بخش هدر دوتکه (Split Hero - مطابق با orginal source/single.php) ═══ -->
             <article class="bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] shadow-sm mb-10 p-[15px]">
-                <div class="flex flex-col md:flex-row h-full">
+                <div class="rv-dossier-hero-layout">
 
                     <!-- سمت راست: اطلاعات پست -->
-                    <div class="flex-1 p-6 md:p-8 lg:p-12 flex flex-col justify-center order-2 md:order-1 bg-gradient-to-bl from-transparent to-gray-50 dark:to-white/5 rounded-r-2xl">
+                    <div class="rv-dossier-hero-content flex-1 p-6 md:p-8 lg:p-12 flex flex-col justify-center bg-gradient-to-bl from-transparent to-gray-50 dark:to-white/5 rounded-r-2xl">
                         
                         <!-- بردکرامپ -->
                         <div class="mb-6">
@@ -82,19 +79,13 @@ while (have_posts()) :
                             <?php if ($is_live) : ?>
                                 <div class="live-indicator">
                                     <span class="live-indicator__dot"></span>
-                                    <span><?php esc_html_e('پرونده فعال و در جریان', 'revayatiran'); ?></span>
+                                    <span><?php esc_html_e('در حال پیگیری', 'revayatiran'); ?></span>
                                 </div>
                             <?php endif; ?>
 
                             <?php if (!empty($topic)) : ?>
                                 <span class="dossier-category-badge">
                                     <?php echo esc_html($topic); ?>
-                                </span>
-                            <?php endif; ?>
-
-                            <?php if (!empty($dossier_code)) : ?>
-                                <span class="font-mono text-xs font-bold px-2.5 py-1 bg-gray-100 dark:bg-white/10 text-gray-700 dark:text-gray-300 rounded-lg border border-[var(--border)]">
-                                    <?php echo esc_html($dossier_code); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
@@ -140,7 +131,7 @@ while (have_posts()) :
                     </div>
 
                     <!-- سمت چپ: تصویر شاخص -->
-                    <div class="w-full md:w-[45%] lg:w-[45%] relative min-h-[300px] md:min-h-full order-1 md:order-2 rounded-2xl overflow-hidden bg-gray-900">
+                    <div class="rv-dossier-hero-image rounded-2xl overflow-hidden bg-gray-900">
                         <?php if (!empty($thumbnail)) : ?>
                             <img src="<?php echo esc_url($thumbnail); ?>"
                                  alt="<?php echo esc_attr($title); ?>"
@@ -157,36 +148,11 @@ while (have_posts()) :
                 </div>
             </article>
 
-            <!-- ═══ اقلام داده‌ای و ضمایم پرونده (Stats Bar - مطابق با components/special-dossiers.php) ═══ -->
-            <div class="dossier-features-row mb-10">
-                <div class="dossier-feature-pill">
-                    <i class="ph-fill ph-file-pdf"></i>
-                    <div class="pill-info">
-                        <strong><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($docs_count) : $docs_count); ?> <?php esc_html_e('سند پیوست', 'revayatiran'); ?></strong>
-                        <span><?php esc_html_e('بولتن‌های داده‌محور و راهبردی', 'revayatiran'); ?></span>
-                    </div>
-                </div>
-                <div class="dossier-feature-pill">
-                    <i class="ph-fill ph-image"></i>
-                    <div class="pill-info">
-                        <strong><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($frames_count) : $frames_count); ?> <?php esc_html_e('فریم مستند', 'revayatiran'); ?></strong>
-                        <span><?php esc_html_e('نمودارها و داده‌نماهای تبیینی', 'revayatiran'); ?></span>
-                    </div>
-                </div>
-                <div class="dossier-feature-pill">
-                    <i class="ph-fill ph-chat-centered-text"></i>
-                    <div class="pill-info">
-                        <strong><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($notes_count) : $notes_count); ?> <?php esc_html_e('یادداشت تحلیلی', 'revayatiran'); ?></strong>
-                        <span><?php esc_html_e('نخبگان و پژوهشگران همکار', 'revayatiran'); ?></span>
-                    </div>
-                </div>
-            </div>
-
             <!-- ═══ گرید اصلی (محتوا + سایدبار ابزارها و پرونده‌های تکمیلی) ═══ -->
             <div class="flex flex-col lg:flex-row gap-10 relative">
 
                 <!-- ستون اصلی محتوای متنی (راست - ۷۰٪) -->
-                <div class="flex-1 min-w-0 order-2 lg:order-1">
+                <div class="flex-1 min-w-0 order-1">
                     <div class="bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] shadow-sm p-6 md:p-8 lg:p-12 mb-10">
 
                         <div class="border-b border-[var(--border)] pb-4 mb-8">
@@ -200,6 +166,8 @@ while (have_posts()) :
                         <div class="text-gray-900 dark:text-white leading-[2.2] text-[16px] md:text-[17px] space-y-7 font-normal entry-content">
                             <?php the_content(); ?>
                         </div>
+
+                        <?php get_template_part('template-parts/dossier/links', null, ['links' => $dossier_links]); ?>
 
                         <!-- ═══ گاه‌شمار رخدادها و سیر تحولات پرونده (Timeline) ═══ -->
                         <?php if (!empty($timeline_events) && is_array($timeline_events)) : ?>
@@ -237,6 +205,7 @@ while (have_posts()) :
                         <?php endif; ?>
 
                         <!-- برچسب‌ها و دکمه‌های اشتراک‌گذاری -->
+                        <?php if ($topic) : ?>
                         <div class="mt-12 pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-4">
                             <div class="flex items-center gap-2">
                                 <span class="text-sm font-bold text-gray-900 dark:text-white">
@@ -247,26 +216,15 @@ while (have_posts()) :
                                     <?php echo esc_html($topic); ?>
                                 </span>
                             </div>
-
-                            <div class="flex items-center gap-2">
-                                <span class="text-xs text-gray-500 font-medium"><?php esc_html_e('اشتراک‌گذاری پرونده:', 'revayatiran'); ?></span>
-                                <button type="button" onclick="navigator.clipboard.writeText(window.location.href); alert('<?php echo esc_js(__('پیوند پرونده در حافظه کپی شد.', 'revayatiran')); ?>');" class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-primary/10 hover:text-primary text-gray-600 dark:text-gray-400 flex items-center justify-center transition-colors text-sm" aria-label="<?php esc_attr_e('کپی لینک', 'revayatiran'); ?>">
-                                    <i class="ph ph-link"></i>
-                                </button>
-                                <a href="https://t.me/share/url?url=<?php echo rawurlencode(get_permalink()); ?>&text=<?php echo rawurlencode($title); ?>" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-[#24A1DE]/10 hover:text-[#24A1DE] text-gray-600 dark:text-gray-400 flex items-center justify-center transition-colors text-sm" aria-label="<?php esc_attr_e('اشتراک در تلگرام', 'revayatiran'); ?>">
-                                    <i class="ph ph-telegram-logo"></i>
-                                </a>
-                                <a href="https://twitter.com/intent/tweet?url=<?php echo rawurlencode(get_permalink()); ?>&text=<?php echo rawurlencode($title); ?>" target="_blank" rel="noopener noreferrer" class="w-8 h-8 rounded-lg bg-gray-100 dark:bg-white/5 hover:bg-black/10 hover:text-black dark:hover:text-white text-gray-600 dark:text-gray-400 flex items-center justify-center transition-colors text-sm" aria-label="<?php esc_attr_e('اشتراک در توییتر/ایکس', 'revayatiran'); ?>">
-                                    <i class="ph ph-x-logo"></i>
-                                </a>
-                            </div>
                         </div>
+                        <?php endif; ?>
 
+                        <?php get_template_part('template-parts/single/engagement'); ?>
                     </div>
                 </div>
 
                 <!-- ═══ سایدبار (چپ - ۳۰٪ مطابق با orginal source/single.php) ═══ -->
-                <aside class="w-full lg:w-[320px] shrink-0 space-y-6 lg:sticky lg:top-28 self-start order-1 lg:order-2">
+                <aside class="w-full lg:w-[320px] shrink-0 space-y-6 lg:sticky lg:top-28 self-start order-2">
 
                     <!-- کارت شناسنامه پرونده -->
                     <div class="bg-white dark:bg-[#1a1c23] rounded-2xl p-5 border border-[var(--border)] shadow-sm">
@@ -275,20 +233,19 @@ while (have_posts()) :
                             <?php esc_html_e('شناسنامه پرونده', 'revayatiran'); ?>
                         </h3>
                         <dl class="space-y-3 text-xs">
-                            <div class="flex items-center justify-between">
-                                <dt class="text-gray-500"><?php esc_html_e('کد ثبت:', 'revayatiran'); ?></dt>
-                                <dd class="font-mono font-bold text-gray-900 dark:text-white bg-gray-100 dark:bg-white/5 px-2 py-0.5 rounded"><?php echo esc_html($dossier_code); ?></dd>
-                            </div>
+
                             <div class="flex items-center justify-between">
                                 <dt class="text-gray-500"><?php esc_html_e('وضعیت بررسی:', 'revayatiran'); ?></dt>
                                 <dd class="font-bold <?php echo $is_live ? 'text-red-500' : 'text-primary'; ?>">
-                                    <?php echo $is_live ? esc_html__('فعال و در جریان', 'revayatiran') : esc_html__('آرشیو تکمیل‌شده', 'revayatiran'); ?>
+                                    <?php echo $is_live ? esc_html__('در حال پیگیری', 'revayatiran') : esc_html__('تکمیل‌شده', 'revayatiran'); ?>
                                 </dd>
                             </div>
+                            <?php if ($topic) : ?>
                             <div class="flex items-center justify-between">
                                 <dt class="text-gray-500"><?php esc_html_e('محور تخصصی:', 'revayatiran'); ?></dt>
                                 <dd class="font-bold text-gray-900 dark:text-white"><?php echo esc_html($topic); ?></dd>
                             </div>
+                            <?php endif; ?>
                             <div class="flex items-center justify-between">
                                 <dt class="text-gray-500"><?php esc_html_e('دبیر پرونده:', 'revayatiran'); ?></dt>
                                 <dd class="font-bold text-gray-900 dark:text-white"><?php echo esc_html($editor_lead); ?></dd>
@@ -305,21 +262,17 @@ while (have_posts()) :
                             </div>
 
                             <?php foreach ($related as $rel) : 
-                                $rel_topic = $rel['taxonomies']['dossier_topic'] ?? ($rel['category'] ?? __('پرونده اقتصادی', 'revayatiran'));
-                                $rel_meta  = $rel['meta'] ?? [];
-                                $rel_stats = $rel_meta['stats'] ?? [];
-                                $rel_docs  = !empty($rel_stats['docs']) ? $rel_stats['docs'] : (!empty($rel_meta['stats_documents']) ? $rel_meta['stats_documents'] : 6);
+                                $rel_topic = $rel['taxonomies']['dossier_topic'] ?? ($rel['category'] ?? '');
                                 $rel_date  = $rel['time_ago'] ?? ($rel['date'] ?? __('اخیر', 'revayatiran'));
                             ?>
                                 <article class="dossier-mini-card">
-                                    <div class="dossier-mini-card__tag"><?php echo esc_html($rel_topic); ?></div>
+                                    <?php if ($rel_topic) : ?><div class="dossier-mini-card__tag"><?php echo esc_html($rel_topic); ?></div><?php endif; ?>
                                     <h5 class="dossier-mini-card__title">
                                         <a href="<?php echo esc_url($rel['permalink']); ?>">
                                             <?php echo esc_html($rel['title']); ?>
                                         </a>
                                     </h5>
                                     <div class="dossier-mini-card__meta">
-                                        <span><i class="ph ph-file-text"></i> <?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($rel_docs) : $rel_docs); ?> <?php esc_html_e('بخش و سند', 'revayatiran'); ?></span>
                                         <span><i class="ph ph-calendar-blank"></i> <?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($rel_date) : $rel_date); ?></span>
                                     </div>
                                 </article>
@@ -327,6 +280,7 @@ while (have_posts()) :
                         </aside>
                     <?php endif; ?>
 
+                    <?php get_template_part('template-parts/single/sidebar', null, ['embedded' => true]); ?>
                 </aside>
 
             </div>

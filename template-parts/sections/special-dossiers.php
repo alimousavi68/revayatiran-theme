@@ -13,7 +13,6 @@ if (!defined('ABSPATH')) {
 $dossiers_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('special-dossiers') : (function_exists('revayat_get_special_dossiers_data') ? revayat_get_special_dossiers_data() : []);
 $lead          = $dossiers_data['lead'] ?? [];
 $sidebar       = $dossiers_data['sidebar'] ?? [];
-$stats         = $lead['stats'] ?? [];
 ?>
 <section class="section-shell section-spacing" id="special-dossiers">
     <div class="container">
@@ -43,8 +42,12 @@ $stats         = $lead['stats'] ?? [];
                             <div class="dossier-hero-visual__overlay">
                                 <div class="live-indicator">
                                     <span class="live-indicator__dot"></span>
-                                    <span><?php esc_html_e('پرونده فعال و در جریان', 'revayatiran'); ?></span>
+                                    <span><?php esc_html_e('در حال پیگیری', 'revayatiran'); ?></span>
                                 </div>
+                            </div>
+                        <?php else : ?>
+                            <div class="dossier-hero-visual__overlay">
+                                <span class="dossier-category-badge"><?php esc_html_e('تکمیل‌شده', 'revayatiran'); ?></span>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -67,45 +70,7 @@ $stats         = $lead['stats'] ?? [];
                         <?php endif; ?>
 
                         <!-- اقلام داده‌ای و ضمایم پرونده -->
-                        <?php if (!empty($stats)) : ?>
-                            <div class="dossier-features-row">
-                                <?php if (!empty($stats['docs'])) : ?>
-                                    <div class="dossier-feature-pill">
-                                        <i class="ph-fill ph-file-pdf"></i>
-                                        <div class="pill-info">
-                                            <strong><?php echo esc_html($stats['docs']); ?></strong>
-                                            <?php if (!empty($stats['docs_desc'])) : ?>
-                                                <span><?php echo esc_html($stats['docs_desc']); ?></span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-
-                                <?php if (!empty($stats['frames'])) : ?>
-                                    <div class="dossier-feature-pill">
-                                        <i class="ph-fill ph-image"></i>
-                                        <div class="pill-info">
-                                            <strong><?php echo esc_html($stats['frames']); ?></strong>
-                                            <?php if (!empty($stats['frames_desc'])) : ?>
-                                                <span><?php echo esc_html($stats['frames_desc']); ?></span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-
-                                <?php if (!empty($stats['notes'])) : ?>
-                                    <div class="dossier-feature-pill">
-                                        <i class="ph-fill ph-chat-centered-text"></i>
-                                        <div class="pill-info">
-                                            <strong><?php echo esc_html($stats['notes']); ?></strong>
-                                            <?php if (!empty($stats['notes_desc'])) : ?>
-                                                <span><?php echo esc_html($stats['notes_desc']); ?></span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        <?php endif; ?>
+                        <?php get_template_part('template-parts/dossier/counts', null, ['id' => $lead['id'] ?? 0, 'variant' => 'hero']); ?>
 
                         <div class="dossier-footer">
                             <a href="<?php echo esc_url($lead['url'] ?? home_url('/dossiers/')); ?>" class="btn-dossier-enter">
@@ -138,9 +103,6 @@ $stats         = $lead['stats'] ?? [];
                             <a href="<?php echo esc_url($dossier_item['url'] ?? home_url('/dossiers/')); ?>"><?php echo esc_html($dossier_item['title'] ?? ''); ?></a>
                         </h5>
                         <div class="dossier-mini-card__meta">
-                            <?php if (!empty($dossier_item['sections_count'])) : ?>
-                                <span><i class="ph ph-file-text"></i> <?php echo esc_html($dossier_item['sections_count']); ?></span>
-                            <?php endif; ?>
                             <?php if (!empty($dossier_item['date'])) : ?>
                                 <span><i class="ph ph-calendar-blank"></i> <?php echo esc_html($dossier_item['date']); ?></span>
                             <?php endif; ?>

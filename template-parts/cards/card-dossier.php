@@ -39,10 +39,6 @@ $dossier_code = $meta['dossier_code'] ?? '';
 $editor_lead  = $meta['editor_lead'] ?? '';
 $last_update  = $meta['last_update'] ?? ($item['time_ago'] ?? ($item['date'] ?? ''));
 $excerpt      = $item['excerpt'] ?? '';
-$stats        = $meta['stats'] ?? [];
-$docs_count   = $stats['docs'] ?? 0;
-$frames_count = $stats['frames'] ?? 0;
-$notes_count  = $stats['notes'] ?? 0;
 ?>
 
 <article class="archive-card group flex flex-col bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:-translate-y-1">
@@ -59,8 +55,12 @@ $notes_count  = $stats['notes'] ?? 0;
             <div class="absolute top-3 right-3 z-10">
                 <div class="live-indicator">
                     <span class="live-indicator__dot"></span>
-                    <span><?php esc_html_e('پرونده فعال', 'revayatiran'); ?></span>
+                    <span><?php esc_html_e('در حال پیگیری', 'revayatiran'); ?></span>
                 </div>
+            </div>
+        <?php else : ?>
+            <div class="absolute top-3 right-3 z-10">
+                <span class="dossier-category-badge"><?php esc_html_e('تکمیل‌شده', 'revayatiran'); ?></span>
             </div>
         <?php endif; ?>
 
@@ -96,26 +96,7 @@ $notes_count  = $stats['notes'] ?? 0;
             </p>
         <?php endif; ?>
 
-        <!-- نوار اقلام آماری فشرده (Pills) -->
-        <?php if ($docs_count || $frames_count || $notes_count) : ?>
-            <div class="grid grid-cols-3 gap-2 py-2 px-2.5 bg-gray-50 dark:bg-white/5 rounded-xl border border-[var(--border)] mb-4 text-[11px] text-gray-500 dark:text-gray-400">
-                <div class="flex items-center gap-1.5 justify-center" title="<?php esc_attr_e('اسناد و بولتن‌های پیوست', 'revayatiran'); ?>">
-                    <i class="ph-fill ph-file-pdf text-primary text-xs"></i>
-                    <strong class="text-gray-900 dark:text-white"><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($docs_count) : $docs_count); ?></strong>
-                    <span><?php esc_html_e('سند', 'revayatiran'); ?></span>
-                </div>
-                <div class="flex items-center gap-1.5 justify-center" title="<?php esc_attr_e('فریم‌ها و داده‌نماها', 'revayatiran'); ?>">
-                    <i class="ph-fill ph-image text-primary text-xs"></i>
-                    <strong class="text-gray-900 dark:text-white"><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($frames_count) : $frames_count); ?></strong>
-                    <span><?php esc_html_e('فریم', 'revayatiran'); ?></span>
-                </div>
-                <div class="flex items-center gap-1.5 justify-center" title="<?php esc_attr_e('یادداشت‌های تحلیلی', 'revayatiran'); ?>">
-                    <i class="ph-fill ph-chat-centered-text text-primary text-xs"></i>
-                    <strong class="text-gray-900 dark:text-white"><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($notes_count) : $notes_count); ?></strong>
-                    <span><?php esc_html_e('یادداشت', 'revayatiran'); ?></span>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?php get_template_part('template-parts/dossier/counts', null, ['id' => $item['id'] ?? 0]); ?>
 
         <!-- فوتر کارت: دبیر پرونده و تاریخ بروزرسانی -->
         <div class="flex items-center justify-between pt-4 border-t border-[var(--border)] mt-auto">

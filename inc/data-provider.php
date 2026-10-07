@@ -161,11 +161,6 @@ function revayat_get_homepage_data( string $section ): array {
 						}
 					}
 
-					if ( empty( $top_analysts ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_analysts_network_data' ) ) {
-						$demo_an      = revayat_get_analysts_network_data();
-						$top_analysts = $demo_an['analysts'] ?? array();
-					}
-
 					$data = array(
 						'editorial' => ! empty( $lead_item ) ? revayat_adapt_analyst_editorial( $lead_item ) : array(),
 						'analyses'  => ! empty( $posts ) ? array_map( 'revayat_adapt_hybrid_item', $posts ) : array(),
@@ -173,7 +168,7 @@ function revayat_get_homepage_data( string $section ): array {
 					);
 				}
 			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_analysts_network_data' ) ) {
+			if ( ! $has_plugin_service && empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_analysts_network_data' ) ) {
 				$data = revayat_get_analysts_network_data();
 			}
 			break;
@@ -208,14 +203,6 @@ function revayat_get_homepage_data( string $section ): array {
  */
 function revayat_adapt_hybrid_item( array $item ): array {
 	$category = ! empty( $item['taxonomies']['category']['name'] ) ? $item['taxonomies']['category']['name'] : ( $item['taxonomies']['dossier_topic'] ?? '' );
-	$raw_score = ! empty( $item['meta']['analyst_score'] ) ? (float) $item['meta']['analyst_score'] : 4.8;
-	if ( $raw_score > 5.0 ) {
-		$raw_score = round( $raw_score / 2, 1 );
-	}
-	$score_val = max( 1.0, min( 5.0, $raw_score ) );
-	$score = revayat_en2fa( number_format( $score_val, 1 ) );
-	
-	$sections_count = ! empty( $item['meta']['stats']['docs'] ) ? ( revayat_en2fa($item['meta']['stats']['docs']) . ' بخش و سند' ) : '';
 
 	return array(
 		'id'             => $item['id'] ?? 0,
@@ -352,12 +339,12 @@ function revayat_adapt_observatory_card( array $item ): array {
  * @return array
  */
 function revayat_adapt_analyst_post_card( array $item ): array {
-	$raw_score = ! empty( $item['score'] ) ? (float) $item['score'] : ( ! empty( $item['meta']['analyst_score'] ) ? (float) $item['meta']['analyst_score'] : 4.8 );
+	$raw_score = ! empty( $item['score'] ) ? (float) $item['score'] : (float) ( $item['meta']['analyst_score'] ?? 0 );
 	if ( $raw_score > 5.0 ) {
 		$raw_score = round( $raw_score / 2, 1 );
 	}
-	$score_val = max( 1.0, min( 5.0, $raw_score ) );
-	$score_str = number_format( $score_val, 1 );
+	$score_val = $raw_score > 0 ? max( 1.0, min( 5.0, $raw_score ) ) : 0.0;
+	$score_str = $score_val > 0 ? number_format( $score_val, 1 ) : '—';
 
 	$author = $item['author'] ?? ( $item['taxonomies']['person_author'] ?? array() );
 
@@ -402,14 +389,14 @@ if (!function_exists('revayat_en2fa')) {
  * @return array
  */
 function revayat_adapt_analyst_editorial( array $item ): array {
-	$raw_score = ! empty( $item['meta']['analyst_score'] ) ? (float) $item['meta']['analyst_score'] : 4.9;
+	$raw_score = (float) ( $item['analyst_score'] ?? ( $item['meta']['analyst_score'] ?? 0 ) );
 	if ( $raw_score > 5.0 ) {
 		$raw_score = round( $raw_score / 2, 1 );
 	}
-	$score_val = max( 1.0, min( 5.0, $raw_score ) );
-	$score = revayat_en2fa(number_format( $score_val, 1 ));
-	$votes_num = ! empty( $item['meta']['person_votes'] ) ? $item['meta']['person_votes'] : 12;
-	$votes = '(' . revayat_en2fa($votes_num) . ' رای)';
+	$score_val = $raw_score > 0 ? max( 1.0, min( 5.0, $raw_score ) ) : 0.0;
+	$score = $score_val > 0 ? revayat_en2fa( number_format( $score_val, 1 ) ) : '—';
+	$votes_num = absint( $item['votes_count'] ?? ( $item['meta']['analyst_votes'] ?? 0 ) );
+	$votes = $votes_num ? '(' . revayat_en2fa( $votes_num ) . ' رای)' : '';
 
 	return array(
 		'id'             => $item['id'] ?? 0,
@@ -424,7 +411,7 @@ function revayat_adapt_analyst_editorial( array $item ): array {
 		'analyst_score'  => $score_val,
 		'score'          => $score,
 		'votes_count'    => $votes,
-		'category'       => $item['taxonomies']['analyst_field'] ?? 'ژئوپلیتیک',
+		'category'       => $item['taxonomies']['analyst_field'] ?? '',
 		'date'           => revayat_en2fa($item['date'] ?? ''),
 	);
 }
@@ -438,22 +425,23 @@ function revayat_adapt_analyst_editorial( array $item ): array {
  */
 function revayat_adapt_analyst_person( array $person, int $rank ): array {
 	$votes          = $person['meta']['person_votes'] ?? 0;
-	$raw_score      = ! empty( $person['meta']['person_total_score'] ) ? (float) $person['meta']['person_total_score'] : 4.8;
+	$raw_score      = (float) ( $person['meta']['person_total_score'] ?? 0 );
 	if ( $raw_score > 5.0 ) {
 		$raw_score = round( $raw_score / 2, 1 );
 	}
-	$score_val      = max( 1.0, min( 5.0, $raw_score ) );
-	$score          = revayat_en2fa(number_format( $score_val, 1 ));
-	$analyses_count = ! empty( $votes ) ? (string) max( 1, (int) round( $votes / 25 ) ) : '۸';
+	$score_val      = $raw_score > 0 ? max( 1.0, min( 5.0, $raw_score ) ) : 0.0;
+	$score          = $score_val > 0 ? revayat_en2fa( number_format( $score_val, 1 ) ) : '—';
+	$analyses_count = absint( $person['meta']['analyses_count'] ?? 0 );
 
 	return array(
 		'rank'           => revayat_en2fa((string) $rank),
 		'name'           => $person['title'] ?? '',
 		'specialty'      => ! empty( $person['meta']['expertise'] ) ? $person['meta']['expertise'] : ( ! empty( $person['meta']['role_title'] ) ? $person['meta']['role_title'] : ( $person['taxonomies']['analyst_field'] ?? 'تحلیلگر ارشد' ) ),
 		'avatar_url'     => $person['media']['url'] ?? '',
+		'url'            => $person['permalink'] ?? ( $person['url'] ?? '' ),
 		'score'          => $score,
 		'analyses_count' => revayat_en2fa($analyses_count),
-		'votes_count'    => revayat_en2fa((string) ( $votes ?: '۲۵۰' )),
+		'votes_count'    => revayat_en2fa((string) $votes),
 	);
 }
 
@@ -587,20 +575,16 @@ function revayat_get_single_data( $post = null ): array {
 	$monitoring_source = (string) get_post_meta( $id, '_revayat_obs_monitoring_source', true ) ?: ( (string) get_post_meta( $id, '_revayat_news_source', true ) ?: __( 'دیده‌بان رصد و پایش روایت', 'revayatiran' ) );
 
 	// متاداده شبکه تحلیل‌گران (Analyst Post Fallback)
-	$analyst_score_raw = get_post_meta( $id, '_revayat_analyst_score', true );
-	$analyst_score = ! empty( $analyst_score_raw ) ? (float) $analyst_score_raw : 4.8;
-	if ( $analyst_score > 5.0 ) {
-		$analyst_score = round( $analyst_score / 2, 1 );
-	}
-	$analyst_score_val = max( 1.0, min( 5.0, $analyst_score ) );
-	$analyst_score_str = number_format( $analyst_score_val, 1 );
+	$vote_summary = 'analyst_post' === $post_obj->post_type && class_exists( 'Revayat_Companion_User_Portal' ) ? Revayat_Companion_User_Portal::get_analyst_vote_summary( $id ) : array( 'count' => 0, 'average' => 0.0 );
+	$analyst_score_val = $vote_summary['average'];
+	$analyst_score_str = $vote_summary['count'] ? number_format( $analyst_score_val, 1 ) : '—';
 
 	$featured_quote = (string) get_post_meta( $id, '_revayat_analyst_quote', true ) ?: ( (string) get_post_meta( $id, '_revayat_featured_quote', true ) ?: (string) wp_strip_all_tags( get_the_excerpt( $post_obj ) ) );
 	$analysis_type  = (string) get_post_meta( $id, '_revayat_analysis_type', true ) ?: __( 'یادداشت تحلیلی', 'revayatiran' );
 	$reading_depth  = (string) get_post_meta( $id, '_revayat_reading_depth', true ) ?: __( 'تحلیل راهبردی', 'revayatiran' );
 	$key_takeaways  = (string) get_post_meta( $id, '_revayat_key_takeaways', true );
 	$references     = (string) get_post_meta( $id, '_revayat_references', true );
-	$analyst_votes  = (int) ( get_post_meta( $id, '_revayat_analyst_votes', true ) ?: 12 );
+	$analyst_votes  = $vote_summary['count'];
 
 	$analyst_fields = taxonomy_exists( 'analyst_field' ) ? wp_get_object_terms( $id, 'analyst_field', array( 'fields' => 'all' ) ) : array();
 	$field_slug = ( ! empty( $analyst_fields ) && ! is_wp_error( $analyst_fields ) ) ? $analyst_fields[0]->slug : 'geopolitics';
@@ -896,7 +880,7 @@ function revayat_get_analyst_post_single_data( $post = null ): array {
 	}
 
 	if ( empty( $data['score'] ) ) {
-		$data['score'] = '۴.۸';
+		$data['score'] = '—';
 	}
 
 	return $data;

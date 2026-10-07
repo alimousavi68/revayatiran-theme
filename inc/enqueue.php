@@ -66,6 +66,15 @@ if (!function_exists('revayat_enqueue_assets')) {
             );
         }
 
+        // Shared editorial body for dossier and its selected articles.
+        if (is_singular(['special_dossier', 'post', 'analyst_post', 'multimedia', 'media_observatory', 'situation_room', 'person'])) {
+            $story_css = '/assets/css/modules/dossier-story.css';
+            wp_enqueue_style('revayat-dossier-story', REVAYAT_THEME_URI . $story_css, ['revayat-main-custom'], $get_asset_version($story_css));
+            $engagement_js = '/assets/js/single-engagement.js';
+            wp_enqueue_script('revayat-single-engagement', REVAYAT_THEME_URI . $engagement_js, [], $get_asset_version($engagement_js), true);
+            if (comments_open() && get_option('thread_comments')) { wp_enqueue_script('comment-reply'); }
+        }
+
         // ۴. استایل سراسری متادیتای ریشه تم
         wp_enqueue_style(
             'revayat-theme-root',
@@ -75,13 +84,13 @@ if (!function_exists('revayat_enqueue_assets')) {
         );
 
         // ۴.۱ بارگذاری مشروط استایل ماژولار پرونده‌های ویژه (ADR-001 & Asset Mapping)
-        if (is_singular('special_dossier') || is_post_type_archive('special_dossier')) {
+        if (is_front_page() || is_home() || is_singular('special_dossier') || is_post_type_archive('special_dossier')) {
             $dossier_css = '/assets/css/modules/special-dossiers.css';
             if (file_exists(REVAYAT_THEME_DIR . $dossier_css)) {
                 wp_enqueue_style(
                     'revayat-module-special-dossiers',
                     REVAYAT_THEME_URI . $dossier_css,
-                    ['revayat-main-style'],
+                    ['revayat-main-custom'],
                     $get_asset_version($dossier_css)
                 );
             }
@@ -157,7 +166,7 @@ if (!function_exists('revayat_enqueue_assets')) {
         }
 
         // Public archives: native loops, media metadata and touch pagination.
-        if (is_archive()) {
+        if (is_archive() && !is_post_type_archive('analyst_post') && !is_tax(['analyst_field', 'person_author'])) {
             $public_archive_css = '/assets/css/modules/public-archives.css';
             wp_enqueue_style('revayat-public-archives', REVAYAT_THEME_URI . $public_archive_css, ['revayat-main-custom'], $get_asset_version($public_archive_css));
         }
@@ -179,6 +188,42 @@ if (!function_exists('revayat_enqueue_assets')) {
 				if (file_exists(REVAYAT_THEME_DIR . $workflow_css)) {
 					wp_enqueue_style('revayat-module-user-portal-workflow', REVAYAT_THEME_URI . $workflow_css, ['revayat-module-user-portal'], $get_asset_version($workflow_css));
 				}
+            }
+        }
+
+        // خانواده صفحات بازطراحی‌شده شبکه تحلیلگران؛ بعد از استایل‌های عمومی و پرتال بارگذاری می‌شود.
+        $analysts_experience_pages = is_singular(['analyst_post', 'person']) || is_post_type_archive('analyst_post') || is_tax('analyst_field') || is_page_template('page-templates/template-dashboard.php');
+        if ($analysts_experience_pages) {
+            $experience_css = '/assets/css/modules/analysts-experience.css';
+            if (file_exists(REVAYAT_THEME_DIR . $experience_css)) {
+                wp_enqueue_style(
+                    'revayat-module-analysts-experience',
+                    REVAYAT_THEME_URI . $experience_css,
+                    ['revayat-theme-root'],
+                    $get_asset_version($experience_css)
+                );
+            }
+            $refinement_css = '/assets/css/modules/analysts-refinement.css';
+            if (file_exists(REVAYAT_THEME_DIR . $refinement_css)) {
+                wp_enqueue_style(
+                    'revayat-module-analysts-refinement',
+                    REVAYAT_THEME_URI . $refinement_css,
+                    ['revayat-module-analysts-experience'],
+                    $get_asset_version($refinement_css)
+                );
+            }
+            $experience_js = '/assets/js/analysts-experience.js';
+            if (file_exists(REVAYAT_THEME_DIR . $experience_js)) {
+                wp_enqueue_script(
+                    'revayat-analysts-experience',
+                    REVAYAT_THEME_URI . $experience_js,
+                    [],
+                    $get_asset_version($experience_js),
+                    [
+                        'strategy'  => 'defer',
+                        'in_footer' => true,
+                    ]
+                );
             }
         }
 
@@ -228,7 +273,7 @@ if (!function_exists('revayat_script_loader_tag')) {
      * فال‌بک سازگاری: افزودن صریح صفت defer به اسکریپت‌های پوسته در نسخه‌های قدیمی‌تر وردپرس
      */
     function revayat_script_loader_tag($tag, $handle, $src) {
-        $defer_handles = ['swiper-bundle', 'revayat-main-script'];
+        $defer_handles = ['swiper-bundle', 'revayat-main-script', 'revayat-analysts-experience'];
         if (in_array($handle, $defer_handles, true) && strpos($tag, 'defer') === false) {
             $tag = str_replace(' src=', ' defer src=', $tag);
         }

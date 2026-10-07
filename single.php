@@ -1,78 +1,36 @@
 <?php
-/**
- * تمپلیت نمایش تک نوشته‌های استاندارد (Single Post)
- *
- * @package RevayatIran
- */
-
-if (!defined('ABSPATH')) {
-    exit;
-}
-
+/** Public article: split introduction and a separate reading card/sidebar. */
+if (!defined('ABSPATH')) { exit; }
 get_header();
+while (have_posts()) : the_post();
+    $category = revayat_get_primary_category();
+    if ($category && (int) $category->term_id === (int) get_option('default_category')) { $category = null; }
 ?>
-
-<div class="container py-8 md:py-12">
-    <?php
-    while (have_posts()) :
-        the_post();
-        $primary_cat = revayat_get_primary_category();
-        ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class('max-w-4xl mx-auto'); ?>>
-            <header class="entry-header mb-8">
-                <?php if ($primary_cat) : ?>
-                    <div class="mb-3">
-                        <a href="<?php echo esc_url(get_category_link($primary_cat->term_id)); ?>" class="chip chip--alert font-bold">
-                            <?php echo esc_html($primary_cat->name); ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
-
-                <h1 class="text-2xl md:text-4xl font-black text-text leading-tight mb-4">
-                    <?php the_title(); ?>
-                </h1>
-
-                <div class="flex items-center flex-wrap gap-4 text-xs text-text-muted pb-4 border-b border-border">
-                    <span class="flex items-center gap-1.5 font-medium">
-                        <i class="ph ph-user"></i>
-                        <?php the_author(); ?>
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                        <i class="ph ph-calendar"></i>
-                        <?php revayat_posted_on(); ?>
-                    </span>
-                    <span class="flex items-center gap-1.5">
-                        <i class="ph ph-clock"></i>
-                        <?php echo esc_html(revayat_reading_time()); ?>
-                    </span>
-                </div>
-            </header>
-
-            <?php if (has_post_thumbnail()) : ?>
-                <div class="entry-thumbnail mb-8 rounded-2xl overflow-hidden shadow-soft border border-border">
-                    <?php the_post_thumbnail('revayat-hero-large', ['class' => 'w-full h-auto object-cover max-h-[500px]']); ?>
-                </div>
-            <?php endif; ?>
-
-            <div class="entry-content prose prose-lg max-w-none text-text leading-loose font-normal">
-                <?php the_content(); ?>
+<main class="container rv-post-page">
+    <article id="post-<?php the_ID(); ?>" <?php post_class('rv-post-shell'); ?>>
+        <header class="rv-post-hero<?php echo has_post_thumbnail() && !post_password_required() ? ' has-image' : ''; ?>">
+            <div class="rv-post-hero__intro">
+                <nav class="rv-breadcrumb" aria-label="<?php esc_attr_e('موقعیت شما', 'revayatiran'); ?>"><a href="<?php echo esc_url(home_url('/')); ?>"><?php esc_html_e('خانه', 'revayatiran'); ?></a><?php if ($category) : ?><span aria-hidden="true">‹</span><a href="<?php echo esc_url(get_category_link($category->term_id)); ?>"><?php echo esc_html($category->name); ?></a><?php endif; ?></nav>
+                <h1><?php the_title(); ?></h1>
+                <?php if (has_excerpt() && !post_password_required()) : ?><p class="rv-post-hero__excerpt"><?php echo esc_html(get_the_excerpt()); ?></p><?php endif; ?>
+                <div class="rv-post-hero__meta"><span><i class="ph ph-user" aria-hidden="true"></i> <?php the_author(); ?></span><span><?php revayat_posted_on(); ?></span><span><?php echo esc_html(revayat_reading_time()); ?></span></div>
             </div>
+            <?php if (has_post_thumbnail() && !post_password_required()) : ?><div class="rv-post-hero__image"><?php the_post_thumbnail('revayat-hero-large', ['loading' => 'eager']); ?></div><?php endif; ?>
+        </header>
+        <div class="rv-reading-layout">
+            <div class="rv-reading-main rv-post-reading-card">
 
-            <footer class="entry-footer mt-10 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-4">
-                <div class="post-tags flex items-center gap-2 flex-wrap">
-                    <?php the_tags('<span class="text-xs text-text-muted font-bold">' . esc_html__('برچسب‌ها:', 'revayatiran') . '</span> ', ' ', ''); ?>
-                </div>
-
-                <div class="post-navigation-links flex items-center gap-3">
-                    <?php
-                    previous_post_link('<span class="button button--ghost text-xs">%link</span>', '<i class="ph ph-arrow-right"></i> ' . esc_html__('مطلب قبلی', 'revayatiran'));
-                    next_post_link('<span class="button button--ghost text-xs">%link</span>', esc_html__('مطلب بعدی', 'revayatiran') . ' <i class="ph ph-arrow-left"></i>');
-                    ?>
-                </div>
-            </footer>
-        </article>
-    <?php endwhile; ?>
-</div>
-
-<?php
-get_footer();
+                <div class="entry-content rv-post-body"><?php the_content(); ?></div>
+                <?php if (has_tag()) : ?>
+                <footer class="rv-post-footer">
+                    <div class="post-tags"><?php the_tags('<span>' . esc_html__('برچسب‌ها:', 'revayatiran') . '</span> ', ' ', ''); ?></div>
+                </footer>
+                <?php endif; ?>
+                <?php get_template_part('template-parts/dossier/parents'); ?>
+                <?php get_template_part('template-parts/single/engagement'); ?>
+            </div>
+            <?php get_template_part('template-parts/single/sidebar'); ?>
+        </div>
+    </article>
+</main>
+<?php endwhile; get_footer();
