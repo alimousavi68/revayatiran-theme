@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$network_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('analysts-network') : (function_exists('revayat_get_analysts_network_data') ? revayat_get_analysts_network_data() : []);
+$network_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('analysts-network') : [];
 $editorial    = $network_data['editorial'] ?? [];
 $analyses     = $network_data['analyses']  ?? [];
 $top_analysts = $network_data['analysts']  ?? [];
@@ -39,6 +39,7 @@ $top_analysts = $network_data['analysts']  ?? [];
             </div>
         </div>
 
+        <?php if (empty($editorial) && empty($analyses) && empty($top_analysts)) : revayat_render_home_empty_state(__('هنوز یادداشت یا پروفایل عمومی تحلیلگری منتشر نشده است.', 'revayatiran')); else : ?>
         <div class="an-grid-layout layout-gap-lg" data-reveal="up">
 
             <!-- ═══ ستون اصلی (محتوا - ۶۵٪) ═══ -->
@@ -188,6 +189,7 @@ $top_analysts = $network_data['analysts']  ?? [];
             </div><!-- /.an-sidebar-column -->
 
         </div><!-- /.an-grid-layout -->
+        <?php endif; ?>
 
     </div><!-- /.container -->
 </section>

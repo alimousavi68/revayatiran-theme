@@ -8,7 +8,7 @@
  * چه مسئولیتی دارد؟
  * - ارائه تابع مرکزی `revayat_get_homepage_data($section)` برای تامین یکپارچه داده‌های صفحه اول.
  * - در صورت فعال بودن افزونه: واکشی از متدهای سرویس افزونه (`Revayat_Data_Service`).
- * - در صورت نبود افزونه یا خالی بودن دیتابیس: فال‌بک نرم و خودکار به توابع موجود در `demo-data.php`.
+ * - در صورت نبود افزونه یا خالی بودن دیتابیس: بازگرداندن آرایه خالی برای empty state پوسته.
  * - در صورت عدم دسترسی به هیچ‌کدام: بازگرداندن آرایه خالی استاندارد بدون بروز خطای کشنده (Zero Fatal Error Guarantee).
  *
  * ارتباط با معماری:
@@ -44,10 +44,6 @@ function revayat_get_homepage_data( string $section ): array {
 					);
 				}
 			}
-			// فال‌بک به داده‌های دمو
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_hero_data' ) ) {
-				$data = revayat_get_hero_data();
-			}
 			break;
 
 		case 'daily-narrative':
@@ -60,9 +56,6 @@ function revayat_get_homepage_data( string $section ): array {
 						'interactive_items' => ! empty( $service_data['items'] ) ? array_map( 'revayat_adapt_hybrid_item', $service_data['items'] ) : array(),
 					);
 				}
-			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_daily_narrative_data' ) ) {
-				$data = revayat_get_daily_narrative_data();
 			}
 			break;
 
@@ -85,9 +78,6 @@ function revayat_get_homepage_data( string $section ): array {
 					);
 				}
 			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_situation_room_data' ) ) {
-				$data = revayat_get_situation_room_data();
-			}
 			break;
 
 		case 'news-monitoring':
@@ -107,9 +97,6 @@ function revayat_get_homepage_data( string $section ): array {
 					);
 				}
 			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_news_monitoring_data' ) ) {
-				$data = revayat_get_news_monitoring_data();
-			}
 			break;
 
 		case 'special-dossiers':
@@ -124,9 +111,6 @@ function revayat_get_homepage_data( string $section ): array {
 					);
 				}
 			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_special_dossiers_data' ) ) {
-				$data = revayat_get_special_dossiers_data();
-			}
 			break;
 
 		case 'media-observatory':
@@ -138,9 +122,6 @@ function revayat_get_homepage_data( string $section ): array {
 						'items' => array_map( 'revayat_adapt_observatory_card', $service_data ),
 					);
 				}
-			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_media_observatory_data' ) ) {
-				$data = revayat_get_media_observatory_data();
 			}
 			break;
 
@@ -168,9 +149,6 @@ function revayat_get_homepage_data( string $section ): array {
 					);
 				}
 			}
-			if ( ! $has_plugin_service && empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_analysts_network_data' ) ) {
-				$data = revayat_get_analysts_network_data();
-			}
 			break;
 
 		case 'multimedia':
@@ -181,9 +159,6 @@ function revayat_get_homepage_data( string $section ): array {
 						'stories' => array_map( 'revayat_adapt_multimedia_story', $service_data ),
 					);
 				}
-			}
-			if ( empty( $data ) && revayat_home_query_is_default( $section ) && function_exists( 'revayat_get_multimedia_data' ) ) {
-				$data = revayat_get_multimedia_data();
 			}
 			break;
 
@@ -203,6 +178,9 @@ function revayat_get_homepage_data( string $section ): array {
  */
 function revayat_adapt_hybrid_item( array $item ): array {
 	$category = ! empty( $item['taxonomies']['category']['name'] ) ? $item['taxonomies']['category']['name'] : ( $item['taxonomies']['dossier_topic'] ?? '' );
+	$score = $item['score'] ?? ( $item['analyst_score'] ?? ( $item['meta']['analyst_score'] ?? '' ) );
+	$sections = $item['sections'] ?? ( $item['meta']['timeline_events'] ?? array() );
+	$sections_count = is_array( $sections ) ? count( $sections ) : 0;
 
 	return array(
 		'id'             => $item['id'] ?? 0,

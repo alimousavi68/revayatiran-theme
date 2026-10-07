@@ -54,6 +54,19 @@ if (!function_exists('revayat_get_primary_category')) {
     }
 }
 
+if ( ! function_exists( 'revayat_render_home_empty_state' ) ) {
+	/** Render the shared, production-safe empty state for homepage sections. */
+	function revayat_render_home_empty_state( $message = '' ) {
+		$message = $message ?: __( 'هنوز محتوایی برای نمایش در این بخش منتشر نشده است.', 'revayatiran' );
+		?>
+		<div class="rv-home-empty" role="status">
+			<i class="ph ph-file-dashed" aria-hidden="true"></i>
+			<p><?php echo esc_html( $message ); ?></p>
+		</div>
+		<?php
+	}
+}
+
 /** Decide whether multimedia introduction is already present in authored content. */
 function revayat_media_intro_visibility(string $content, string $cover, string $excerpt): array {
     $normalize = static function ($text) {

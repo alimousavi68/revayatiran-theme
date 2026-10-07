@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$sr_data             = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('situation-room') : (function_exists('revayat_get_situation_room_data') ? revayat_get_situation_room_data() : []);
+$sr_data             = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('situation-room') : [];
 $bulletins           = $sr_data['bulletins'] ?? [];
 $gated_meta          = $sr_data['gated_meta'] ?? [];
 $can_access          = class_exists('Revayat_Data_Service') && method_exists('Revayat_Data_Service', 'can_access_situation_room')
@@ -44,7 +44,9 @@ $remaining_bulletins = $bulletins;
 
             <!-- ستون چپ: محتوای اصلی (نمای گیت‌شده / Soft Paywall) -->
             <div class="sr-content">
-                <?php if ($can_access) : ?>
+                <?php if (empty($all_bulletins)) : ?>
+                    <?php revayat_render_home_empty_state(__('هنوز بولتنی در اتاق وضعیت منتشر نشده است.', 'revayatiran')); ?>
+                <?php elseif ($can_access) : ?>
                     <div class="sr-authorized-wrapper">
                         <ol class="sr-gated-list sr-authorized-list">
                             <?php foreach ($all_bulletins as $item) : ?>

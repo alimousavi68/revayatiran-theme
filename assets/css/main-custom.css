@@ -50,3 +50,6 @@
 
 /* 16. Analysts Network Mobile: Mobile-specific 320px-768px Viewport Overhauls & Layout Rules */
 @import "./modules/analysts-mobile.css";
+
+/* Production-safe empty states for homepage sections. */
+.rv-home-empty{display:flex;min-height:150px;align-items:center;justify-content:center;gap:12px;width:100%;padding:28px;border:1px dashed var(--border-color,rgba(100,116,139,.35));border-radius:16px;background:var(--surface-soft,rgba(148,163,184,.08));color:var(--text-muted,#64748b);text-align:center}.rv-home-empty i{font-size:28px}.rv-home-empty p{margin:0;font-size:14px;line-height:1.9}

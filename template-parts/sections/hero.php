@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$hero_data  = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('hero') : (function_exists('revayat_get_hero_data') ? revayat_get_hero_data() : []);
+$hero_data  = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('hero') : [];
 $lead       = $hero_data['lead'] ?? [];
 $side_items = $hero_data['items'] ?? [];
 
@@ -28,6 +28,7 @@ $lead_date      = $lead['date'] ?? '';
 ?>
 <section class="hero-section" id="hero">
     <div class="hero-grid container">
+        <?php if (empty($lead) && empty($side_items)) : revayat_render_home_empty_state(__('هنوز مطلبی برای ویترین اصلی انتخاب نشده است.', 'revayatiran')); else : ?>
         <div class="hero-stage" data-reveal="up">
 
             <!-- هیرو اصلی (Lead Feature) -->
@@ -100,5 +101,6 @@ $lead_date      = $lead['date'] ?? '';
             </div><!-- /.hero-stack -->
 
         </div><!-- /.hero-stage -->
+        <?php endif; ?>
     </div><!-- /.hero-grid -->
 </section>

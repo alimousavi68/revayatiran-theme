@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$dossiers_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('special-dossiers') : (function_exists('revayat_get_special_dossiers_data') ? revayat_get_special_dossiers_data() : []);
+$dossiers_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('special-dossiers') : [];
 $lead          = $dossiers_data['lead'] ?? [];
 $sidebar       = $dossiers_data['sidebar'] ?? [];
 ?>
@@ -32,6 +32,7 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
             </div>
         </div>
 
+        <?php if (empty($lead) && empty($sidebar)) : revayat_render_home_empty_state(__('هنوز پرونده‌ای برای نمایش منتشر نشده است.', 'revayatiran')); else : ?>
         <div class="dossier-layout-v2" data-reveal="up">
             <!-- پرونده اصلی و فعال -->
             <?php if (!empty($lead)) : ?>
@@ -111,5 +112,6 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
                 <?php endforeach; ?>
             </aside>
         </div>
+        <?php endif; ?>
     </div>
 </section>

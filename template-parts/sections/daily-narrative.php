@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$daily_data        = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('daily-narrative') : (function_exists('revayat_get_daily_narrative_data') ? revayat_get_daily_narrative_data() : []);
+$daily_data        = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('daily-narrative') : [];
 $lead              = $daily_data['lead'] ?? [];
 $interactive_items = $daily_data['interactive_items'] ?? [];
 $first_thumb       = !empty($interactive_items) ? $interactive_items[0] : [];
@@ -60,6 +60,7 @@ $fp_cat     = $first_thumb['category'] ?? '';
             </div>
         </div>
 
+        <?php if (empty($lead) && empty($interactive_items)) : revayat_render_home_empty_state(__('هنوز روایتی برای نمایش منتشر نشده است.', 'revayatiran')); else : ?>
         <!-- چیدمان اصلی: ستون هیرو + thumbnails تعاملی + info panel -->
         <div class="daily-hero-layout layout-gap-lg">
 
@@ -195,5 +196,6 @@ $fp_cat     = $first_thumb['category'] ?? '';
             <?php endif; ?>
 
         </div><!-- /.daily-hero-layout -->
+        <?php endif; ?>
     </div><!-- /.container -->
 </section>

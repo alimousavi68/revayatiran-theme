@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$news_data   = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('news-monitoring') : (function_exists('revayat_get_news_monitoring_data') ? revayat_get_news_monitoring_data() : []);
+$news_data   = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('news-monitoring') : [];
 $tabs        = $news_data['tabs'] ?? [
     ['slug' => 'all',      'label' => __('همه', 'revayatiran')],
     ['slug' => 'politics', 'label' => __('سیاست', 'revayatiran')],
@@ -73,6 +73,7 @@ $news_items  = $news_data['items'] ?? [];
             </div>
         </div>
 
+        <?php if (empty($news_items)) : revayat_render_home_empty_state(__('هنوز خبری برای نمایش در رصد اخبار منتشر نشده است.', 'revayatiran')); else : ?>
         <div class="news-layout layout-gap-lg">
             <div class="news-panels">
                 <!-- تب همه؛ ساختار برای ارتقای تدریجی به بارگذاری AJAX آماده است. -->
@@ -123,5 +124,6 @@ $news_items  = $news_data['items'] ?? [];
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </section>

@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$multimedia_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('multimedia') : (function_exists('revayat_get_multimedia_data') ? revayat_get_multimedia_data() : []);
+$multimedia_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('multimedia') : [];
 $stories         = $multimedia_data['stories'] ?? [];
 ?>
 <section class="section-shell section-spacing" id="multimedia">
@@ -46,6 +46,7 @@ $stories         = $multimedia_data['stories'] ?? [];
         </div>
 
         <!-- ریل اسلایدی استوری‌ها -->
+        <?php if (empty($stories)) : revayat_render_home_empty_state(__('هنوز محتوای چندرسانه‌ای منتشر نشده است.', 'revayatiran')); else : ?>
         <div class="story-rail-container" data-reveal="up">
             <div class="story-rail" id="story-rail">
                 <?php
@@ -55,6 +56,7 @@ $stories         = $multimedia_data['stories'] ?? [];
                 ?>
             </div><!-- /#story-rail -->
         </div><!-- /.story-rail-container -->
+        <?php endif; ?>
 
     </div><!-- /.container -->
 </section>

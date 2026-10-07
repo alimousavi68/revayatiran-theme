@@ -3,7 +3,7 @@
  * تمپلیت ویترین صفحه اصلی (Front Page)
  *
  * ساختار ثابت (Static Composition) این تمپلیت در Pass 2A تکمیل شد.
- * محتوا از طریق Provider Contract افزونه و fallback بومی پوسته تامین می‌شود.
+ * محتوا فقط از Provider Contract افزونه تامین می‌شود؛ داده خالی با empty state نمایش داده می‌شود.
  *
  * ترتیب sections مطابق با طراحی تایید‌شده در pass-0.5-html-mapping.md:
  * 1. Hero         → ویترین اصلی

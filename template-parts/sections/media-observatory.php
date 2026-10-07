@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-$obs_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('media-observatory') : (function_exists('revayat_get_media_observatory_data') ? revayat_get_media_observatory_data() : []);
+$obs_data = function_exists('revayat_get_homepage_data') ? revayat_get_homepage_data('media-observatory') : [];
 $items    = $obs_data['items'] ?? [];
 ?>
 <section class="section-shell section-shell--gradient section-spacing" id="media-observatory">
@@ -43,6 +43,8 @@ $items    = $obs_data['items'] ?? [];
                     <?php get_template_part('template-parts/cards/card-observatory', null, ['item' => $item]); ?>
                 <?php endforeach; ?>
             </div>
+        <?php else : ?>
+            <?php revayat_render_home_empty_state(__('هنوز گزارشی در دیده‌بان رسانه منتشر نشده است.', 'revayatiran')); ?>
         <?php endif; ?>
     </div>
 </section>
