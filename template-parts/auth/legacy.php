@@ -54,4 +54,3 @@ $code_step = preg_match( '/^09\d{9}$/', $mobile ) && in_array( $notice, array( '
 		<?php endif; ?>
 	</section>
 </div></div>
-
