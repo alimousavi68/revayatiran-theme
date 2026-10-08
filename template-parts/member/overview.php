@@ -1,0 +1,3 @@
+<?php if ( ! defined( 'ABSPATH' ) ) { exit; } $user = $args['user']; ?>
+<section class="rv-member-card rv-member-welcome"><h2><?php echo esc_html( 'سلام ' . $user->display_name ); ?></h2><p>عضویت شما فعال است. می‌توانید به یادداشت‌ها رأی بدهید، اطلاعات خود را تکمیل کنید و درخواست‌های حرفه‌ای خود را ثبت کنید.</p><div class="rv-member-actions"><a class="rv-member-button" href="<?php echo esc_url( home_url( '/dashboard/?view=profile' ) ); ?>">تکمیل اطلاعات من</a><a class="rv-member-secondary" href="<?php echo esc_url( get_post_type_archive_link( 'analyst_post' ) ); ?>">مطالعه و ارزیابی یادداشت‌ها</a></div></section>
+<?php get_template_part( 'template-parts/member/requests', null, $args ); ?>

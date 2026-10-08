@@ -75,26 +75,24 @@
     var postUrl = safeUrl(item.url);
     var authorUrl = safeUrl(item.author_url);
     var avatar = item.author_avatar
-      ? '<img src="' + escapeHtml(safeUrl(item.author_avatar)) + '" alt="' + escapeHtml(item.author_name) + '" loading="lazy" decoding="async" width="64" height="64">'
+      ? '<img src="' + escapeHtml(safeUrl(item.author_avatar)) + '" alt="' + escapeHtml(item.author_name) + '" loading="lazy" decoding="async" width="44" height="44">'
       : '<span class="anx-post-card__avatar-placeholder" aria-hidden="true"><i class="ph ph-user"></i></span>';
     var media = item.thumbnail_url
       ? '<a class="anx-post-card__media" href="' + escapeHtml(postUrl) + '" tabindex="-1" aria-hidden="true"><img src="' + escapeHtml(safeUrl(item.thumbnail_url)) + '" alt="" loading="lazy" decoding="async" width="800" height="450"></a>'
       : '';
-    var field = item.field_name
-      ? (item.field_url ? '<a class="anx-topic-chip" href="' + escapeHtml(safeUrl(item.field_url)) + '">' + escapeHtml(item.field_name) + '</a>' : '<span class="anx-topic-chip">' + escapeHtml(item.field_name) + '</span>')
-      : '';
-    var score = Number(item.votes_count) > 0 ? faNumber(item.score, 1) + ' از ۵' : 'بدون امتیاز';
+    var score = Number(item.score) > 0 ? faNumber(item.score, 1) + ' از ۵' : 'بدون امتیاز';
     var authorRole = item.author_role ? '<small>' + escapeHtml(item.author_role) + '</small>' : '';
     var date = item.date ? '<time>' + escapeHtml(item.date) + '</time>' : '';
 
     article.className = 'an-card--grid anx-post-card';
     article.setAttribute('data-post-id', String(Number(item.id) || ''));
-    article.innerHTML = '<header class="anx-post-card__author-row">' +
+    article.innerHTML =
+      '<div class="anx-post-card__content' + (media ? '' : ' has-no-media') + '">' +
+      '<div class="anx-post-card__copy">' +
       '<a class="anx-post-card__author" href="' + escapeHtml(authorUrl) + '">' + avatar + '<span><strong>' + escapeHtml(item.author_name) + '</strong>' + authorRole + date + '</span></a>' +
-      '<span class="anx-post-card__type">' + escapeHtml(item.analysis_type || 'یادداشت تحلیلی') + '</span></header>' +
-      '<div class="anx-post-card__content' + (media ? '' : ' has-no-media') + '"><div class="anx-post-card__copy"><h3><a href="' + escapeHtml(postUrl) + '">' + escapeHtml(item.title) + '</a></h3>' +
-      (item.excerpt ? '<p>' + escapeHtml(item.excerpt) + '</p>' : '') + field + '</div>' + media + '</div>' +
-      '<footer class="anx-post-card__actions"><span><i class="ph ph-star"></i>' + escapeHtml(score) + '</span>' +
+      '<h3><a href="' + escapeHtml(postUrl) + '">' + escapeHtml(item.title) + '</a></h3>' +
+      (item.excerpt ? '<p>' + escapeHtml(item.excerpt) + '</p>' : '') + '</div>' + media + '</div>' +
+      '<footer class="anx-post-card__actions"><span title="' + (Number(item.votes_count) > 0 ? faNumber(item.votes_count) + ' رأی' : 'امتیاز اولیه؛ بدون رأی کاربران') + '"><i class="ph ph-chart-bar"></i>' + escapeHtml(score) + '</span>' +
       '<a href="' + escapeHtml(postUrl) + '#comments"><i class="ph ph-chat-circle"></i>' + faNumber(item.comments_count) + ' نظر</a>' +
       '<button type="button" class="anx-post-card__share" data-anx-share data-share-url="' + escapeHtml(postUrl) + '" data-share-title="' + escapeHtml(item.title) + '"><i class="ph ph-share-network"></i><span>اشتراک</span></button>' +
       '<a class="anx-post-card__read" href="' + escapeHtml(postUrl) + '">مطالعه یادداشت<i class="ph ph-arrow-left"></i></a></footer>';
@@ -242,4 +240,189 @@
     }, { rootMargin: '-18% 0px -65% 0px', threshold: [0, 0.2, 0.5] });
     targets.forEach(function (target) { observer.observe(target); });
   }
+
+  // ─── 1-CLICK STAR RATING WIDGET ───────────────────────────────────────────
+  function initAnalystStarRating() {
+    var widget = document.querySelector('[data-anx-rating-widget]');
+    if (!widget) return;
+
+    var postId = widget.getAttribute('data-post-id');
+    var nonce = widget.getAttribute('data-nonce');
+    var endpoint = widget.getAttribute('data-endpoint') || '/wp-admin/admin-ajax.php';
+    var canRate = widget.getAttribute('data-can-rate') === '1';
+    var isLoggedIn = widget.getAttribute('data-is-logged-in') === '1';
+    var currentRating = Number(widget.getAttribute('data-user-rating')) || 0;
+    var starButtons = Array.prototype.slice.call(widget.querySelectorAll('.anx-star-btn'));
+    var feedback = widget.querySelector('.anx-rating-feedback');
+    var statsContainer = widget.querySelector('[data-rating-stats]');
+
+    function renderStars(activeCount, isHover) {
+      starButtons.forEach(function (btn) {
+        var val = Number(btn.getAttribute('data-rating-value')) || 0;
+        var icon = btn.querySelector('i');
+        if (val <= activeCount) {
+          btn.classList.add(isHover ? 'is-hover' : 'is-active');
+          if (!isHover) btn.classList.remove('is-hover');
+          if (icon) icon.className = 'ph ph-star-fill';
+        } else {
+          btn.classList.remove('is-active', 'is-hover');
+          if (icon) icon.className = 'ph ph-star';
+        }
+      });
+    }
+
+    starButtons.forEach(function (btn) {
+      var val = Number(btn.getAttribute('data-rating-value')) || 0;
+
+      btn.addEventListener('mouseenter', function () {
+        if (!canRate && isLoggedIn) return;
+        renderStars(val, true);
+      });
+
+      btn.addEventListener('focus', function () {
+        if (!canRate && isLoggedIn) return;
+        renderStars(val, true);
+      });
+
+      btn.addEventListener('click', async function (e) {
+        e.preventDefault();
+        if (!isLoggedIn) {
+          var loginHint = widget.querySelector('.anx-rating-login-hint');
+          if (loginHint) window.location.href = loginHint.href;
+          return;
+        }
+        if (!canRate) return;
+
+        widget.classList.add('is-submitting');
+        starButtons.forEach(function (b) { b.disabled = true; });
+
+        try {
+          var formData = new URLSearchParams();
+          formData.append('action', 'revayat_vote_analyst_post');
+          formData.append('post_id', postId);
+          formData.append('rating', String(val));
+          formData.append('revayat_vote_nonce', nonce);
+
+          var response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+            body: formData.toString()
+          });
+
+          var json = await response.json();
+          if (json && json.success) {
+            currentRating = val;
+            widget.setAttribute('data-user-rating', String(val));
+            renderStars(currentRating, false);
+
+            if (statsContainer && json.data) {
+              var scoreFa = faNumber(json.data.score || json.data.average, 1);
+              var countFa = faNumber(json.data.count, 0);
+              statsContainer.innerHTML = 'میانگین <strong data-score-val>' + scoreFa + '</strong> از ۵ (' + '<span data-count-val>' + countFa + '</span> رأی)';
+            }
+
+            if (feedback) {
+              feedback.innerHTML = '<span class="anx-rating-notice is-success">' +
+                'امتیاز شما: ' + faNumber(val, 0) + ' ستاره (برای تغییر دوباره کلیک کنید)' +
+                '</span>';
+            }
+          } else {
+            var errMsg = (json && json.data && json.data.message) ? json.data.message : 'خطا در ثبت امتیاز';
+            if (feedback) {
+              feedback.innerHTML = '<span class="anx-rating-notice is-error">' + escapeHtml(errMsg) + '</span>';
+            }
+            renderStars(currentRating, false);
+          }
+        } catch (err) {
+          if (feedback) {
+            feedback.innerHTML = '<span class="anx-rating-notice is-error">خطا در برقراری ارتباط با سرور.</span>';
+          }
+          renderStars(currentRating, false);
+        } finally {
+          widget.classList.remove('is-submitting');
+          starButtons.forEach(function (b) { b.disabled = false; });
+        }
+      });
+    });
+
+    var starsGroup = widget.querySelector('.anx-stars-rating');
+    if (starsGroup) {
+      starsGroup.addEventListener('mouseleave', function () {
+        renderStars(currentRating, false);
+      });
+    }
+  }
+
+  // ─── AUTHOR BIO EXPANDABLE TOGGLE ─────────────────────────────────────────
+  function initAuthorBioToggle() {
+    var wrap = document.querySelector('[data-anx-bio-expandable]');
+    if (!wrap) return;
+
+    var bio = wrap.querySelector('.anx-author-card__bio');
+    var btn = wrap.querySelector('.anx-author-card__bio-toggle');
+    if (!bio || !btn) return;
+
+    if (bio.scrollHeight > bio.clientHeight + 4 || bio.textContent.trim().length > 180) {
+      btn.hidden = false;
+      btn.addEventListener('click', function () {
+        var isExpanded = wrap.classList.toggle('is-expanded');
+        btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+        var label = btn.querySelector('span');
+        if (label) {
+          label.textContent = isExpanded ? 'بستن' : 'مشاهده بیشتر';
+        }
+      });
+    }
+  }
+
+  // ─── UNIFIED ENGAGEMENT TOOLS (COPY & SHARE) ──────────────────────────────
+  function initUnifiedEngagementTools() {
+    document.querySelectorAll('[data-anx-copy-btn]:not([data-anx-ready])').forEach(function (btn) {
+      btn.setAttribute('data-anx-ready', 'true');
+      btn.addEventListener('click', function () {
+        var url = btn.getAttribute('data-url') || window.location.href;
+        var label = btn.querySelector('span');
+        var original = label ? label.textContent : '';
+        copyText(url).then(function () {
+          if (label) {
+            label.textContent = 'کپی شد!';
+            window.setTimeout(function () { label.textContent = original; }, 2000);
+          }
+        }).catch(function () {
+          if (label) {
+            label.textContent = 'خطا در کپی';
+            window.setTimeout(function () { label.textContent = original; }, 2000);
+          }
+        });
+      });
+    });
+
+    document.querySelectorAll('[data-anx-native-share]:not([data-anx-ready])').forEach(function (btn) {
+      btn.setAttribute('data-anx-ready', 'true');
+      btn.addEventListener('click', function () {
+        var url = btn.getAttribute('data-url') || window.location.href;
+        var title = btn.getAttribute('data-title') || document.title;
+        if (navigator.share) {
+          navigator.share({ title: title, url: url }).catch(function (err) {
+            if (err && err.name !== 'AbortError') {
+              copyText(url);
+            }
+          });
+        } else {
+          var label = btn.querySelector('span');
+          var original = label ? label.textContent : '';
+          copyText(url).then(function () {
+            if (label) {
+              label.textContent = 'کپی شد!';
+              window.setTimeout(function () { label.textContent = original; }, 2000);
+            }
+          });
+        }
+      });
+    });
+  }
+
+  initAnalystStarRating();
+  initAuthorBioToggle();
+  initUnifiedEngagementTools();
 }());

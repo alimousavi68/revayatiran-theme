@@ -20,6 +20,7 @@ if (!defined('ABSPATH')) {
     <!-- دکمه بازگشت به بالا -->
     <?php get_template_part('template-parts/footer/back-to-top'); ?>
 
+<?php if ( ! is_user_logged_in() && ! is_page_template( 'page-templates/template-auth.php' ) ) : ?><template id="rv-auth-template"><?php get_template_part( 'template-parts/auth/form' ); ?></template><?php endif; ?>
 <?php wp_footer(); ?>
 </body>
 </html>

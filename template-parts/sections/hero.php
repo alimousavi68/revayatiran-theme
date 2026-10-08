@@ -37,7 +37,9 @@ $lead_date      = $lead['date'] ?? '';
                     <div class="hero-feature__media">
                         <img src="<?php echo esc_url($lead_thumbnail); ?>"
                              alt="<?php echo esc_attr($lead_title); ?>"
-                             loading="eager">
+                             loading="eager"
+                             fetchpriority="high"
+                             decoding="async">
                     </div>
 
                     <?php if (!empty($lead_category)) : ?>
@@ -79,7 +81,8 @@ $lead_date      = $lead['date'] ?? '';
                         <div class="skeleton-wrapper">
                             <img src="<?php echo esc_url($item_thumb); ?>"
                                  alt="<?php echo esc_attr($item_title); ?>"
-                                 loading="lazy">
+                                 loading="lazy"
+                                 decoding="async">
                         </div>
                         <?php if (!empty($item_cat)) : ?>
                             <div class="absolute top-3 right-3 z-[5]">

@@ -19,6 +19,9 @@ $can_access          = class_exists('Revayat_Data_Service') && method_exists('Re
 $all_bulletins       = $bulletins;
 $first_bulletin      = !empty($bulletins) ? array_shift($bulletins) : null;
 $remaining_bulletins = $bulletins;
+$gated_target        = is_user_logged_in()
+    ? ($gated_meta['upgrade_url'] ?? home_url('/auth/?tab=upgrade'))
+    : ($gated_meta['login_url'] ?? home_url('/auth/?tab=login'));
 ?>
 <section class="section-shell section-spacing" id="situation-room">
     <div class="container">
@@ -87,18 +90,9 @@ $remaining_bulletins = $bulletins;
                             <li class="sr-gated-item">
                                 <div class="sr-gated-item__bullet"></div>
                                 <div class="sr-gated-item__body">
-                                    <h4 class="sr-gated-item__title"><?php echo esc_html($first_bulletin['title'] ?? ''); ?></h4>
-                                    <div class="sr-gated-item__meta">
-                                        <?php if (!empty($first_bulletin['date'])) : ?>
-                                            <span><i class="ph ph-calendar-blank"></i> <?php echo esc_html($first_bulletin['date']); ?></span>
-                                        <?php endif; ?>
-                                        <?php if (!empty($first_bulletin['date']) && !empty($first_bulletin['category'])) : ?>
-                                            <span class="sr-meta-divider"></span>
-                                        <?php endif; ?>
-                                        <?php if (!empty($first_bulletin['category'])) : ?>
-                                            <span><i class="ph ph-briefcase"></i> <?php echo esc_html($first_bulletin['category']); ?></span>
-                                        <?php endif; ?>
-                                    </div>
+                                    <h4 class="sr-gated-item__title">
+                                        <a href="<?php echo esc_url($gated_target); ?>"><?php echo esc_html($first_bulletin['title'] ?? ''); ?></a>
+                                    </h4>
                                 </div>
                                 <div class="sr-gated-item__lock">
                                     <i class="ph-fill ph-lock"></i>
@@ -114,18 +108,9 @@ $remaining_bulletins = $bulletins;
                                 <li class="sr-gated-item">
                                     <div class="sr-gated-item__bullet"></div>
                                     <div class="sr-gated-item__body">
-                                        <h4 class="sr-gated-item__title"><?php echo esc_html($item['title'] ?? ''); ?></h4>
-                                        <div class="sr-gated-item__meta">
-                                            <?php if (!empty($item['date'])) : ?>
-                                                <span><i class="ph ph-calendar-blank"></i> <?php echo esc_html($item['date']); ?></span>
-                                            <?php endif; ?>
-                                            <?php if (!empty($item['date']) && !empty($item['category'])) : ?>
-                                                <span class="sr-meta-divider"></span>
-                                            <?php endif; ?>
-                                            <?php if (!empty($item['category'])) : ?>
-                                                <span><i class="ph ph-briefcase"></i> <?php echo esc_html($item['category']); ?></span>
-                                            <?php endif; ?>
-                                        </div>
+                                        <h4 class="sr-gated-item__title">
+                                            <a href="<?php echo esc_url($gated_target); ?>"><?php echo esc_html($item['title'] ?? ''); ?></a>
+                                        </h4>
                                     </div>
                                     <div class="sr-gated-item__lock">
                                         <i class="ph-fill ph-lock"></i>
@@ -137,7 +122,10 @@ $remaining_bulletins = $bulletins;
                         <div class="sr-gated-cta">
                             <div class="sr-gated-cta__inner">
                                 <i class="ph-fill ph-lock-key sr-gated-cta__icon"></i>
-                                <p class="sr-gated-cta__text"><?php esc_html_e('برای مشاهده محتوای اتاق وضعیت، عضویت و احراز هویت الزامی است.', 'revayatiran'); ?></p>
+                                <p class="sr-gated-cta__text">
+                                    <span><?php esc_html_e('برای مشاهده محتوای اتاق وضعیت،', 'revayatiran'); ?></span>
+                                    <span><?php esc_html_e('عضویت و احراز هویت الزامی است.', 'revayatiran'); ?></span>
+                                </p>
                                 <div class="sr-gated-cta__actions">
                                     <a href="<?php echo esc_url($gated_meta['auth_url'] ?? home_url('/auth/?tab=register')); ?>" class="button--compact button--primary button--glow">
                                         <i class="ph-fill ph-user-plus"></i>

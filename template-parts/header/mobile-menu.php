@@ -47,10 +47,7 @@ if (!defined('ABSPATH')) {
         </nav>
 
         <div class="mobile-menu__footer">
-            <a href="<?php echo esc_url(home_url('/auth/')); ?>" class="mobile-cta">
-                <i class="ph ph-user-circle-plus"></i>
-                <span><?php esc_html_e('ورود / عضویت', 'revayatiran'); ?></span>
-            </a>
+            <?php get_template_part( 'template-parts/header/account' ); ?>
         </div>
     </div>
 </div>

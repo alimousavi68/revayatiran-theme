@@ -62,7 +62,16 @@ function revayat_get_homepage_data( string $section ): array {
 		case 'situation-room':
 		case 'situation_room':
 			if ( ! current_user_can( 'revayat_read_situation_room' ) && ! current_user_can( 'manage_options' ) ) {
-				$data = array();
+				$teasers = $has_plugin_service && method_exists( 'Revayat_Data_Service', 'get_situation_room_teasers' )
+					? Revayat_Data_Service::get_situation_room_teasers()
+					: array();
+				$data = array(
+					'bulletins'  => is_array( $teasers ) ? $teasers : array(),
+					'gated_meta' => array(
+						'auth_url'  => home_url( '/auth/?tab=register' ),
+						'login_url' => home_url( '/auth/?tab=login' ),
+					),
+				);
 				break;
 			}
 			if ( $has_plugin_service && method_exists( 'Revayat_Data_Service', 'get_situation_room_data' ) ) {

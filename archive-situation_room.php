@@ -171,7 +171,7 @@ $to_fa           = static function ( $value ) {
 				<div class="srx-card-grid"><?php foreach ( $bulletins as $bulletin ) { get_template_part( 'template-parts/cards/card-situation', null, array( 'item' => $bulletin, 'variant' => 'visual' ) ); } ?></div>
 				<?php if ( $max_pages > 1 ) : ?><nav class="srx-pagination" aria-label="<?php esc_attr_e( 'صفحه‌بندی بولتن‌ها', 'revayatiran' ); ?>"><?php echo wp_kses_post( paginate_links( array( 'current' => $paged, 'total' => $max_pages, 'prev_text' => '<i class="ph ph-caret-right"></i>', 'next_text' => '<i class="ph ph-caret-left"></i>' ) ) ); ?></nav><?php endif; ?>
 			<?php else : ?>
-				<div class="srx-empty"><i class="ph-duotone ph-radar"></i><h2><?php esc_html_e( 'بولتنی با این فیلترها پیدا نشد', 'revayatiran' ); ?></h2><p><?php esc_html_e( 'فیلترها را تغییر دهید یا همه موارد را دوباره نمایش دهید.', 'revayatiran' ); ?></p><a href="<?php echo esc_url( $archive_url ); ?>"><?php esc_html_e( 'نمایش همه بولتن‌ها', 'revayatiran' ); ?></a></div>
+				<div class="srx-empty"><i class="ph ph-radar"></i><h2><?php esc_html_e( 'بولتنی با این فیلترها پیدا نشد', 'revayatiran' ); ?></h2><p><?php esc_html_e( 'فیلترها را تغییر دهید یا همه موارد را دوباره نمایش دهید.', 'revayatiran' ); ?></p><a href="<?php echo esc_url( $archive_url ); ?>"><?php esc_html_e( 'نمایش همه بولتن‌ها', 'revayatiran' ); ?></a></div>
 			<?php endif; ?>
 		</section>
 	</div>

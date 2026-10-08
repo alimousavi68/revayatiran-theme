@@ -52,7 +52,7 @@ $top_analysts = $network_data['analysts']  ?? [];
 
                     <div class="an-hero__content-panel panel-pad">
                         <div class="an-hero__badge--accent">
-                            <i class="ph ph-check"></i>
+                            <i class="ph ph-chart-bar"></i>
                             <span><?php esc_html_e('تحلیل ویژه هفته', 'revayatiran'); ?></span>
                         </div>
 
@@ -78,7 +78,7 @@ $top_analysts = $network_data['analysts']  ?? [];
                                 <div class="an-hero__score">
                                     <span><?php esc_html_e('اعتبار: ', 'revayatiran'); ?></span>
 									<strong><?php echo esc_html($editorial['score'] ?? '—'); ?></strong>
-                                    <i class="ph ph-check"></i>
+                                    <i class="ph ph-chart-bar"></i>
                                     <span class="an-votes"><?php echo esc_html($editorial['votes_count'] ?? ''); ?></span>
                                 </div>
                                 <div class="an-hero__date"><?php echo esc_html($editorial['date'] ?? ''); ?></div>
@@ -143,7 +143,7 @@ $top_analysts = $network_data['analysts']  ?? [];
                             <div class="an-analyst-card__right-col">
                                 <div class="an-analyst-card__score-badge">
                                     <strong><?php echo esc_html($analyst['score']); ?></strong>
-                                    <i class="ph ph-check"></i>
+                                    <i class="ph ph-chart-bar"></i>
                                 </div>
                                 <div class="an-analyst-card__stats-minimal">
                                     <?php

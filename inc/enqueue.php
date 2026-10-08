@@ -20,8 +20,8 @@ if (!function_exists('revayat_enqueue_assets')) {
             return file_exists($full_path) ? filemtime($full_path) : REVAYAT_THEME_VERSION;
         };
 
-        // ۱. آیکون‌های محلی Phosphor (Regular, Bold, Duotone, Fill, Light, Thin)
-        $phosphor_weights = ['regular', 'bold', 'duotone', 'fill', 'light', 'thin'];
+        // ۱. فقط وزن‌های واقعاً مصرف‌شده آیکون محلی Phosphor.
+        $phosphor_weights = ['regular', 'bold', 'fill'];
         foreach ($phosphor_weights as $weight) {
             $rel_css = "/assets/vendor/phosphor/{$weight}/style.css";
             if (file_exists(REVAYAT_THEME_DIR . $rel_css)) {
@@ -34,15 +34,15 @@ if (!function_exists('revayat_enqueue_assets')) {
             }
         }
 
-        // Only carousel pages need Swiper; archive navigation must not wait for its CDN.
+        // Only carousel pages need the locally hosted Swiper bundle.
         $needs_slider = is_front_page() || is_home() || is_post_type_archive('situation_room');
         // ۲. اسلایدر Swiper (استایل)
         if ($needs_slider) {
             wp_enqueue_style(
                 'swiper-bundle',
-                'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+                REVAYAT_THEME_URI . '/assets/vendor/swiper-bundle.min.css',
                 [],
-                '11.0.0'
+                $get_asset_version('/assets/vendor/swiper-bundle.min.css')
             );
         }
 
@@ -97,7 +97,7 @@ if (!function_exists('revayat_enqueue_assets')) {
         }
 
         // ۴.۲ بارگذاری مشروط استایل ماژولار اتاق وضعیت (ADR-001 & Asset Mapping)
-        if (is_singular('situation_room') || is_post_type_archive('situation_room') || is_tax('security_level')) {
+        if (is_front_page() || is_home() || is_singular('situation_room') || is_post_type_archive('situation_room') || is_tax('security_level')) {
             $sr_css = '/assets/css/modules/situation-room.css';
             if (file_exists(REVAYAT_THEME_DIR . $sr_css)) {
                 wp_enqueue_style(
@@ -191,6 +191,13 @@ if (!function_exists('revayat_enqueue_assets')) {
             }
         }
 
+        wp_enqueue_style('revayat-account-menu', REVAYAT_THEME_URI . '/assets/css/modules/account-menu.css', ['revayat-main-style'], $get_asset_version('/assets/css/modules/account-menu.css'));
+        if (is_page_template('page-templates/template-dashboard.php')) {
+            wp_enqueue_style('revayat-member-portal', REVAYAT_THEME_URI . '/assets/css/modules/member-portal.css', ['revayat-main-style'], $get_asset_version('/assets/css/modules/member-portal.css'));
+            wp_enqueue_script('revayat-member-portal', REVAYAT_THEME_URI . '/assets/js/member-portal.js', [], $get_asset_version('/assets/js/member-portal.js'), true);
+            wp_localize_script('revayat-member-portal', 'revayatMember', ['endpoint' => admin_url('admin-ajax.php')]);
+        }
+
         // خانواده صفحات بازطراحی‌شده شبکه تحلیلگران؛ بعد از استایل‌های عمومی و پرتال بارگذاری می‌شود.
         $analysts_experience_pages = is_singular(['analyst_post', 'person']) || is_post_type_archive('analyst_post') || is_tax('analyst_field') || is_page_template('page-templates/template-dashboard.php');
         if ($analysts_experience_pages) {
@@ -231,9 +238,9 @@ if (!function_exists('revayat_enqueue_assets')) {
         if ($needs_slider) {
             wp_enqueue_script(
                 'swiper-bundle',
-                'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+                REVAYAT_THEME_URI . '/assets/vendor/swiper-bundle.min.js',
                 [],
-                '11.0.0',
+                $get_asset_version('/assets/vendor/swiper-bundle.min.js'),
                 [
                     'strategy'  => 'defer',
                     'in_footer' => true,
@@ -243,11 +250,18 @@ if (!function_exists('revayat_enqueue_assets')) {
         }
 
         // ۶. اسکریپت تعاملی اصلی پوسته (Vanilla JS)
+        if (!is_user_logged_in()) {
+            $auth_css = '/assets/css/modules/auth-dialog.css';
+            wp_enqueue_style('revayat-auth-dialog', REVAYAT_THEME_URI . $auth_css, ['revayat-main-style'], $get_asset_version($auth_css));
+            wp_enqueue_script('revayat-auth-dialog', REVAYAT_THEME_URI . '/assets/js/auth-dialog.js', [], $get_asset_version('/assets/js/auth-dialog.js'), true);
+            wp_localize_script('revayat-auth-dialog', 'revayatAuth', ['url' => home_url('/auth/'), 'endpoint' => admin_url('admin-ajax.php')]);
+        }
         $main_js = '/assets/js/main.js';
+        $main_dependencies = $needs_slider ? ['swiper-bundle'] : [];
         wp_enqueue_script(
             'revayat-main-script',
             REVAYAT_THEME_URI . $main_js,
-            [],
+            $main_dependencies,
             $get_asset_version($main_js),
             [
                 'strategy'  => 'defer',
@@ -255,18 +269,24 @@ if (!function_exists('revayat_enqueue_assets')) {
             ]
         );
 
-        // ۷. ارسال امن داده‌ها و متغیرهای رانتایم به جاوااسکریپت
-        wp_localize_script('revayat-main-script', 'revayatData', [
-            'ajaxUrl'     => admin_url('admin-ajax.php'),
-            'restUrl'     => esc_url_raw(rest_url('revayat/v1/')),
-            'nonce'       => wp_create_nonce('wp_rest'),
-            'themeUri'    => REVAYAT_THEME_URI,
-            'isLoggedIn'  => is_user_logged_in(),
-            'currentUserId' => get_current_user_id(),
-        ]);
     }
 }
 add_action('wp_enqueue_scripts', 'revayat_enqueue_assets');
+
+if (!function_exists('revayat_preload_primary_font')) {
+    /** شروع زودهنگام دریافت فونت اصلی برای کاهش جابه‌جایی فونت در رندر نخست. */
+    function revayat_preload_primary_font() {
+        $font_path = '/assets/fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff2';
+        if (!file_exists(REVAYAT_THEME_DIR . $font_path)) {
+            return;
+        }
+        printf(
+            '<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+            esc_url(REVAYAT_THEME_URI . $font_path)
+        );
+    }
+}
+add_action('wp_head', 'revayat_preload_primary_font', 1);
 
 if (!function_exists('revayat_script_loader_tag')) {
     /**

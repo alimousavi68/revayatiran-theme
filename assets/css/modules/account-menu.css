@@ -1,0 +1,198 @@
+/**
+ * Account Menu Dropdown Module
+ * Accessible, keyboard-friendly, layering-safe user menu.
+ */
+.rv-header-account {
+  position: relative;
+  font-size: 13px;
+  z-index: 1000;
+}
+
+.rv-header-account summary {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  padding: 3px 6px 3px 8px;
+  border-radius: 999px;
+  transition: background-color 0.18s ease, color 0.18s ease;
+  min-height: 34px;
+}
+
+.rv-header-account summary:hover,
+.rv-header-account summary:focus-visible {
+  background: var(--bg-soft, #f1f5f9);
+  outline: none;
+}
+
+.rv-header-account summary::-webkit-details-marker {
+  display: none;
+}
+
+.rv-header-account summary img {
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
+  border: 1px solid var(--border, #dfe5ee);
+  flex-shrink: 0;
+}
+
+.rv-header-account summary span {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+  color: var(--text, #142640);
+  line-height: 1.2;
+}
+
+.rv-header-account summary i {
+  font-size: 13px;
+  color: var(--text-muted, #64748b);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rv-header-account[open] summary i {
+  transform: rotate(180deg);
+}
+
+.rv-header-account nav {
+  position: absolute;
+  inset-inline-end: 0;
+  top: calc(100% + 8px);
+  width: 250px;
+  max-width: calc(100vw - 24px);
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--border, #dfe5ee);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(16, 35, 63, 0.14), 0 2px 8px rgba(16, 35, 63, 0.04);
+  padding: 8px;
+  display: grid;
+  gap: 2px;
+  color: var(--text, #142640);
+  z-index: 9999;
+  animation: rvAccountMenuFade 0.16s ease-out;
+  transform-origin: top right;
+}
+
+@keyframes rvAccountMenuFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rv-header-account nav strong {
+  display: block;
+  padding: 10px 12px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text, #142640);
+  border-bottom: 1px solid var(--border, #dfe5ee);
+  margin-bottom: 4px;
+  text-align: right;
+}
+
+.rv-header-account nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  color: var(--text, #142640);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  text-align: right;
+}
+
+.rv-header-account nav a:hover,
+.rv-header-account nav a:focus-visible {
+  background: var(--bg-soft, #f1f5f9);
+  color: var(--accent, #dc2626);
+  outline: none;
+}
+
+.rv-header-login {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 12px;
+  min-height: 32px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  color: var(--text, #142640);
+  text-decoration: none;
+  transition: color 0.18s ease;
+}
+
+.rv-header-login:hover {
+  color: var(--accent, #dc2626);
+}
+
+.rv-header-login i {
+  font-size: 20px;
+}
+
+/* Mobile drawer adaptation */
+.mobile-menu__footer .rv-header-account nav {
+  position: static;
+  width: 100%;
+  margin-top: 10px;
+  box-shadow: none;
+  border-color: var(--border, #dfe5ee);
+}
+
+.mobile-menu__footer .rv-header-account summary {
+  min-height: 44px;
+  padding: 6px 12px;
+}
+
+/* Dark theme tokens */
+html[data-theme="dark"] .rv-header-account summary:hover,
+html[data-theme="dark"] .rv-header-account summary:focus-visible {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .rv-header-account summary span {
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .rv-header-account nav {
+  background: #182232;
+  border-color: #2b394f;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .rv-header-account nav strong {
+  border-bottom-color: #2b394f;
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .rv-header-account nav a {
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .rv-header-account nav a:hover,
+html[data-theme="dark"] .rv-header-account nav a:focus-visible {
+  background: #223045;
+  color: #ef4444;
+}
+
+html[data-theme="dark"] .rv-header-login {
+  color: #cbd5e1;
+}
+
+html[data-theme="dark"] .rv-header-login:hover {
+  color: #ef4444;
+}

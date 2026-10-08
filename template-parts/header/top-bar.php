@@ -30,9 +30,7 @@ if (!defined('ABSPATH')) {
                 <i class="ph ph-sun dark:hidden"></i>
                 <i class="ph ph-moon hidden dark:block"></i>
             </button>
-            <a href="<?php echo esc_url(home_url('/auth/')); ?>" class="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-border bg-bg-elevated text-text-muted text-base cursor-pointer transition-all duration-200 hover:text-primary hover:border-primary hover:bg-primary/5 dark:bg-white/5 dark:border-white/15 dark:text-text-muted dark:hover:text-white" aria-label="<?php esc_attr_e('ورود یا عضویت', 'revayatiran'); ?>" title="<?php esc_attr_e('ورود', 'revayatiran'); ?>">
-                <i class="ph ph-user-circle-plus"></i>
-            </a>
+            <?php get_template_part( 'template-parts/header/account' ); ?>
         </div>
     </div>
 </div>

@@ -683,3 +683,40 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.readyState !== "loading") init();
     else document.addEventListener("DOMContentLoaded", init);
 })();
+
+// ─── USER ACCOUNT MENU DROPDOWN CONTROLLER ─────────────────────────────────
+(function initHeaderAccountDropdown() {
+    const bindDropdowns = () => {
+        document.querySelectorAll("details.rv-header-account").forEach(details => {
+            if (details.dataset.accountBound) return;
+            details.dataset.accountBound = "true";
+
+            const summary = details.querySelector("summary");
+
+            // Close on click outside
+            document.addEventListener("click", (e) => {
+                if (details.hasAttribute("open") && !details.contains(e.target)) {
+                    details.removeAttribute("open");
+                }
+            });
+
+            // Close on Escape key and focus back to summary
+            details.addEventListener("keydown", (e) => {
+                if (e.key === "Escape" && details.hasAttribute("open")) {
+                    details.removeAttribute("open");
+                    if (summary) summary.focus();
+                }
+            });
+
+            // Close when an action link inside is clicked
+            details.querySelectorAll("nav a").forEach(link => {
+                link.addEventListener("click", () => {
+                    details.removeAttribute("open");
+                });
+            });
+        });
+    };
+
+    if (document.readyState !== "loading") bindDropdowns();
+    else document.addEventListener("DOMContentLoaded", bindDropdowns);
+})();
