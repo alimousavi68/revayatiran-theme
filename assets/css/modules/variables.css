@@ -1,8 +1,8 @@
 @font-face {
     font-family: "IRANYekanX";
-    src: url("../fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff2") format("woff2"),
-        url("../fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff") format("woff"),
-        url("../fonts/IRANYekanX(Pro)/Variable Font/IRANYekanXVF.ttf") format("truetype");
+    src: url("../../fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff2") format("woff2"),
+        url("../../fonts/IRANYekanX(Pro)/Variable Font/webfont/IRANYekanXVF.woff") format("woff"),
+        url("../../fonts/IRANYekanX(Pro)/Variable Font/IRANYekanXVF.ttf") format("truetype");
     font-weight: 100 1000;
     font-style: normal;
     font-display: swap;

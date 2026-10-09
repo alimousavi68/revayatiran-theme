@@ -1759,3 +1759,62 @@ body.post-type-archive-situation_room #site-footer > .container {
         margin-inline: -16px;
     }
 }
+
+/* Constrain the situation room elements on mobile to prevent horizontal overflow */
+#situation-room {
+    overflow-x: clip;
+}
+
+#situation-room .sr-content,
+#situation-room .sr-gated-wrapper {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+}
+
+#situation-room .sr-gated-item {
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+#situation-room .sr-gated-item__body {
+    min-width: 0;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    #situation-room .sr-gated-cta {
+        width: 100%;
+        max-width: 100%;
+        margin: -20px 0 0;
+        box-sizing: border-box;
+        padding: 16px !important;
+    }
+
+    #situation-room .sr-gated-cta__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 12px;
+    }
+
+    #situation-room .sr-gated-cta__text {
+        max-width: 100%;
+        text-align: center;
+        text-align-last: center;
+    }
+
+    #situation-room .sr-gated-cta__actions {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 8px;
+    }
+
+    #situation-room .sr-gated-cta__actions .button--compact {
+        width: 100%;
+        justify-content: center;
+    }
+}

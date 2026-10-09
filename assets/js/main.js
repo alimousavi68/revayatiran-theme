@@ -7,9 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuToggle = document.getElementById("menu-toggle");
     const mobileMenu = document.getElementById("mobile-menu");
     const mobileClose = document.getElementById("mobile-close");
-    const mediaRail = document.getElementById("media-rail");
-    const mediaPrev = document.getElementById("media-prev");
-    const mediaNext = document.getElementById("media-next");
     const topBarTime = document.getElementById("top-bar-time");
 
     const syncThemeToggle = (theme) => {
@@ -54,7 +51,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     toggleHeaderState();
-    window.addEventListener("scroll", toggleHeaderState, { passive: true });
+    let headerFramePending = false;
+    window.addEventListener("scroll", () => {
+        if (headerFramePending) return;
+        headerFramePending = true;
+        requestAnimationFrame(() => {
+            toggleHeaderState();
+            headerFramePending = false;
+        });
+    }, { passive: true });
 
     // Top bar live clock
     const toPersianDigits = (str) => {
@@ -171,65 +176,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    const tabButtons = document.querySelectorAll("[data-news-tab]");
-    const tabPanels = document.querySelectorAll("[data-news-panel]");
-    const tabSelect = document.getElementById("news-tab-select");
-
-    if (tabButtons.length && tabPanels.length) {
-        tabButtons.forEach((button) => {
-            button.addEventListener("click", () => {
-                const target = button.getAttribute("data-news-tab");
-
-                if (tabSelect && tabSelect.value !== target) {
-                    tabSelect.value = target;
-                }
-
-                tabButtons.forEach((item) => {
-                    const isActive = item === button;
-                    item.classList.toggle("is-active", isActive);
-                    item.setAttribute("aria-selected", String(isActive));
-                });
-
-                tabPanels.forEach((panel) => {
-                    const shouldShow = panel.getAttribute("data-news-panel") === target;
-                    panel.hidden = !shouldShow;
-
-                    if (shouldShow) {
-                        requestAnimationFrame(() => {
-                            panel.querySelectorAll("[data-reveal]").forEach((item) => item.classList.add("is-visible"));
-                        });
-                    }
-                });
-            });
-        });
-
-        if (tabSelect) {
-            tabSelect.addEventListener("change", (e) => {
-                const targetVal = e.target.value;
-                const btn = document.querySelector(`[data-news-tab="${targetVal}"]`);
-                if (btn) btn.click();
-            });
-        }
-    }
-
-    if (mediaRail && mediaPrev && mediaNext) {
-        const step = () => {
-            const firstCard = mediaRail.querySelector(".media-card");
-            return firstCard ? firstCard.getBoundingClientRect().width + 18 : 320;
-        };
-
-        mediaPrev.setAttribute("aria-label", "اسلاید قبلی");
-        mediaNext.setAttribute("aria-label", "اسلاید بعدی");
-
-        mediaPrev.addEventListener("click", () => {
-            mediaRail.scrollBy({ left: step(), behavior: "smooth" });
-        });
-
-        mediaNext.addEventListener("click", () => {
-            mediaRail.scrollBy({ left: -step(), behavior: "smooth" });
-        });
-    }
-
     // Search Overlay Logic
     const searchClose = document.getElementById('search-close');
     const searchOverlay = document.getElementById('search-overlay');
@@ -316,137 +262,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener("scroll", updateScrollProgress, { passive: true });
     }
 
-    // ─── STORY SLIDE REEL & MODAL VIEWER LOGIC ───────────────
-    const storyRail = document.getElementById("story-rail");
-    const storyRailPrev = document.getElementById("story-rail-prev");
-    const storyRailNext = document.getElementById("story-rail-next");
-    const storyCards = document.querySelectorAll(".story-card");
-    // Removed story modal elements
-    // Story Rail Scroll buttons & Auto-play Carousel
-    let autoPlayInterval = null;
-
-    if (storyRail) {
-        const startAutoPlay = () => {
-            stopAutoPlay();
-            autoPlayInterval = setInterval(() => {
-                const cardWidth = 260;
-                const currentScroll = Math.abs(storyRail.scrollLeft);
-                const maxScroll = storyRail.scrollWidth - storyRail.clientWidth;
-
-                if (currentScroll >= maxScroll - 20) {
-                    storyRail.scrollTo({ left: 0, behavior: "smooth" });
-                } else {
-                    storyRail.scrollBy({ left: -cardWidth, behavior: "smooth" });
-                }
-            }, 3000);
-        };
-
-        const stopAutoPlay = () => {
-            if (autoPlayInterval) clearInterval(autoPlayInterval);
-        };
-
-        startAutoPlay();
-
-        // Pause auto-play on mouse enter or touch
-        storyRail.addEventListener("mouseenter", stopAutoPlay);
-        storyRail.addEventListener("mouseleave", startAutoPlay);
-        storyRail.addEventListener("touchstart", stopAutoPlay, { passive: true });
-        storyRail.addEventListener("touchend", startAutoPlay, { passive: true });
-
-        if (storyRailPrev && storyRailNext) {
-            storyRailPrev.addEventListener("click", () => {
-                stopAutoPlay();
-                storyRail.scrollBy({ left: 260, behavior: "smooth" });
-                startAutoPlay();
-            });
-            storyRailNext.addEventListener("click", () => {
-                stopAutoPlay();
-                storyRail.scrollBy({ left: -260, behavior: "smooth" });
-                startAutoPlay();
-            });
-        }
-    }
-
-    // Story Modal Logic removed as per new single-media routing
-
-    // ═══════════════════════════════════════════════════════════
-    // DAILY NARRATIVE INTERACTIVE THUMBNAILS (Decoupled & Isolated)
-    // ═══════════════════════════════════════════════════════════
-    const infoPanelInner = document.querySelector(".info-panel__inner");
-    const infoPanelTag = document.getElementById("info-panel-tag");
-    const infoPanelTitle = document.getElementById("info-panel-title");
-    const infoPanelExcerpt = document.getElementById("info-panel-excerpt");
-    const infoPanelAvatar = document.getElementById("info-panel-avatar");
-    const infoPanelAuthor = document.getElementById("info-panel-author");
-    const infoPanelDate = document.getElementById("info-panel-date");
-    const infoPanelLink = document.getElementById("info-panel-link");
-    const interactiveThumbItems = document.querySelectorAll(".interactive-thumb-item");
-
-    if (infoPanelInner && interactiveThumbItems.length) {
-        let currentIndex = 0;
-        let autoplayInterval;
-
-        const updateInfoPanel = (thumb, index) => {
-            if (index !== undefined) {
-                currentIndex = index;
-            } else {
-                currentIndex = Array.from(interactiveThumbItems).indexOf(thumb);
-            }
-
-            interactiveThumbItems.forEach(item => item.classList.remove("is-active"));
-            thumb.classList.add("is-active");
-
-            infoPanelInner.classList.add("is-updating");
-
-            setTimeout(() => {
-                const tag = thumb.getAttribute("data-tag");
-                const avatar = thumb.getAttribute("data-avatar");
-                const author = thumb.getAttribute("data-author");
-                const date = thumb.getAttribute("data-date");
-                const title = thumb.getAttribute("data-title");
-                const excerpt = thumb.getAttribute("data-excerpt");
-                const link = thumb.getAttribute("data-link");
-
-                if (infoPanelTag && tag) infoPanelTag.textContent = tag;
-                if (infoPanelAvatar && avatar) infoPanelAvatar.src = avatar;
-                if (infoPanelAuthor && author) infoPanelAuthor.textContent = author;
-                if (infoPanelDate && date) infoPanelDate.textContent = date;
-                if (infoPanelTitle && title) infoPanelTitle.textContent = title;
-                if (infoPanelExcerpt && excerpt) infoPanelExcerpt.textContent = excerpt;
-                if (infoPanelLink && link) infoPanelLink.href = link;
-
-                infoPanelInner.classList.remove("is-updating");
-            }, 180);
-        };
-
-        const startAutoplay = () => {
-            autoplayInterval = setInterval(() => {
-                const nextIndex = (currentIndex + 1) % interactiveThumbItems.length;
-                updateInfoPanel(interactiveThumbItems[nextIndex], nextIndex);
-            }, 4000);
-        };
-
-        const stopAutoplay = () => {
-            clearInterval(autoplayInterval);
-        };
-
-        interactiveThumbItems.forEach((thumb, index) => {
-            thumb.addEventListener("mouseenter", () => {
-                updateInfoPanel(thumb, index);
-                stopAutoplay();
-            });
-            thumb.addEventListener("mouseleave", startAutoplay);
-            thumb.addEventListener("click", () => updateInfoPanel(thumb, index));
-        });
-
-        // توقف پخش خودکار هنگام هاور روی پنل اطلاعات
-        infoPanelInner.addEventListener("mouseenter", stopAutoplay);
-        infoPanelInner.addEventListener("mouseleave", startAutoplay);
-
-        // شروع پخش خودکار
-        startAutoplay();
-    }
-
     // ═══════════════════════════════════════════════════════════
     // ARCHIVE PAGE MOBILE FILTER ACCORDION (Robust Event Delegation)
     // ═══════════════════════════════════════════════════════════
@@ -469,127 +284,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
-// ─── NEWS SWIPER INITIALIZATION ────────────────────────────────────────────
-// خارج از DOMContentLoaded چون Swiper باید پس از لود کامل DOM و کتابخانه اجرا شود
-
-(function initNewsSwipers() {
-    if (typeof Swiper === "undefined") return;
-
-    const swiperInstances = new Map();
-
-    const createSwiper = (container) => {
-        if (swiperInstances.has(container)) {
-            swiperInstances.get(container).destroy(true, true);
-        }
-
-        const instance = new Swiper(container, {
-            slidesPerView: 1.2,
-            spaceBetween: 14,
-            centeredSlides: false,
-            grabCursor: true,
-            speed: 600,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            // RTL — جهت‌دهی صحیح برای فارسی
-            dir: "rtl",
-            navigation: {
-                nextEl: container.querySelector(".news-swiper-next"),
-                prevEl: container.querySelector(".news-swiper-prev"),
-            },
-            pagination: {
-                el: container.querySelector(".news-swiper-pagination"),
-                clickable: true,
-                dynamicBullets: true,
-            },
-            breakpoints: {
-                480: { slidesPerView: 1.6, spaceBetween: 14 },
-                640: { slidesPerView: 2.3, spaceBetween: 16 },
-                768: { slidesPerView: 3, spaceBetween: 18 },
-                1024: { slidesPerView: 3.8, spaceBetween: 20 },
-                1280: { slidesPerView: 4.2, spaceBetween: 22 },
-                1440: { slidesPerView: 4.5, spaceBetween: 24 },
-            },
-        });
-
-        swiperInstances.set(container, instance);
-        return instance;
-    };
-
-    // تابع مقداردهی اولیه برای پنل فعال
-    const initActivePanel = () => {
-        const activePanel = document.querySelector(".news-panel.is-active");
-        if (!activePanel) return;
-
-        const swiperEl = activePanel.querySelector(".news-swiper");
-        if (swiperEl) createSwiper(swiperEl);
-    };
-
-    // راه‌اندازی اولیه
-    document.addEventListener("DOMContentLoaded", initActivePanel);
-    // اگر DOM قبلاً لود شده
-    if (document.readyState !== "loading") initActivePanel();
-
-    // هنگام تغییر تب، Swiper پنل جدید را راه‌اندازی کن
-    document.addEventListener("click", (e) => {
-        const tab = e.target.closest("[data-news-tab]");
-        if (!tab) return;
-
-        setTimeout(() => {
-            const targetPanel = document.getElementById("news-panel-" + tab.dataset.newsTab)
-                || document.querySelector(`[data-news-panel="${tab.dataset.newsTab}"]`);
-            if (!targetPanel) return;
-
-            const swiperEl = targetPanel.querySelector(".news-swiper");
-            if (swiperEl) createSwiper(swiperEl);
-        }, 50); // تاخیر کوچک برای اطمینان از نمایش پنل
-    });
-})();
-
-// ─── ANALYSTS TOP SWIPER CAROUSEL (با پخش خودکار و پجینیشن) ─────────────────
-(function initAnalystsTopSwiper() {
-    const init = () => {
-        const swiperEl = document.querySelector(".analysts-top-swiper");
-        if (!swiperEl || swiperEl.classList.contains("swiper-initialized")) return;
-
-        new Swiper(swiperEl, {
-            slidesPerView: 1.1,
-            spaceBetween: 14,
-            grabCursor: true,
-            speed: 600,
-            autoplay: {
-                delay: 3500,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-            },
-            dir: "rtl",
-            navigation: {
-                nextEl: swiperEl.querySelector(".analysts-swiper-next"),
-                prevEl: swiperEl.querySelector(".analysts-swiper-prev"),
-            },
-            pagination: {
-                el: swiperEl.querySelector(".analysts-swiper-pagination"),
-                clickable: true,
-                dynamicBullets: true,
-            },
-            breakpoints: {
-                480: { slidesPerView: 1.5, spaceBetween: 14 },
-                640: { slidesPerView: 2, spaceBetween: 16 },
-                1024: { slidesPerView: 2.2, spaceBetween: 18 },
-                1280: { slidesPerView: 3, spaceBetween: 20 },
-            },
-        });
-    };
-
-    if (document.readyState !== "loading") {
-        init();
-    } else {
-        document.addEventListener("DOMContentLoaded", init);
-    }
-})();
 
 // ─── FLOATING SOCIAL FAB CONTROLLER ─────────────────────────────────────────
 (function initSocialFab() {
@@ -651,37 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
             toggleBtn.focus();
         }
     });
-})();
-
-// ─── SITUATION ROOM HERO ───────────────────────────────────────────────────
-(function initSituationRoomHero() {
-    const init = () => {
-        const slider = document.querySelector(".situation-hero-swiper");
-        if (!slider || typeof window.Swiper === "undefined" || slider.classList.contains("swiper-initialized")) return;
-
-        const slidesCount = slider.querySelectorAll(".swiper-slide").length;
-        new window.Swiper(slider, {
-            slidesPerView: 1,
-            speed: 700,
-            loop: slidesCount > 1,
-            effect: "fade",
-            fadeEffect: { crossFade: true },
-            autoplay: slidesCount > 1 ? { delay: 6500, disableOnInteraction: false, pauseOnMouseEnter: true } : false,
-            navigation: {
-                nextEl: ".srx-hero-next",
-                prevEl: ".srx-hero-prev",
-            },
-            pagination: {
-                el: ".srx-hero-pagination",
-                clickable: true,
-            },
-            keyboard: { enabled: true },
-            a11y: { enabled: true },
-        });
-    };
-
-    if (document.readyState !== "loading") init();
-    else document.addEventListener("DOMContentLoaded", init);
 })();
 
 // ─── USER ACCOUNT MENU DROPDOWN CONTROLLER ─────────────────────────────────

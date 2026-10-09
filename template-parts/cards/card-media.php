@@ -92,7 +92,7 @@ if (empty($card_thumbnail)) {
    data-duration="<?php echo esc_attr($duration); ?>"
    data-type="<?php echo esc_attr($media_type); ?>">
     <div class="story-card__cover">
-        <img src="<?php echo esc_url($card_thumbnail); ?>"
+        <img src="<?php echo esc_url($card_thumbnail); ?>" <?php echo revayat_responsive_image_attributes((int) ($args['thumbnail_id'] ?? ($args['item']['thumbnail_id'] ?? 0)), '(max-width: 767px) 80vw, 320px'); ?>
              alt="<?php echo esc_attr($card_title); ?>"
              class="story-card__img transition-transform duration-500 group-hover:scale-105"
              loading="lazy">

@@ -68,10 +68,10 @@ $fp_cat     = $first_thumb['category'] ?? '';
             <div class="daily-hero-main">
                 <article class="daily-featured-card" id="daily-main-card">
                     <a href="<?php echo esc_url($main_url); ?>" class="daily-featured__visual block group">
-                        <img src="<?php echo esc_url($main_img); ?>"
+                        <img src="<?php echo esc_url($main_img); ?>" <?php echo revayat_responsive_image_attributes((int) ($lead['thumbnail_id'] ?? 0), '(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) 50vw, 720px'); ?>
                              alt="<?php echo esc_attr($main_title); ?>"
                              class="daily-featured__img transition-transform duration-500 group-hover:scale-105"
-                             id="daily-main-img">
+                             id="daily-main-img" loading="eager" fetchpriority="high" decoding="async">
                         <div class="daily-featured__overlay"></div>
                         <span class="daily-featured__tag" id="daily-main-tag"><?php echo esc_html($main_cat); ?></span>
                     </a>
@@ -82,7 +82,7 @@ $fp_cat     = $first_thumb['category'] ?? '';
                                 <img src="<?php echo esc_url($main_avatar); ?>"
                                      alt="<?php echo esc_attr($main_author); ?>"
                                      class="daily-author__avatar"
-                                     id="daily-main-avatar">
+                                     id="daily-main-avatar" loading="lazy" decoding="async">
                                 <div class="daily-author__info">
                                     <strong id="daily-main-author-name"><?php echo esc_html($main_author); ?></strong>
                                     <?php if (!empty($main_role)) : ?>
@@ -109,7 +109,7 @@ $fp_cat     = $first_thumb['category'] ?? '';
             </div>
 
             <!-- ستون وسط: Thumbnails تعاملی (JS‌محور) -->
-            <div class="daily-interactive-thumbs hidden lg:block">
+            <div class="daily-interactive-thumbs">
                 <div class="interactive-thumb-list layout-gap-md" id="interactive-thumb-list">
                     <?php foreach ($interactive_items as $index => $item) :
                         $t_title   = $item['title'] ?? '';
@@ -121,7 +121,10 @@ $fp_cat     = $first_thumb['category'] ?? '';
                         $t_avatar  = revayat_resolve_image_url($item['author_avatar'] ?? null, 'avatar');
                         $t_cat     = $item['category'] ?? '';
                     ?>
-                        <div class="interactive-thumb-item <?php echo $index === 0 ? 'is-active' : ''; ?>"
+                        <button type="button" class="interactive-thumb-item <?php echo $index === 0 ? 'is-active' : ''; ?>"
+                             aria-label="<?php echo esc_attr($t_title); ?>"
+                             aria-pressed="<?php echo $index === 0 ? 'true' : 'false'; ?>"
+                             aria-controls="interactive-info-panel"
                              data-index="<?php echo esc_attr($index); ?>"
                              data-img="<?php echo esc_url($t_img); ?>"
                              data-title="<?php echo esc_attr($t_title); ?>"
@@ -131,14 +134,14 @@ $fp_cat     = $first_thumb['category'] ?? '';
                              data-tag="<?php echo esc_attr($t_cat); ?>"
                              data-date="<?php echo esc_attr($t_date); ?>"
                              data-link="<?php echo esc_url($t_url); ?>">
-                            <img src="<?php echo esc_url($t_img); ?>" alt="<?php echo esc_attr($t_title); ?>">
-                        </div>
+                            <img src="<?php echo esc_url($t_img); ?>" <?php echo revayat_responsive_image_attributes((int) ($item['thumbnail_id'] ?? 0), '(max-width: 1023px) calc((100vw - 56px) / 3), 160px'); ?> alt="<?php echo esc_attr($t_title); ?>" loading="lazy" decoding="async">
+                        </button>
                     <?php endforeach; ?>
                 </div>
             </div>
 
             <!-- ستون چپ: info panel تعاملی -->
-            <div class="daily-interactive-info hidden lg:block" id="interactive-info-panel">
+            <div class="daily-interactive-info" id="interactive-info-panel">
                 <div class="info-panel__inner panel-pad">
                     <span class="info-panel__tag" id="info-panel-tag"><?php echo esc_html($fp_cat); ?></span>
                     <h3 class="info-panel__title" id="info-panel-title"><?php echo esc_html($fp_title); ?></h3>
@@ -146,7 +149,7 @@ $fp_cat     = $first_thumb['category'] ?? '';
 
                     <div class="info-panel__meta">
                         <div class="info-panel__author">
-                            <img src="<?php echo esc_url($fp_avatar); ?>" id="info-panel-avatar" alt="<?php echo esc_attr($fp_author); ?>">
+                            <img src="<?php echo esc_url($fp_avatar); ?>" id="info-panel-avatar" loading="lazy" decoding="async" alt="<?php echo esc_attr($fp_author); ?>">
                             <span id="info-panel-author"><?php echo esc_html($fp_author); ?></span>
                         </div>
                         <span class="info-panel__date" id="info-panel-date"><?php echo esc_html($fp_date); ?></span>
@@ -160,40 +163,6 @@ $fp_cat     = $first_thumb['category'] ?? '';
                     </a>
                 </div>
             </div>
-
-            <!-- نمایش موبایل: لیست ساده -->
-            <?php if (!empty($interactive_items)) : ?>
-                <div class="daily-mobile-items flex flex-col gap-4 lg:hidden w-full col-span-1 md:col-span-2 mt-4 md:mt-0">
-                    <?php foreach ($interactive_items as $m_item) :
-                        $m_title   = $m_item['title'] ?? '';
-                        $m_url     = $m_item['url'] ?? home_url('/');
-                        $m_img     = revayat_resolve_image_url($m_item['thumbnail_url'] ?? null, 'news');
-                        $m_author  = $m_item['author_name'] ?? '';
-                        $m_cat     = $m_item['category'] ?? '';
-                    ?>
-                        <a href="<?php echo esc_url($m_url); ?>"
-                           class="flex gap-4 p-3 bg-white dark:bg-[#1a1c23] border border-[var(--border)] rounded-[20px] shadow-sm hover:border-primary/50 transition-colors">
-                            <img src="<?php echo esc_url($m_img); ?>"
-                                 alt="<?php echo esc_attr($m_title); ?>"
-                                 class="w-24 h-24 md:w-28 md:h-28 rounded-xl object-cover shrink-0"
-                                 loading="lazy">
-                            <div class="flex flex-col justify-center min-w-0">
-                                <?php if (!empty($m_cat)) : ?>
-                                    <span class="daily-mobile-category text-[10px] font-bold text-primary mb-1"><?php echo esc_html($m_cat); ?></span>
-                                <?php endif; ?>
-                                <h4 class="text-[13px] md:text-sm font-bold text-gray-900 dark:text-white line-clamp-2 mb-2 leading-[1.6]">
-                                    <?php echo esc_html($m_title); ?>
-                                </h4>
-                                <?php if (!empty($m_author)) : ?>
-                                    <span class="daily-mobile-author text-[11px] text-gray-500 font-medium flex items-center gap-1">
-                                        <i class="ph-fill ph-user-circle"></i> <?php echo esc_html($m_author); ?>
-                                    </span>
-                                <?php endif; ?>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
 
         </div><!-- /.daily-hero-layout -->
         <?php endif; ?>

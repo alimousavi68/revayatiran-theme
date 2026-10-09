@@ -1,0 +1,352 @@
+{
+  "core": {
+    "file": "/assets/css/dist/core.min.css",
+    "version": "4acc5d03c8e98125",
+    "sources": [
+      "assets/css/legacy-compat.css",
+      "assets/css/utilities.css",
+      "assets/css/modules/variables.css",
+      "assets/css/modules/header.css"
+    ],
+    "bytes": 74536
+  },
+  "public": {
+    "file": "/assets/css/dist/public.min.css",
+    "version": "5111f8ba418b8ecb",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 59699
+  },
+  "home": {
+    "file": "/assets/css/dist/home.min.css",
+    "version": "163b923ba02d4fbf",
+    "sources": [
+      "assets/css/modules/hero.css",
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/daily-narrative.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/news-monitoring.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/special-dossiers.css",
+      "assets/css/modules/situation-room.css",
+      "assets/css/modules/media-observatory.css",
+      "assets/css/modules/analysts-network.css",
+      "assets/css/modules/analysts-mobile.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 186156
+  },
+  "post": {
+    "file": "/assets/css/dist/post.min.css",
+    "version": "1555baf31d923b56",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/special-dossiers.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 97967
+  },
+  "dossier": {
+    "file": "/assets/css/dist/dossier.min.css",
+    "version": "1555baf31d923b56",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/special-dossiers.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 97967
+  },
+  "dossier-archive": {
+    "file": "/assets/css/dist/dossier-archive.min.css",
+    "version": "7ee10d9ad62f947f",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/special-dossiers.css",
+      "assets/css/modules/archive-modernization.css",
+      "assets/css/modules/public-archives.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 85095
+  },
+  "analyst": {
+    "file": "/assets/css/dist/analyst.min.css",
+    "version": "82ea4211693aaa1e",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/media-observatory.css",
+      "assets/css/modules/analysts-network.css",
+      "assets/css/modules/analysts-mobile.css",
+      "assets/css/modules/account-menu.css",
+      "assets/css/modules/analysts-experience.css",
+      "assets/css/modules/analysts-refinement.css"
+    ],
+    "bytes": 191148
+  },
+  "analyst-archive": {
+    "file": "/assets/css/dist/analyst-archive.min.css",
+    "version": "5a095f171296c122",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/analysts-network.css",
+      "assets/css/modules/analysts-mobile.css",
+      "assets/css/modules/archive-modernization.css",
+      "assets/css/modules/account-menu.css",
+      "assets/css/modules/analysts-experience.css",
+      "assets/css/modules/analysts-refinement.css"
+    ],
+    "bytes": 159335
+  },
+  "author-archive": {
+    "file": "/assets/css/dist/author-archive.min.css",
+    "version": "b0d5b363612df30f",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/analysts-network.css",
+      "assets/css/modules/analysts-mobile.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 89562
+  },
+  "person": {
+    "file": "/assets/css/dist/person.min.css",
+    "version": "525552fd043d7535",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/analysts-network.css",
+      "assets/css/modules/analysts-mobile.css",
+      "assets/css/modules/vertical-content.css",
+      "assets/css/modules/account-menu.css",
+      "assets/css/modules/analysts-experience.css",
+      "assets/css/modules/analysts-refinement.css"
+    ],
+    "bytes": 184661
+  },
+  "media": {
+    "file": "/assets/css/dist/media.min.css",
+    "version": "0dda1ac560ea4f87",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/vertical-content.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 88109
+  },
+  "media-archive": {
+    "file": "/assets/css/dist/media-archive.min.css",
+    "version": "f2f3bb0788656cf9",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/vertical-content.css",
+      "assets/css/modules/public-archives.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 72153
+  },
+  "observatory": {
+    "file": "/assets/css/dist/observatory.min.css",
+    "version": "33d7e40bbfbc7bba",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/media-observatory.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 94596
+  },
+  "observatory-archive": {
+    "file": "/assets/css/dist/observatory-archive.min.css",
+    "version": "b792d936cb3b8ca9",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/media-observatory.css",
+      "assets/css/modules/public-archives.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 78640
+  },
+  "room": {
+    "file": "/assets/css/dist/room.min.css",
+    "version": "f3b3883c5f50b20c",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/dossier-story.css",
+      "assets/css/modules/situation-room.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 122527
+  },
+  "room-archive": {
+    "file": "/assets/css/dist/room-archive.min.css",
+    "version": "bf572feef345b1cc",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/situation-room.css",
+      "assets/css/modules/archive-modernization.css",
+      "assets/css/modules/public-archives.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 109655
+  },
+  "archive": {
+    "file": "/assets/css/dist/archive.min.css",
+    "version": "a2ff2c95e97550a6",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/public-archives.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 66779
+  },
+  "auth": {
+    "file": "/assets/css/dist/auth.min.css",
+    "version": "264fdfdc1c7bf3ae",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/user-portal.css",
+      "assets/css/modules/user-portal-otp.css",
+      "assets/css/modules/user-portal-profile.css",
+      "assets/css/modules/user-portal-workflow.css",
+      "assets/css/modules/account-menu.css"
+    ],
+    "bytes": 68749
+  },
+  "dashboard": {
+    "file": "/assets/css/dist/dashboard.min.css",
+    "version": "0f337fa9c6d97edd",
+    "sources": [
+      "assets/css/modules/layout-shared.css",
+      "assets/css/modules/footer.css",
+      "assets/css/modules/responsive.css",
+      "assets/css/modules/section-etudes.css",
+      "assets/css/modules/ui-components.css",
+      "assets/css/modules/typography.css",
+      "assets/css/modules/social-fab.css",
+      "assets/css/modules/analysts-network.css",
+      "assets/css/modules/analysts-mobile.css",
+      "assets/css/modules/user-portal.css",
+      "assets/css/modules/user-portal-otp.css",
+      "assets/css/modules/user-portal-profile.css",
+      "assets/css/modules/user-portal-workflow.css",
+      "assets/css/modules/account-menu.css",
+      "assets/css/modules/member-portal.css",
+      "assets/css/modules/analysts-experience.css",
+      "assets/css/modules/analysts-refinement.css"
+    ],
+    "bytes": 170705
+  },
+  "auth-dialog": {
+    "file": "/assets/css/dist/auth-dialog.min.css",
+    "version": "c7d844cc10bed202",
+    "sources": [
+      "assets/css/modules/auth-dialog.css"
+    ],
+    "bytes": 4042
+  }
+}

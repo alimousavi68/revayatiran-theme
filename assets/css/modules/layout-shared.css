@@ -1,3 +1,20 @@
+/* Shared card surfaces: used outside the homepage hero as well. */
+.glass-card,
+.panel-card,
+.hero-feature,
+.stack-card,
+.trending-column,
+.situation-card,
+.media-card,
+.ranking-table,
+.featured-narrative,
+.dossier-band,
+.data-stage {
+    border: 1px solid var(--border);
+    background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
+    box-shadow: var(--shadow-soft);
+}
+
 html[data-theme="dark"] .section-shell--warm {
     background: transparent;
 }
@@ -69,7 +86,7 @@ html[data-theme="dark"] .section-shell--warm {
     gap: 5px;
     text-decoration: none;
     transition: all 0.3s ease;
-    opacity: 0.75;
+    opacity: 1;
 }
 
 .section-link:hover {

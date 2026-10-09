@@ -21,6 +21,7 @@ $revayat_inc_files = [
     '/inc/customizer-query-controls.php', // کنترل‌های انتخاب منابع و فیلترها
     '/inc/customizer.php',     // تنظیمات عمومی و هشت سکشن صفحه اصلی
     '/inc/enqueue.php',        // مدیریت و صف‌بندی دارایی‌های CSS و JS
+    '/inc/frontend-quality.php', // Conditional form delivery and homepage metadata.
     '/inc/navigation.php',     // موقعیت‌های منو و ناوبری
     '/inc/nav-walker.php',     // واکر استاندارد ناوبری وردپرس (Pass 2B Commit 5)
     '/inc/template-tags.php',  // توابع کمکی رندرینگ تمپلیت‌ها

@@ -38,7 +38,7 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
             <?php if (!empty($lead)) : ?>
                 <article class="dossier-hero-card">
                     <div class="dossier-hero-visual">
-                        <img src="<?php echo esc_url(revayat_resolve_image_url($lead['thumbnail_url'] ?? null, 'news')); ?>" alt="<?php echo esc_attr($lead['title'] ?? ''); ?>" class="w-full h-full object-cover" loading="lazy">
+                        <img src="<?php echo esc_url(revayat_resolve_image_url($lead['thumbnail_url'] ?? null, 'news')); ?>" alt="<?php echo esc_attr($lead['title'] ?? ''); ?>" class="w-full h-full object-cover" loading="lazy" decoding="async" <?php echo revayat_responsive_image_attributes((int) ($lead['thumbnail_id'] ?? 0), '(max-width: 767px) calc(100vw - 32px), 600px'); ?>>
                         <?php if (!empty($lead['is_live'])) : ?>
                             <div class="dossier-hero-visual__overlay">
                                 <div class="live-indicator">

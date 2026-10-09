@@ -84,21 +84,7 @@ html[data-theme="dark"] .section-kicker {
     margin: 12px 0 0;
 }
 
-.glass-card,
-.panel-card,
-.hero-feature,
-.stack-card,
-.trending-column,
-.situation-card,
-.media-card,
-.ranking-table,
-.featured-narrative,
-.dossier-band,
-.data-stage {
-    border: 1px solid var(--border);
-    background: color-mix(in srgb, var(--surface-strong) 92%, transparent);
-    box-shadow: var(--shadow-soft);
-}
+
 
 .glass-card {
     min-width: 180px;

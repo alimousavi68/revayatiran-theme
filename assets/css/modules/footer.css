@@ -349,3 +349,7 @@
     }
 }
 
+
+#site-footer .footer-copyright,
+#site-footer .footer-designer,
+#site-footer .footer-designer span { color: #fff; opacity: 1; }

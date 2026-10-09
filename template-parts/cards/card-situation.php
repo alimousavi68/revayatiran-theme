@@ -185,7 +185,7 @@ $action_text = (isset($access['user_clearance']) && 'normal' === $access['user_c
                     <div class="attachment-file <?php echo $is_download ? 'file-downloadable' : 'file-view-only'; ?>">
                         <div class="file-info">
                             <div class="file-icon <?php echo $is_view_only ? 'warning-type' : 'pdf-type'; ?>">
-                                <i class="ph-fill <?php echo $is_view_only ? 'ph-shield-alert' : 'ph-file-pdf'; ?>"></i>
+                                <i class="ph-fill <?php echo $is_view_only ? 'ph-shield-warning' : 'ph-file-pdf'; ?>"></i>
                             </div>
                             <div class="file-text">
                                 <span class="file-name"><?php echo esc_html($att_title); ?></span>

@@ -263,7 +263,7 @@
         if (val <= activeCount) {
           btn.classList.add(isHover ? 'is-hover' : 'is-active');
           if (!isHover) btn.classList.remove('is-hover');
-          if (icon) icon.className = 'ph ph-star-fill';
+          if (icon) icon.className = 'ph-fill ph-star';
         } else {
           btn.classList.remove('is-active', 'is-hover');
           if (icon) icon.className = 'ph ph-star';

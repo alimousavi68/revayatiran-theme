@@ -38,6 +38,7 @@
 
 /* 12. Analysts Network: 2-Column Grid, Editorial Hero, Top Analysis Slider & Authority Showcase (components/analysts-network.php) */
 @import "./modules/analysts-network.css";
+@import "./modules/typography.css";
 
 /* 13. News Monitoring: Swiper News Carousel, Category Filter Tabs & Navigation Controls (components/news-monitoring.php) */
 @import "./modules/news-monitoring.css";

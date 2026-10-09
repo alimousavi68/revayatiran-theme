@@ -196,3 +196,7 @@ html[data-theme="dark"] .rv-header-login {
 html[data-theme="dark"] .rv-header-login:hover {
   color: #ef4444;
 }
+
+/* The top-bar login sits on silver, unlike login links on dark panels. */
+html[data-theme="dark"] #top-bar .rv-header-login,
+html[data-theme="dark"] #top-bar .rv-header-login span { color: #475569; }

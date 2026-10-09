@@ -89,7 +89,7 @@ $news_items  = $news_data['items'] ?? [];
                             ?>
                                 <div class="swiper-slide">
                                     <article class="news-card group">
-                                        <img src="<?php echo esc_url($card_thumbnail); ?>"
+                                        <img src="<?php echo esc_url($card_thumbnail); ?>" <?php echo revayat_responsive_image_attributes((int) ($item['thumbnail_id'] ?? 0), '(max-width: 767px) 80vw, 360px'); ?>
                                              alt="<?php echo esc_attr($card_title); ?>"
                                              class="news-card__img object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
                                              loading="lazy">

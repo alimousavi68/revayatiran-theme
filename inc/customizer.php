@@ -17,9 +17,9 @@ function revayat_home_sections(): array {
         'daily-narrative' => array( 'روایت روز', 'برگزیده مهم‌ترین تحلیل‌ها و روایت‌های راهبردی روز', 3, 'editorial_placement' ),
         'situation-room' => array( 'اتاق وضعیت', 'برآوردهای راهبردی و تحلیل‌های پدافندی', 4, 'security_level' ),
         'news-monitoring' => array( 'رصد اخبار', 'پایش مستمر منابع خبری و کشف روایت‌های نوظهور', 8, 'news_source' ),
+        'analysts-network' => array( 'شبکه تحلیل‌گران', 'ارزیابی تخصصی، رتبه‌بندی مخاطبان و معرفی تحلیل‌گران برتر', 8, 'analyst_field' ),
         'special-dossiers' => array( 'پرونده ویژه', 'واکاوی چندبعدی ریشه‌ها و پیامدهای رویدادهای کلان', 3, 'dossier_topic' ),
         'media-observatory' => array( 'دیده‌بان رسانه', 'تحلیل الگوهای فریم‌بندی، بازخوانی روایت‌ها و خطوط خبری رسانه‌ها', 3, 'observatory_badge' ),
-        'analysts-network' => array( 'شبکه تحلیل‌گران', 'ارزیابی تخصصی، رتبه‌بندی مخاطبان و معرفی تحلیل‌گران برتر', 8, 'analyst_field' ),
         'multimedia' => array( 'رسانه‌نگار', 'استوری‌های ویدئویی، تحلیل‌های صوتی برخط و روایت‌های تصویری', 8, 'media_format' ),
     );
 }

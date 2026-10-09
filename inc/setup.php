@@ -23,12 +23,6 @@ if (!function_exists('revayat_theme_setup')) {
         // ۳. پشتیبانی از تصاویر شاخص (Post Thumbnails)
         add_theme_support('post-thumbnails');
 
-        // اندازه‌های اختصاصی تصاویر بر اساس چیدمان ویترین و کارت‌ها
-        add_image_size('revayat-hero-large', 960, 540, true);   // اسلات لید اصلی هیرو (۱۶:۹)
-        add_image_size('revayat-hero-brief', 460, 260, true);   // کارت‌های کناری هیرو
-        add_image_size('revayat-card-thumb', 400, 250, true);   // کارت‌های استاندارد گرید و آرشیو
-        add_image_size('revayat-avatar', 120, 120, true);       // آواتار دایره‌ای تحلیلگران
-
         // ۴. خروجی معنایی HTML5 استاندارد
         add_theme_support('html5', [
             'search-form',

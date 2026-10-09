@@ -25,6 +25,9 @@ if (!function_exists('revayat_register_image_sizes')) {
         add_image_size('revayat-card-thumb', 600, 400, true);
         add_image_size('revayat-story-thumb', 400, 600, true);
         add_image_size('revayat-avatar', 160, 160, true);
+        foreach ([320, 480, 640, 960, 1280, 1600] as $width) {
+            add_image_size('revayat-web-' . $width, $width, 0, false);
+        }
     }
 }
 add_action('after_setup_theme', 'revayat_register_image_sizes');
@@ -153,4 +156,11 @@ if (!function_exists('revayat_get_situation_fallback_media')) {
             'key' => $key,
         ];
     }
+}
+
+/** Responsive candidates from an existing attachment ID; no URL-to-ID query. */
+function revayat_responsive_image_attributes(int $attachment_id, string $sizes, string $size = 'large'): string {
+    if (!$attachment_id) { return ''; }
+    $srcset = wp_get_attachment_image_srcset($attachment_id, $size);
+    return $srcset ? 'srcset="' . esc_attr($srcset) . '" sizes="' . esc_attr($sizes) . '"' : '';
 }

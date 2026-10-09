@@ -247,3 +247,49 @@ html[data-theme="dark"] .rv-dossier-return__action { color:var(--text); }
 .rv-share__fallback { box-sizing:border-box; border:1px solid var(--border); border-radius:8px; background:var(--surface); color:var(--text); }
 @media(max-width:479px) { .rv-share { padding:14px; } .rv-share__actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media(prefers-reduced-motion:reduce) { .rv-share__actions :is(a,button) { transition:none; } }
+
+@media (max-width: 767px) {
+    .rv-share { padding:12px; gap:8px; margin-block:14px; }
+    .rv-share__heading h2 { font-size:13px; }
+    .rv-share__symbol { width:28px; height:28px; }
+    .rv-share .rv-share__actions { display:flex; flex-wrap:wrap; gap:6px; }
+    .rv-share__actions :is(a,button) { min-height:44px; padding:8px 10px; }
+    .rv-share__network { width:44px; }
+    .rv-share__label { display:none; }
+    .rv-share__status:empty { display:none; }
+    .rv-reading-related__grid { grid-template-columns:1fr; gap:10px; }
+    .rv-reading-related__grid > article > a {
+        display:grid; grid-template-columns:76px minmax(0,1fr); gap:5px 12px;
+        padding:10px; align-items:center; text-align:right;
+    }
+    .rv-reading-related__grid > article img {
+        grid-column:1; grid-row:1 / span 2; width:76px; height:57px;
+        min-height:0; aspect-ratio:4/3; object-fit:cover; border-radius:8px;
+    }
+    .rv-reading-related__grid > article :is(h3,time) { grid-column:2; margin:0; padding:0; }
+    .rv-reading-related__grid > article h3 { font-size:13px; line-height:1.7; }
+    .rv-reading-related__grid > article time { font-size:11px; }
+    .rv-reading-sidebar .rv-context-list img { width:76px; height:57px; min-width:76px; max-width:76px; object-fit:cover; aspect-ratio:4/3; border-radius:8px; }
+    .rv-reading-sidebar .rv-context-list--featured .rv-context-lead > a { display:flex; padding:10px; gap:12px; }
+    .rv-reading-sidebar .rv-context-list--featured .rv-context-lead span { padding:0; min-width:0; }
+
+}
+
+/* Compact native discussion is shared by mobile and desktop. */
+    .rv-discussion--empty > :is(h2,.rv-discussion-empty-note) { display:none; }
+    .rv-discussion .comment-notes { display:none; }
+    .rv-discussion .comment-reply-title { font-size:14px; }
+    .rv-discussion .comment-form { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:8px; align-items:start; }
+    .rv-discussion .comment-form .comment-form-comment { grid-column:1; grid-row:1; }
+    .rv-discussion .comment-form .form-submit { grid-column:2; grid-row:1; margin:0; }
+    .rv-discussion .comment-form-comment label { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); }
+    .rv-discussion .comment-form textarea { min-height:44px; height:44px; padding:10px; font-size:16px; resize:vertical; }
+    .rv-discussion .comment-form .submit { min-height:44px; padding:10px 12px; }
+    .rv-discussion .comment-form > :not(.comment-form-comment):not(.form-submit) { grid-column:1/-1; }
+    .rv-discussion .comment-form .logged-in-as { font-size:11px; }
+    .rv-discussion .rv-comment-enhanced:not(.rv-comment-identity-open) :is(.comment-form-author,.comment-form-email,.comment-form-url,.comment-form-cookies-consent) { display:none; }
+    .rv-discussion .rv-comment-identity-toggle { display:block; width:max-content; min-height:44px; background:transparent; color:var(--text-muted); border:0; font:inherit; font-size:12px; cursor:pointer; }
+.rv-discussion textarea::placeholder { color:var(--text-muted); }
+
+/* The native hidden state wins over form/widget display rules. */
+.rv-discussion .comment-form [data-rv-comment-identity][hidden] { display:none !important; }

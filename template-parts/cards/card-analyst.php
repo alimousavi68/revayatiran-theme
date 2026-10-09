@@ -78,7 +78,7 @@ if ($variant === 'grid') : ?>
             </div>
             <?php if ( $thumbnail ) : ?>
                 <a class="anx-post-card__media" href="<?php echo esc_url( $url ); ?>" tabindex="-1" aria-hidden="true">
-                    <img src="<?php echo esc_url( $thumbnail ); ?>" alt="" loading="lazy" decoding="async" width="800" height="450">
+                    <img src="<?php echo esc_url( $thumbnail ); ?>" <?php echo revayat_responsive_image_attributes((int) ($item['thumbnail_id'] ?? ($item['media']['id'] ?? get_post_thumbnail_id($id))), '(max-width: 767px) calc(100vw - 32px), 400px'); ?> alt="" loading="lazy" decoding="async" width="800" height="450">
                 </a>
             <?php endif; ?>
         </div>
@@ -103,7 +103,7 @@ elseif ($variant === 'related') : ?>
         <a href="<?php echo esc_url( $url ); ?>" class="anx-related-card__link">
             <?php if ( $thumbnail ) : ?>
                 <div class="anx-related-card__media">
-                    <img src="<?php echo esc_url( $thumbnail ); ?>" alt="" loading="lazy" decoding="async" width="160" height="106">
+                    <img src="<?php echo esc_url( $thumbnail ); ?>" <?php echo revayat_responsive_image_attributes((int) ($item['thumbnail_id'] ?? ($item['media']['id'] ?? get_post_thumbnail_id($id))), '(max-width: 767px) calc(100vw - 32px), 400px'); ?> alt="" loading="lazy" decoding="async" width="160" height="106">
                 </div>
             <?php else : ?>
                 <div class="anx-related-card__media anx-related-card__media--placeholder">
@@ -124,7 +124,7 @@ elseif ($variant === 'related') : ?>
                     <?php endif; ?>
                     <?php if ( is_numeric( $score ) && (float) $score > 0 ) : ?>
                         <span class="anx-related-card__score" title="<?php esc_attr_e( 'امتیاز ارزیابی', 'revayatiran' ); ?>">
-                            <i class="ph ph-star-fill"></i>
+                            <i class="ph-fill ph-star"></i>
                             <?php echo esc_html( $score_str ); ?>
                         </span>
                     <?php endif; ?>

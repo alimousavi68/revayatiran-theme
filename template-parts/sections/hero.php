@@ -35,7 +35,7 @@ $lead_date      = $lead['date'] ?? '';
             <?php if (!empty($lead)) : ?>
                 <article class="hero-feature group">
                     <div class="hero-feature__media">
-                        <img src="<?php echo esc_url($lead_thumbnail); ?>"
+                        <img src="<?php echo esc_url($lead_thumbnail); ?>" <?php echo revayat_responsive_image_attributes((int) ($lead['thumbnail_id'] ?? 0), '(max-width: 1200px) calc(100vw - 32px), 790px'); ?>
                              alt="<?php echo esc_attr($lead_title); ?>"
                              loading="eager"
                              fetchpriority="high"
@@ -79,7 +79,7 @@ $lead_date      = $lead['date'] ?? '';
                 ?>
                     <article class="hero-brief-card group">
                         <div class="skeleton-wrapper">
-                            <img src="<?php echo esc_url($item_thumb); ?>"
+                            <img src="<?php echo esc_url($item_thumb); ?>" <?php echo revayat_responsive_image_attributes((int) ($item['thumbnail_id'] ?? 0), '(max-width: 767px) 50vw, 320px'); ?>
                                  alt="<?php echo esc_attr($item_title); ?>"
                                  loading="lazy"
                                  decoding="async">

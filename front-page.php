@@ -10,9 +10,9 @@
  * 2. Daily Narrative → روایت روزانه
  * 3. Situation Room   → اتاق وضعیت (Gated)
  * 4. News Monitoring  → رصد اخبار
- * 5. Special Dossiers → پرونده‌های ویژه
- * 6. Media Observatory→ رسانه‌نگار
- * 7. Analysts Network → شبکه تحلیل‌گران
+ * 5. Analysts Network → شبکه تحلیل‌گران
+ * 6. Special Dossiers → پرونده‌های ویژه
+ * 7. Media Observatory→ دیده‌بان رسانه
  * 8. Multimedia       → چندرسانه‌ای
  *
  * @package RevayatIran

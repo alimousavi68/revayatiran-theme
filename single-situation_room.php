@@ -276,7 +276,7 @@ while (have_posts()) :
                                             <div class="attachment-file <?php echo $is_download ? 'file-downloadable' : 'file-view-only'; ?>">
                                                 <div class="file-info">
                                                     <div class="file-icon <?php echo $is_view_only ? 'warning-type' : 'pdf-type'; ?>">
-                                                        <i class="ph-fill <?php echo $is_view_only ? 'ph-shield-alert' : 'ph-file-pdf'; ?>"></i>
+                                                        <i class="ph-fill <?php echo $is_view_only ? 'ph-shield-warning' : 'ph-file-pdf'; ?>"></i>
                                                     </div>
                                                     <div class="file-text">
                                                         <span class="file-name"><?php echo esc_html($att_title); ?></span>
@@ -402,7 +402,7 @@ while (have_posts()) :
                     <?php if (!empty($related)) : ?>
                         <div class="bg-white dark:bg-[#1a1c23] rounded-2xl p-5 border border-[var(--border)] shadow-sm">
                             <h4 class="text-[14px] font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2 pb-3 border-b border-[var(--border)]">
-                                <i class="ph ph-radar text-primary"></i>
+                                <i class="ph ph-broadcast text-primary"></i>
                                 <?php esc_html_e('بولتن‌های مرتبط پدافندی', 'revayatiran'); ?>
                             </h4>
 

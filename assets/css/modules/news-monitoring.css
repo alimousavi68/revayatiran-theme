@@ -219,17 +219,33 @@ html[data-theme="dark"] .analysts-swiper-next {
     bottom: 0px !important;
 }
 
+/* Keep visible dots compact, with a separate 24px touch target.
+   Dynamic bullet scaling must not shrink the actual interactive element. */
 .news-swiper-pagination .swiper-pagination-bullet,
 .analysts-swiper-pagination .swiper-pagination-bullet {
-    background: var(--text-muted);
-    opacity: 0.35;
+    position: relative;
+    background: transparent;
+    opacity: 1;
+    width: 24px;
+    height: 24px;
+    transform: none !important;
+}
+.news-swiper-pagination .swiper-pagination-bullet::before,
+.analysts-swiper-pagination .swiper-pagination-bullet::before {
+    content: "";
+    position: absolute;
     width: 7px;
     height: 7px;
-    transition: all 0.25s ease;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--text-muted);
+    opacity: 0.6;
+    border-radius: 999px;
+    transition: width 0.25s ease;
 }
-
-.news-swiper-pagination .swiper-pagination-bullet-active,
-.analysts-swiper-pagination .swiper-pagination-bullet-active {
+.news-swiper-pagination .swiper-pagination-bullet-active::before,
+.analysts-swiper-pagination .swiper-pagination-bullet-active::before {
     background: var(--primary);
     opacity: 1;
     width: 22px;

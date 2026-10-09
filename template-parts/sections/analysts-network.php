@@ -47,7 +47,7 @@ $top_analysts = $network_data['analysts']  ?? [];
 
                 <!-- تحلیل پیشنهادی هفته -->
                 <div class="an-hero--editorial">
-                    <img src="<?php echo esc_url(revayat_resolve_image_url($editorial['thumbnail_url'] ?? null, 'news')); ?>" alt="<?php esc_attr_e('تحلیل پیشنهادی هفته', 'revayatiran'); ?>" class="an-hero__bg-img">
+                    <img src="<?php echo esc_url(revayat_resolve_image_url($editorial['thumbnail_url'] ?? null, 'news')); ?>" alt="<?php esc_attr_e('تحلیل پیشنهادی هفته', 'revayatiran'); ?>" class="an-hero__bg-img" loading="lazy" decoding="async" <?php echo revayat_responsive_image_attributes((int) ($editorial['thumbnail_id'] ?? 0), '(max-width: 767px) calc(100vw - 32px), 640px'); ?>>
                     <div class="an-hero__overlay-gradient"></div>
 
                     <div class="an-hero__content-panel panel-pad">
@@ -67,7 +67,7 @@ $top_analysts = $network_data['analysts']  ?? [];
 
                         <div class="an-hero__author-row">
                             <div class="an-hero__author">
-                                <img src="<?php echo esc_url(revayat_resolve_image_url($editorial['author_avatar'] ?? null, 'avatar')); ?>" alt="<?php echo esc_attr($editorial['author_name'] ?? ''); ?>" class="an-hero__avatar">
+                                <img src="<?php echo esc_url(revayat_resolve_image_url($editorial['author_avatar'] ?? null, 'avatar')); ?>" alt="<?php echo esc_attr($editorial['author_name'] ?? ''); ?>" class="an-hero__avatar" loading="lazy" decoding="async">
                                 <div class="an-hero__author-info">
                                     <strong><?php echo esc_html($editorial['author_name'] ?? ''); ?></strong>
                                     <span><?php echo esc_html($editorial['author_role'] ?? ''); ?></span>
@@ -134,7 +134,7 @@ $top_analysts = $network_data['analysts']  ?? [];
 						<a href="<?php echo esc_url( $analyst['url'] ?? '#' ); ?>" class="an-analyst-card an-analyst-card--ranked">
                             <div class="an-analyst-card__rank"><?php echo esc_html($analyst['rank']); ?></div>
                             <div class="an-analyst-card__avatar-wrap an-analyst-card__avatar-wrap--authority">
-                                <img src="<?php echo esc_url(revayat_resolve_image_url($analyst['avatar_url'] ?? null, 'avatar')); ?>" alt="<?php echo esc_attr($analyst['name']); ?>">
+                                <img src="<?php echo esc_url(revayat_resolve_image_url($analyst['avatar_url'] ?? null, 'avatar')); ?>" alt="<?php echo esc_attr($analyst['name']); ?>" loading="lazy" decoding="async" width="160" height="160">
                             </div>
                             <div class="an-analyst-card__info">
                                 <strong class="an-analyst-card__name"><?php echo esc_html($analyst['name']); ?></strong>

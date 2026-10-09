@@ -15,7 +15,7 @@ $networks = [
         <?php if (!$private) : ?>
         <button type="button" data-share-native hidden><i class="ph ph-share" aria-hidden="true"></i><?php esc_html_e('اشتراک‌گذاری', 'revayatiran'); ?></button>
         <?php foreach ($networks as $label => $network) : ?>
-            <a class="rv-share__network rv-share__network--<?php echo esc_attr($network[2]); ?>" href="<?php echo esc_url($network[0]); ?>" target="_blank" rel="noopener noreferrer"><i class="ph <?php echo esc_attr($network[1]); ?>" aria-hidden="true"></i><?php echo esc_html($label); ?></a>
+            <a aria-label="<?php echo esc_attr($label); ?>" class="rv-share__network rv-share__network--<?php echo esc_attr($network[2]); ?>" href="<?php echo esc_url($network[0]); ?>" target="_blank" rel="noopener noreferrer"><i class="ph <?php echo esc_attr($network[1]); ?>" aria-hidden="true"></i><span class="rv-share__label"><?php echo esc_html($label); ?></span></a>
         <?php endforeach; endif; ?>
     </div>
     <p class="rv-share__status" role="status" aria-live="polite"></p>

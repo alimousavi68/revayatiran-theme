@@ -56,9 +56,9 @@ $gated_target        = is_user_logged_in()
                                 <li class="sr-gated-item sr-authorized-item">
                                     <div class="sr-gated-item__bullet"></div>
                                     <div class="sr-gated-item__body">
-                                        <h4 class="sr-gated-item__title">
+                                        <h3 class="sr-gated-item__title">
                                             <a href="<?php echo esc_url($item['permalink'] ?? ($item['url'] ?? '#')); ?>"><?php echo esc_html($item['title'] ?? ''); ?></a>
-                                        </h4>
+                                        </h3>
                                         <div class="sr-gated-item__meta">
                                             <?php if (!empty($item['date'])) : ?>
                                                 <span><i class="ph ph-calendar-blank"></i> <?php echo esc_html($item['date']); ?></span>
@@ -90,9 +90,9 @@ $gated_target        = is_user_logged_in()
                             <li class="sr-gated-item">
                                 <div class="sr-gated-item__bullet"></div>
                                 <div class="sr-gated-item__body">
-                                    <h4 class="sr-gated-item__title">
+                                    <h3 class="sr-gated-item__title">
                                         <a href="<?php echo esc_url($gated_target); ?>"><?php echo esc_html($first_bulletin['title'] ?? ''); ?></a>
-                                    </h4>
+                                    </h3>
                                 </div>
                                 <div class="sr-gated-item__lock">
                                     <i class="ph-fill ph-lock"></i>
@@ -108,9 +108,9 @@ $gated_target        = is_user_logged_in()
                                 <li class="sr-gated-item">
                                     <div class="sr-gated-item__bullet"></div>
                                     <div class="sr-gated-item__body">
-                                        <h4 class="sr-gated-item__title">
+                                        <h3 class="sr-gated-item__title">
                                             <a href="<?php echo esc_url($gated_target); ?>"><?php echo esc_html($item['title'] ?? ''); ?></a>
-                                        </h4>
+                                        </h3>
                                     </div>
                                     <div class="sr-gated-item__lock">
                                         <i class="ph-fill ph-lock"></i>

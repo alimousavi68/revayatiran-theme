@@ -54,7 +54,7 @@ if (empty($card_title)) {
 ?>
 <article class="news-card group">
     <div class="news-card__media overflow-hidden">
-        <img src="<?php echo esc_url($card_thumbnail); ?>"
+        <img src="<?php echo esc_url($card_thumbnail); ?>" <?php echo revayat_responsive_image_attributes((int) ($args['thumbnail_id'] ?? ($card_post instanceof WP_Post ? get_post_thumbnail_id($card_post) : 0)), '(max-width: 767px) calc(100vw - 32px), 400px'); ?>
              alt="<?php echo esc_attr($card_title); ?>"
              class="news-card__img transition-transform duration-500 group-hover:scale-105"
              loading="lazy">

@@ -4,7 +4,7 @@
  *
  * نمایش ریل اسلایدی استوری‌ها در صفحه اصلی با مصرف داده از قرارداد داده (Data Contract).
  * رندر کارت‌ها به صورت یکپارچه از طریق کامپوننت card-media.php انجام می‌شود.
- * ریل اسلایدی توسط ماژول جاوااسکریپتی story-rail در assets/js/main.js کنترل می‌گردد.
+ * ریل اسلایدی توسط ماژول جاوااسکریپتی story-rail در assets/js/home-experience.js کنترل می‌گردد.
  *
  * @package RevayatIran
  * @subpackage Template_Parts/Sections

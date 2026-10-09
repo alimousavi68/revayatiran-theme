@@ -22,10 +22,10 @@ if (!defined('ABSPATH')) {
             <!-- ستون برندینگ و معرفی -->
             <div class="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex transition-opacity duration-240 hover:opacity-90 w-fit" rel="home" aria-label="<?php bloginfo('name'); ?>">
-                    <img src="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat.webp'); ?>"
+                    <img src="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?>" srcset="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?> 180w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-360-3e2fe39acde3.webp'); ?> 360w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat.webp'); ?> 700w" sizes="145px"
                          alt="<?php bloginfo('name'); ?>"
                          class="h-[52px] w-auto object-contain"
-                         width="130" height="52"
+                         width="700" height="251"
                          loading="lazy">
                 </a>
                 <p class="text-[12px] leading-[1.8] text-white/85 m-0 max-w-[38ch]">
@@ -93,7 +93,7 @@ if (!defined('ABSPATH')) {
         <!-- نوار پایینی کپی‌رایت -->
         <div class="relative z-10 border-t border-white/20">
             <div class="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 py-8 px-8 text-center">
-                 <span class="text-[12px] text-white/75 font-medium tracking-wide">
+                 <span class="footer-copyright text-[12px] text-white/75 font-medium tracking-wide">
                     <?php
                     $year = wp_date('Y');
                     if (function_exists('revayat_en2fa')) {
@@ -110,7 +110,7 @@ if (!defined('ABSPATH')) {
                     );
                     ?>
                 </span>
-                <a href="http://ihasht.ir/" class="group inline-flex items-center justify-center gap-2 no-underline opacity-85 transition-opacity duration-200 hover:opacity-100" target="_blank" rel="noopener noreferrer" aria-label="<?php esc_attr_e('وبسایت طراح', 'revayatiran'); ?>">
+                <a href="http://ihasht.ir/" class="footer-designer group inline-flex items-center justify-center gap-2 no-underline opacity-85 transition-opacity duration-200 hover:opacity-100" target="_blank" rel="noopener noreferrer">
                      <span class="text-[11px] text-white/80 font-normal whitespace-nowrap"><?php esc_html_e('طراحی و توسعه توسط', 'revayatiran'); ?></span>
                      <span class="relative font-sans text-sm font-extrabold text-white tracking-normal whitespace-nowrap pb-px after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-white/35 after:rounded-[1px] after:scale-x-0 after:origin-right after:transition-transform after:duration-240 group-hover:after:scale-x-100"><?php esc_html_e('هشت بهشت', 'revayatiran'); ?></span>
                 </a>

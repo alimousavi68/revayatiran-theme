@@ -19,7 +19,7 @@ if ($is_analyst_post) {
     if ($items) { $heading = __('مطالب مرتبط با این پرونده', 'revayatiran'); }
     else {
         $items = Revayat_Companion_Contextual_Widget::items(['mode' => 'related', 'fallback' => false, 'number' => 3], $id);
-        if ($items) { $heading = __('مطالب هم‌موضوع', 'revayatiran'); }
+        if ($items) { $heading = __('مطالب مرتبط', 'revayatiran'); }
         else { $items = Revayat_Companion_Contextual_Widget::items(['mode' => 'recent', 'number' => 3], $id); }
     }
 } else {
