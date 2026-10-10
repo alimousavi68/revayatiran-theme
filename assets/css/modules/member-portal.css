@@ -93,3 +93,7 @@
     .rv-member-nav .rv-member-menu__secondary a { gap: 12px; padding: 10px 12px; min-height: 56px; }
     .rv-member-menu__secondary a span { white-space: normal; overflow-wrap: break-word; }
 }
+
+.rv-application-profile { margin-block: 16px; padding: 14px; border: 1px solid var(--color-border, #e2e8f0); border-radius: 12px; }
+.rv-application-profile > summary { cursor: pointer; min-height: 44px; align-content: center; font-weight: 700; }
+.rv-application-profile[open] > summary { margin-bottom: 12px; }

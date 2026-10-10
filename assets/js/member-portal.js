@@ -21,6 +21,11 @@
         if (!busy && title.length >= 5) save('draft', true);
       }, 20000);
     };
+    // Reveal invalid fields before the browser attempts to focus a collapsed panel.
+    form.addEventListener('invalid', event => {
+      const panel = event.target.closest('details');
+      if (panel) panel.open = true;
+    }, true);
     form.addEventListener('input', changed);
     form.addEventListener('change', changed);
     if (form.hasAttribute('data-note-editor')) {
