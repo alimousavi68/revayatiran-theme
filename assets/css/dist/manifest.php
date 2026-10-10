@@ -19,6 +19,6 @@ return [
     'room-archive' => ['file' => '/assets/css/dist/room-archive.min.css', 'version' => 'cdf466201f579b42'],
     'archive' => ['file' => '/assets/css/dist/archive.min.css', 'version' => '15c1d417f5d5279b'],
     'auth' => ['file' => '/assets/css/dist/auth.min.css', 'version' => '28a3af90dac8bf9c'],
-    'dashboard' => ['file' => '/assets/css/dist/dashboard.min.css', 'version' => '707da1b0444a3ce4'],
+    'dashboard' => ['file' => '/assets/css/dist/dashboard.min.css', 'version' => 'b179a85e5f95b2cc'],
     'auth-dialog' => ['file' => '/assets/css/dist/auth-dialog.min.css', 'version' => 'c7d844cc10bed202'],
 ];

@@ -55,7 +55,7 @@ if (!function_exists('revayat_enqueue_assets')) {
         }
         if (is_page_template('page-templates/template-dashboard.php')) {
             wp_enqueue_script('revayat-member-portal', REVAYAT_THEME_URI . '/assets/js/member-portal.js', [], $get_asset_version('/assets/js/member-portal.js'), ['strategy' => 'defer', 'in_footer' => true]);
-            wp_localize_script('revayat-member-portal', 'revayatMember', ['endpoint' => admin_url('admin-ajax.php')]);
+            wp_localize_script('revayat-member-portal', 'revayatMember', ['endpoint' => admin_url('admin-ajax.php'), 'statusNonce' => wp_create_nonce('rv_application_status')]);
         }
         $analysts_experience_pages = is_singular(['analyst_post', 'person']) || is_post_type_archive('analyst_post') || is_tax('analyst_field') || is_page_template('page-templates/template-dashboard.php');
         if ($analysts_experience_pages) {

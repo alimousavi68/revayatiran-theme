@@ -2,6 +2,8 @@
 /** Template Name: پیشخوان کاربری */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 if ( ! is_user_logged_in() ) { wp_safe_redirect( add_query_arg( 'redirect_to', home_url( '/dashboard/' ), home_url( '/auth/' ) ) ); exit; }
+if ( ! defined( 'DONOTCACHEPAGE' ) ) { define( 'DONOTCACHEPAGE', true ); }
+do_action( 'litespeed_control_set_nocache', 'Private member dashboard' );
 nocache_headers();
 if ( ! class_exists( 'Revayat_Companion_Member_Profile' ) ) { get_header(); echo '<div class="container">پنل کاربری موقتاً در دسترس نیست.</div>'; get_footer(); return; }
 $user = wp_get_current_user();

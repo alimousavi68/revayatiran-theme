@@ -97,3 +97,8 @@
 .rv-application-profile { margin-block: 16px; padding: 14px; border: 1px solid var(--color-border, #e2e8f0); border-radius: 12px; }
 .rv-application-profile > summary { cursor: pointer; min-height: 44px; align-content: center; font-weight: 700; }
 .rv-application-profile[open] > summary { margin-bottom: 12px; }
+
+.rv-member-main [hidden] { display: none !important; }
+.rv-member-form [aria-invalid="true"] { border-color: #c51d16; }
+.rv-member-form[aria-busy="true"] [data-form-status] { border-inline-start: 3px solid var(--accent, #c51d16); }
+.rv-member-form :is(input, textarea, select) { scroll-margin-top: 140px; }
