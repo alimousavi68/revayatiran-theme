@@ -1471,7 +1471,122 @@ html[data-theme="dark"] #analysts-network :is(.an-text-card__score,.an-analyst-c
 }
 @media(max-width:767px) {
     #analysts-network .analysts-top-swiper .an-text-card { height:164px; padding:20px; }
+    #analysts-network .analysts-top-swiper :is(.analysts-swiper-prev,.analysts-swiper-next) { display:none !important; }
+    #analysts-network .analysts-top-swiper .an-text-card__avatar-wrap { width:96px; height:96px; }
     #analysts-network .analysts-top-swiper .an-text-card__title { font-size:15px; }
     #analysts-network .an-top-analyses--elegant > .an-sub-header { flex-wrap:wrap; gap:10px; }
     #analysts-network .an-top-analyses--elegant > .an-sub-header h4 { flex:1 1 220px; }
 }
+
+/* Give headlines the full card width; keep author details in a separate row. */
+#analysts-network .analysts-top-swiper .swiper-slide { display:flex; }
+#analysts-network .analysts-top-swiper .an-text-card {
+    display:grid; grid-template-columns:80px minmax(0,1fr);
+    grid-template-rows:minmax(min-content,1fr) auto;
+    width:100%; height:auto; min-height:230px; flex:1; gap:16px;
+    align-items:start;
+}
+#analysts-network .analysts-top-swiper .an-text-card__body { display:contents; }
+#analysts-network .analysts-top-swiper .an-text-card__title {
+    grid-column:1/-1; min-height:0; font-size:16px; line-height:1.8;
+}
+#analysts-network .analysts-top-swiper .an-text-card__title,
+#analysts-network .analysts-top-swiper .an-text-card__title a {
+    display:block; -webkit-line-clamp:unset; overflow:visible;
+    white-space:normal; overflow-wrap:anywhere;
+}
+#analysts-network .analysts-top-swiper .an-text-card__avatar-wrap { grid-column:1; grid-row:2; }
+#analysts-network .analysts-top-swiper .an-text-card__meta {
+    grid-column:2; grid-row:2; align-self:center;
+    flex-direction:column; align-items:flex-start; gap:8px;
+}
+#analysts-network .analysts-top-swiper .an-author { max-width:100%; }
+@media(max-width:767px) {
+    #analysts-network .analysts-top-swiper .an-text-card {
+        grid-template-columns:96px minmax(0,1fr); min-height:240px; height:auto;
+    }
+}
+
+/* Mobile notes: content-sized cards with a compact author row. */
+@media (max-width: 767px) {
+    #analysts-network .analysts-top-swiper .an-text-card {
+        grid-template-columns: 72px minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        min-height: 0;
+        height: auto;
+        padding: 18px;
+        gap: 16px 14px;
+        align-content: start;
+    }
+    #analysts-network .analysts-top-swiper .an-text-card__title {
+        margin: 0;
+        font-size: 15px !important;
+        line-height: 1.85 !important;
+        text-align: right;
+    }
+    #analysts-network .analysts-top-swiper .an-text-card__avatar-wrap {
+        width: 72px !important;
+        height: 72px !important;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+    #analysts-network .analysts-top-swiper .an-text-card__avatar-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    }
+    #analysts-network .analysts-top-swiper .an-text-card__meta {
+        gap: 8px;
+        justify-content: center;
+    }
+}
+
+/* Public analyst profile: readable identity and compact mobile statistics. */
+#analyst-profile .anx-person-hero { padding: 28px; gap: 28px; align-items: center; }
+#analyst-profile .anx-person-hero__bio { text-align: right; text-align-last: right; line-height: 1.95; max-width: 65ch; }
+#analyst-profile .anx-person-hero__summary { min-width: 0; }
+#analyst-profile .anx-person-hero__summary dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 8px; }
+#analyst-profile .anx-person-hero__summary dl > div { min-width: 0; padding: 14px 8px; }
+#analyst-profile .anx-person-hero__summary dt { font-size: 11px; line-height: 1.7; }
+#analyst-profile .anx-person-hero__summary dd { margin: 6px 0 0; }
+#analyst-profile .anx-person-hero__summary .anx-person-notes-link { background: var(--primary); color: #fff; min-height: 44px; margin-bottom: 8px; }
+#analyst-profile .anx-person-notes-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+#analyst-profile .anx-person-notes-heading h2 { margin: 0; font-size: 18px; color: var(--text); }
+#analyst-profile .anx-person-notes-heading a { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-size: 12px; color: var(--primary); }
+#analyst-profile #notes { scroll-margin-top: 110px; }
+@media (max-width: 767px) {
+    #analyst-profile { padding-top: 16px; }
+    #analyst-profile .anx-person-hero { padding: 20px; gap: 18px; }
+    #analyst-profile .anx-person-hero__identity { display: grid; grid-template-columns: 80px minmax(0,1fr); gap: 8px 14px; text-align: right; align-items: center; }
+    #analyst-profile .anx-person-hero__identity > img,
+    #analyst-profile .anx-person-hero__placeholder { grid-column: 1; grid-row: 1 / 4; width: 80px; height: 80px; margin: 0; }
+    #analyst-profile .anx-person-hero__identity > div { display: contents; }
+    #analyst-profile .anx-eyebrow,
+    #analyst-profile .anx-person-hero h1,
+    #analyst-profile .anx-person-hero__role { grid-column: 2; margin: 0; }
+    #analyst-profile .anx-person-hero h1 { font-size: 25px; line-height: 1.5; }
+    #analyst-profile .anx-person-hero__role { font-size: 12px; line-height: 1.8; }
+    #analyst-profile .anx-eyebrow { font-size: 11px; }
+    #analyst-profile .anx-person-hero__org,
+    #analyst-profile .anx-person-hero__bio,
+    #analyst-profile .anx-person-hero__topics { grid-column: 1 / -1; margin-top: 8px; }
+    #analyst-profile .anx-person-hero__bio { font-size: 13px; }
+    #analyst-profile .anx-person-hero__topics { justify-content: flex-start; gap: 6px; }
+    #analyst-profile .anx-person-hero__topics span { font-size: 11px; padding: 6px 9px; }
+    #analyst-profile .anx-person-hero__summary { width: 100%; }
+    #analyst-profile .anx-person-hero__summary dd { font-size: 23px; }
+    #analyst-profile .anx-person-layout { gap: 20px; }
+    #analyst-profile .anx-person-notes-heading h2 { font-size: 16px; }
+}
+
+/* Keep intrinsic text widths inside the profile sidebar grid track. */
+#analyst-profile .anx-sidebar { grid-template-columns: minmax(0, 1fr); min-width: 0; top: 100px; }
+#analyst-profile .anx-sidebar > *,
+#analyst-profile .anx-side-card { min-width: 0; width: 100%; max-width: 100%; box-sizing: border-box; }
+#analyst-profile .anx-related-people { min-width: 0; padding: 0; margin: 0; }
+#analyst-profile .anx-related-people li { min-width: 0; }
+#analyst-profile .anx-related-people a { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; min-width: 0; }
+#analyst-profile .anx-related-people a > span { min-width: 0; }
+#analyst-profile .anx-related-people :is(strong,small) { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+#analyst-profile .anx-related-people img { width: 44px; height: 44px; object-fit: cover; }

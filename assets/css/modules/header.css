@@ -26,7 +26,8 @@
     background: transparent;
     border-bottom: none;
     position: relative;
-    z-index: 100;
+    /* Account dropdown must clear the navigation shell (z-index: 200). */
+    z-index: 300;
     transition: background 280ms var(--ease-out), border-color 280ms var(--ease-out);
 }
 
@@ -744,4 +745,30 @@ html[data-theme="dark"] .button--soft {
 }
 @media(max-width:767px) and (prefers-reduced-motion:reduce) {
     #header-shell, #header-shell .menu-toggle__line { transition:none; }
+}
+
+/* Desktop floating toolbar: top bar scrolls away; stable layout avoids jumps. */
+@media (min-width: 768px) {
+    #site-header { position: sticky; top: -34px; z-index: 200; min-height: 136px; }
+    #header-shell {
+        position: relative; top: auto; min-height: 76px;
+        transform-origin: top center;
+        transition: transform 200ms ease, min-height 200ms ease, box-shadow 200ms ease;
+    }
+    #top-bar { transition: opacity 160ms ease; }
+    #site-header > .header-backdrop-pattern { transition: opacity 160ms ease; }
+    #site-header.is-scrolled #top-bar { opacity: 0; pointer-events: none; visibility: hidden; }
+    #site-header.is-scrolled > .header-backdrop-pattern { opacity: 0; }
+    #site-header.is-scrolled #header-shell {
+        min-height: 64px; transform: scale(.97);
+        box-shadow: 0 4px 14px rgba(20,25,35,.16);
+    }
+    #site-header.is-scrolled #header-shell .header-brand img { max-height: 48px; width: auto; }
+    body.admin-bar #site-header { top: -2px; }
+}
+@media (min-width: 768px) and (max-width: 782px) {
+    body.admin-bar #site-header { top: 12px; }
+}
+@media (min-width: 768px) and (prefers-reduced-motion: reduce) {
+    #header-shell, #top-bar, #site-header > .header-backdrop-pattern { transition: none; }
 }

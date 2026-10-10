@@ -79,3 +79,28 @@ html[data-theme="dark"] .rv-public-archive .archive-header .text-primary{color:v
 .rv-archive-widget .search-form{width:100%;transform:none;text-align:start}
 .rv-media-archive .rv-vertical__hero .rv-eyebrow i,
 .rv-public-archive .rv-archive-hero i{color:inherit}
+
+/* Media archive: a browsable library, with descriptions reserved for the item page. */
+.rv-media-archive .rv-vertical__hero { padding-top:24px; }
+.rv-media-archive .rv-vertical__hero > .container { padding:22px 28px; }
+.rv-media-archive .rv-vertical__hero h1 { font-size:clamp(26px,3vw,36px); margin:4px 0 8px; }
+.rv-media-archive .rv-vertical__hero p { margin:0; font-size:14px; }
+.rv-media-archive .rv-vertical__body { padding-top:20px; }
+.rv-media-archive .rv-filter-row { gap:8px; padding-bottom:18px; }
+.rv-media-archive .rv-media-grid { gap:20px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+.rv-media-archive-card .story-card__cover { height:auto; min-height:0; aspect-ratio:16/9; }
+.rv-media-archive-card .story-card__overlay { background:linear-gradient(transparent,rgba(0,0,0,.12)); }
+.rv-media-archive-card .story-card__footer { position:static; padding:14px 16px 8px; background:var(--surface); }
+.rv-media-archive-card .story-title { color:var(--text); font-size:15px; line-height:1.7; min-height:51px; margin:8px 0; text-shadow:none; -webkit-line-clamp:2; }
+.rv-media-archive-card .story-chip { background:var(--bg-soft); color:var(--text-muted); border:1px solid var(--border); }
+.rv-media-archive-card .story-meta { color:var(--text-muted); font-size:12px; }
+.rv-media-archive-card .rv-media-archive-card__body { padding:0 16px 14px; margin-top:0; }
+.rv-media-archive-card .rv-media-archive-card__body time { font-size:11px; }
+@media(min-width:1440px) { .rv-media-archive .rv-media-grid { grid-template-columns:repeat(4,minmax(0,1fr)); } }
+@media(max-width:1023px) { .rv-media-archive .rv-media-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; } }
+@media(max-width:639px) {
+    .rv-media-archive .rv-media-grid { grid-template-columns:minmax(0,1fr); }
+    .rv-media-archive .rv-vertical__hero > .container { padding:18px; }
+    .rv-media-archive .rv-filter-row { flex-wrap:nowrap; overflow-x:auto; }
+    .rv-media-archive .rv-filter-chip { flex-shrink:0; white-space:nowrap; }
+}

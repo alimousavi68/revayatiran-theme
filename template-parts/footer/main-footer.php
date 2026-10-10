@@ -18,18 +18,18 @@ if (!defined('ABSPATH')) {
     <div class="container relative z-10 bg-primary text-white/90 rounded-t-xl border-t border-x border-white/20 shadow-[0_-12px_36px_rgba(0,0,0,0.18)] dark:bg-primary-dark mx-auto overflow-hidden">
         <div class="h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent w-full"></div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr] gap-8 md:gap-14 py-8 md:py-10 px-6">
+        <div class="rv-footer-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr] gap-8 md:gap-14 py-8 md:py-10 px-6">
             <!-- ستون برندینگ و معرفی -->
-            <div class="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
+            <div class="rv-footer-brand flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
                 <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex transition-opacity duration-240 hover:opacity-90 w-fit" rel="home" aria-label="<?php bloginfo('name'); ?>">
-                    <img src="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?>" srcset="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?> 180w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-360-3e2fe39acde3.webp'); ?> 360w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat.webp'); ?> 700w" sizes="145px"
+                    <img src="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?>" srcset="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?> 180w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-360-3e2fe39acde3.webp'); ?> 360w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat.webp'); ?> 700w" sizes="(max-width: 767px) 200px, 240px"
                          alt="<?php bloginfo('name'); ?>"
                          class="h-[52px] w-auto object-contain"
                          width="700" height="251"
                          loading="lazy">
                 </a>
                 <p class="text-[12px] leading-[1.8] text-white/85 m-0 max-w-[38ch]">
-                    <?php bloginfo('description'); ?>
+                    <?php echo esc_html(get_bloginfo('description') ?: __('روایت ایران؛ رصد رویدادها، روایت‌های تحلیلی و پرونده‌های ویژه.', 'revayatiran')); ?>
                 </p>
 
                 <!-- پیوندهای شبکه‌های اجتماعی فوتر -->
@@ -55,7 +55,7 @@ if (!defined('ABSPATH')) {
                     <span><?php esc_html_e('سرویس‌ها', 'revayatiran'); ?></span>
                     <i class="ph ph-caret-down text-lg md:hidden transition-transform duration-300"></i>
                 </button>
-                <nav class="footer-accordion-content hidden md:flex flex-col gap-0.5" aria-label="<?php esc_attr_e('سرویس‌های خبری', 'revayatiran'); ?>">
+                <nav class="footer-accordion-content flex flex-col gap-0.5" aria-label="<?php esc_attr_e('سرویس‌های خبری', 'revayatiran'); ?>">
                     <?php
                     wp_nav_menu([
                         'theme_location' => 'footer-col-1',
@@ -72,10 +72,10 @@ if (!defined('ABSPATH')) {
             <!-- ستون دسترسی و اطلاعات رسانه -->
             <div class="flex flex-col gap-0 footer-accordion">
                 <button class="footer-accordion-btn w-full flex justify-between items-center text-right font-sans text-sm font-extrabold text-white uppercase tracking-wider m-0 mb-3 md:mb-5 pb-3 border-b border-white/20 leading-snug md:pointer-events-none cursor-pointer md:cursor-default" type="button">
-                    <span><?php esc_html_e('پایگاه تحلیلی', 'revayatiran'); ?></span>
+                    <span><?php esc_html_e('درباره روایت ایران', 'revayatiran'); ?></span>
                     <i class="ph ph-caret-down text-lg md:hidden transition-transform duration-300"></i>
                 </button>
-                <nav class="footer-accordion-content hidden md:flex flex-col gap-0.5" aria-label="<?php esc_attr_e('اطلاعات پایگاه', 'revayatiran'); ?>">
+                <nav class="footer-accordion-content flex flex-col gap-0.5" aria-label="<?php esc_attr_e('درباره روایت ایران', 'revayatiran'); ?>">
                     <?php
                     wp_nav_menu([
                         'theme_location' => 'footer-col-2',
@@ -92,7 +92,7 @@ if (!defined('ABSPATH')) {
 
         <!-- نوار پایینی کپی‌رایت -->
         <div class="relative z-10 border-t border-white/20">
-            <div class="flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 py-8 px-8 text-center">
+            <div class="rv-footer-bottom flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 py-8 px-8 text-center">
                  <span class="footer-copyright text-[12px] text-white/75 font-medium tracking-wide">
                     <?php
                     $year = wp_date('Y');

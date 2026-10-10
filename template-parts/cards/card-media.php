@@ -27,6 +27,7 @@ if (!defined('ABSPATH')) {
 }
 
 $card_post = $args['post'] ?? null;
+$archive_card = !empty($args['archive_card']);
 
 if ($card_post instanceof WP_Post) {
     $story_id       = $card_post->ID;
@@ -103,12 +104,15 @@ if (empty($card_thumbnail)) {
             <i class="<?php echo esc_attr($config['badge']); ?>"></i>
         </div>
 
+        <?php if ($archive_card) : ?></div><?php endif; ?>
+
         <!-- اطلاعات پایین استوری -->
         <div class="story-card__footer">
             <span class="story-chip <?php echo esc_attr($config['chip_mod']); ?>">
                 <?php echo esc_html($chip_label); ?>
             </span>
             <h3 class="story-title"><?php echo esc_html($card_title); ?></h3>
+            <?php if (!$archive_card) : ?>
             <div class="story-meta">
                 <?php if (!empty($duration)) : ?>
                 <span class="story-duration">
@@ -125,6 +129,7 @@ if (empty($card_thumbnail)) {
                     <?php echo esc_html($config['type_label']); ?>
                 </span>
             </div>
+            <?php endif; ?>
         </div>
-    </div>
+    <?php if (!$archive_card) : ?></div><?php endif; ?>
 </a>

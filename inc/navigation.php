@@ -18,8 +18,8 @@ if (!function_exists('revayat_register_menus')) {
             'primary-menu'  => esc_html__('منوی اصلی سربرگ (Desktop Primary)', 'revayatiran'),
             'top-menu'      => esc_html__('منوی نوار بالا (Top Bar)', 'revayatiran'),
             'mobile-menu'   => esc_html__('منوی کشویی موبایل (Mobile Drawer)', 'revayatiran'),
-            'footer-col-1'  => esc_html__('ستون اول پیوندهای فوتر', 'revayatiran'),
-            'footer-col-2'  => esc_html__('ستون دوم پیوندهای فوتر', 'revayatiran'),
+            'footer-col-1'  => esc_html__('فوتر: سرویس‌ها', 'revayatiran'),
+            'footer-col-2'  => esc_html__('فوتر: درباره روایت ایران', 'revayatiran'),
             'footer-legal'  => esc_html__('پیوندهای قوانین و کپی‌رایت پایین فوتر', 'revayatiran'),
         ]);
     }

@@ -45,7 +45,7 @@ while (have_posts()) :
     $verification_status = $meta['verification_status'] ?? __('تایید شده', 'revayatiran');
     $update_time         = !empty($meta['update_time']) ? $meta['update_time'] : ($bulletin['time_ago'] ?? '');
     $dossier_code        = !empty($meta['dossier_code']) ? $meta['dossier_code'] : 'SIT-' . date('Y') . '-' . str_pad($post_id, 3, '0', STR_PAD_LEFT);
-    $source              = !empty($taxonomies['news_source']) ? $taxonomies['news_source'] : __('مرکز مطالعات و برآوردهای راهبردی', 'revayatiran');
+    $source              = !empty($taxonomies['news_source']) ? $taxonomies['news_source'] : get_bloginfo('name');
 
     // نگاشت کانونیکال سطح امنیتی
     $sec_raw = $access['security_level'] ?? ($taxonomies['security_level'] ?? 'public');
@@ -70,11 +70,11 @@ while (have_posts()) :
     $related = function_exists('revayat_get_related_posts') ? revayat_get_related_posts($post_id, 2) : [];
     ?>
 
-    <main class="bg-gray-50/50 dark:bg-black/20 min-h-screen pt-8 md:pt-12 pb-16">
+    <section id="single-situation-room" class="bg-gray-50/50 dark:bg-black/20 min-h-screen pt-8 md:pt-12 pb-16">
         <div class="container">
 
             <!-- ═══ هدر اتاق فرمان (Tactical Command Hero) ═══ -->
-            <article class="bg-[#0B1120] text-white rounded-2xl border border-[var(--border)] shadow-xl mb-10 p-6 md:p-10 relative overflow-hidden">
+            <article class="sr-bulletin-hero bg-[#0B1120] text-white rounded-2xl border border-[var(--border)] shadow-xl mb-10 p-6 md:p-10 relative overflow-hidden">
                 <div class="absolute -right-20 -top-20 w-80 h-80 bg-red-900/10 rounded-full blur-3xl pointer-events-none"></div>
 
                 <!-- نوار ناوبری بردکرامپ -->
@@ -104,46 +104,6 @@ while (have_posts()) :
                     </nav>
                 </div>
 
-                <!-- ردیف بج‌های تاکتیکال و نشانگرهای امنیتی -->
-                <div class="flex items-center justify-between gap-4 flex-wrap mb-6 pb-4 border-b border-white/10 relative z-10">
-                    <div class="flex items-center gap-2.5 flex-wrap">
-                        <span class="security-tag tag-<?php echo esc_attr($canonical_sec); ?>">
-                            <i class="ph-fill ph-shield"></i>
-                            <?php echo esc_html($sec_label); ?>
-                        </span>
-
-                        <?php if ($is_hot) : ?>
-                            <span class="sr-urgency-badge sr-urgency-badge--hot">
-                                <?php echo esc_html($urgency); ?>
-                            </span>
-                        <?php endif; ?>
-
-                        <span class="chip chip--tactical">
-                            <?php echo esc_html($verification_status); ?>
-                        </span>
-
-                        <span class="font-mono text-xs font-bold px-2.5 py-1 bg-white/10 text-gray-300 rounded-lg border border-white/10">
-                            <?php echo esc_html($dossier_code); ?>
-                        </span>
-                    </div>
-
-                    <!-- وضعیت صلاحیت کاربر -->
-                    <div class="user-status-badge <?php echo ($user_clearance === 'high') ? 'status-high' : ($user_clearance === 'normal' ? 'status-normal' : ''); ?>">
-                        <i class="<?php echo ($user_clearance !== 'guest') ? 'ph-fill ph-shield-check' : 'ph-fill ph-lock'; ?>"></i>
-                        <span>
-                            <?php 
-                            if ($user_clearance === 'high') {
-                                esc_html_e('صلاحیت تایید شده: سطح ۱ (عالی)', 'revayatiran');
-                            } elseif ($user_clearance === 'normal') {
-                                esc_html_e('صلاحیت تایید شده: سطح ۳ (پایه)', 'revayatiran');
-                            } else {
-                                esc_html_e('کاربر مهمان', 'revayatiran');
-                            }
-                            ?>
-                        </span>
-                    </div>
-                </div>
-
                 <!-- تیتر اصلی بولتن -->
                 <h1 class="text-2xl md:text-3xl lg:text-[32px] font-extrabold text-white leading-[1.6] mb-6 tracking-tight relative z-10">
                     <?php echo esc_html($title); ?>
@@ -160,7 +120,7 @@ while (have_posts()) :
                 <div class="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/10 text-xs text-gray-400 font-medium relative z-10">
                     <div class="flex items-center gap-2">
                         <i class="ph ph-buildings text-primary text-base"></i>
-                        <span><?php esc_html_e('واحد صادرکننده:', 'revayatiran'); ?></span>
+                        <span><?php esc_html_e('ناشر:', 'revayatiran'); ?></span>
                         <strong class="text-white"><?php echo esc_html($source); ?></strong>
                     </div>
 
@@ -168,7 +128,7 @@ while (have_posts()) :
                         <?php if (!empty($update_time)) : ?>
                             <span class="flex items-center gap-1.5">
                                 <i class="ph ph-clock text-primary"></i>
-                                <?php esc_html_e('زمان پایش:', 'revayatiran'); ?>
+                                <?php esc_html_e('انتشار:', 'revayatiran'); ?>
                                 <span class="text-gray-300"><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($update_time) : $update_time); ?></span>
                             </span>
                         <?php endif; ?>
@@ -178,25 +138,38 @@ while (have_posts()) :
                         </span>
                     </div>
                 </div>
+                <?php if ($can_view) : ?>
+                    <?php $cover = $bulletin['media'] ?? [];
+                    if (empty($thumbnail) && function_exists('revayat_get_situation_fallback_media')) {
+                        $cover = revayat_get_situation_fallback_media($bulletin);
+                        $thumbnail = $cover['url'] ?? '';
+                    }
+                    if ($thumbnail) : ?>
+                        <figure class="sr-bulletin-cover">
+                            <?php if (has_post_thumbnail()) : ?>
+                                <?php the_post_thumbnail('revayat-hero-large', ['loading' => 'eager', 'fetchpriority' => 'high', 'sizes' => '(max-width: 767px) calc(100vw - 72px), (max-width: 1180px) calc(100vw - 100px), 1116px']); ?>
+                            <?php else : ?>
+                                <img src="<?php echo esc_url($thumbnail); ?>" alt="<?php echo esc_attr($cover['alt'] ?? $title); ?>" width="1400" height="788" loading="eager" fetchpriority="high" decoding="async">
+                            <?php endif; ?>
+                        </figure>
+                    <?php endif; ?>
+                <?php endif; ?>
             </article>
 
             <!-- ═══ گرید اصلی (ستون محتوا + سایدبار شناسنامه بولتن) ═══ -->
-            <div class="flex flex-col lg:flex-row gap-8 relative">
+            <div class="sr-bulletin-layout flex flex-col lg:flex-row gap-8 relative">
 
                 <!-- ستون اصلی محتوا (راست - ۷۰٪) -->
-                <div class="flex-1 min-w-0 order-2 lg:order-1">
+                <div class="sr-bulletin-main flex-1 min-w-0 order-1">
 
                     <?php if ($can_view) : ?>
                         <!-- ═════ حالت دسترسی مجاز (Authenticated State) ═════ -->
-                        <div class="bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] shadow-sm p-6 md:p-8 lg:p-10 mb-8">
+                        <div class="sr-bulletin-body bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] shadow-sm p-6 md:p-8 lg:p-10 mb-8">
                             <div class="border-b border-[var(--border)] pb-4 mb-8 flex items-center justify-between">
                                 <h2 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2.5">
                                     <i class="ph ph-article text-primary text-2xl"></i>
-                                    <?php esc_html_e('شرح برآورد و تحلیل اطلاعاتی', 'revayatiran'); ?>
+                                    <?php esc_html_e('متن بولتن', 'revayatiran'); ?>
                                 </h2>
-                                <div class="terminal-dots">
-                                    <span></span><span></span><span></span>
-                                </div>
                             </div>
 
                             <!-- متن کامل بولتن -->
@@ -301,14 +274,7 @@ while (have_posts()) :
                                 </div>
                             <?php endif; ?>
 
-                            <!-- دکمه‌های اشتراک‌گذاری امن -->
-                            <div class="mt-10 pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-4">
-                                <span class="text-xs text-gray-500 font-medium">
-                                    <i class="ph ph-shield-check align-middle text-primary"></i>
-                                    <?php esc_html_e('کپی و بازنشر این برآورد صرفاً با ذکر کد سند مجاز است.', 'revayatiran'); ?>
-                                </span>
-                                <?php get_template_part('template-parts/single/share', null, ['private' => true]); ?>
-                            </div>
+
                         </div>
 
                     <?php else : ?>
@@ -365,7 +331,7 @@ while (have_posts()) :
                 </div>
 
                 <!-- ═══ سایدبار شناسنامه بولتن و موارد مرتبط (چپ - ۳۰٪) ═══ -->
-                <aside class="w-full lg:w-[320px] shrink-0 space-y-6 lg:sticky lg:top-28 self-start order-1 lg:order-2">
+                <aside class="sr-bulletin-sidebar w-full lg:w-[320px] shrink-0 space-y-6 lg:sticky lg:top-28 self-start order-2">
 
                     <!-- کارت شناسنامه امنیتی سند -->
                     <div class="bg-white dark:bg-[#1a1c23] rounded-2xl p-5 border border-[var(--border)] shadow-sm">
@@ -391,10 +357,11 @@ while (have_posts()) :
                                 <dt class="text-gray-500"><?php esc_html_e('درجه فوریت:', 'revayatiran'); ?></dt>
                                 <dd class="font-bold <?php echo $is_hot ? 'text-red-500' : 'text-gray-700 dark:text-gray-300'; ?>"><?php echo esc_html($urgency); ?></dd>
                             </div>
+                            <?php if ($verification_status) : ?>
                             <div class="flex items-center justify-between">
                                 <dt class="text-gray-500"><?php esc_html_e('وضعیت بررسی:', 'revayatiran'); ?></dt>
                                 <dd class="font-bold text-emerald-500"><?php echo esc_html($verification_status); ?></dd>
-                            </div>
+                            </div><?php endif; ?>
                         </dl>
                     </div>
 
@@ -403,7 +370,7 @@ while (have_posts()) :
                         <div class="bg-white dark:bg-[#1a1c23] rounded-2xl p-5 border border-[var(--border)] shadow-sm">
                             <h4 class="text-[14px] font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2 pb-3 border-b border-[var(--border)]">
                                 <i class="ph ph-broadcast text-primary"></i>
-                                <?php esc_html_e('بولتن‌های مرتبط پدافندی', 'revayatiran'); ?>
+                                <?php esc_html_e('بولتن‌های مرتبط', 'revayatiran'); ?>
                             </h4>
 
                             <div class="space-y-4">
@@ -433,7 +400,7 @@ while (have_posts()) :
             </div>
 
         </div>
-    </main>
+    </section>
 
 <?php
 endwhile;

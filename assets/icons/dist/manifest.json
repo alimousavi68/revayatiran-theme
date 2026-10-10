@@ -5,7 +5,7 @@
     "themes/revayatiran/archive-media_observatory.php": "f1e4af96c874a438a87baaf9389f325458bef585a861ddb0d605f597fdd75c2b",
     "themes/revayatiran/archive-multimedia.php": "6d96827a4fb7bfa8c558c7eb7b92f7c38e23a1280a481cca55d5164de02d74bf",
     "themes/revayatiran/archive-person.php": "96dd0cd1e38d9c65aa4086da9531171c46582785357922902ebaeeff6e5d772e",
-    "themes/revayatiran/archive-situation_room.php": "485434367ce5e3f3f72e0be65ca82233a6b701738b949e7d1ec6740a8efe0515",
+    "themes/revayatiran/archive-situation_room.php": "9e4f191c77623fbb1854d2a70ded5292a46ab404da95af489d751949faaf592f",
     "themes/revayatiran/archive-special_dossier.php": "47685941fb71b48bdc1cd0fa2031e5c82051eb3a1581ddc9c02c97309375d743",
     "themes/revayatiran/archive.php": "197a2bec44554df923b3a2d35eebc3219d3a69976a8b514b4ff25416e9e6bcf3",
     "themes/revayatiran/assets/js/analysts-experience.js": "00bfb8a8d28480b5374f5210f0ddd5c41a3d613338fad0f2849e3a57d23fd356",
@@ -17,8 +17,8 @@
     "themes/revayatiran/single-analyst_post.php": "a4f28c2c2938b3e8c1ab090793d431e8b01577806cf4adc5acadc5c0b3924c34",
     "themes/revayatiran/single-media_observatory.php": "70c93dcf5c43adff642731fabfb02a138c7d9e5cf5ac37a4540dd86d33403a63",
     "themes/revayatiran/single-multimedia.php": "b63eb97c65de95cef8c7ba88738fd239382d2c1423ff79fa1c85443fef32f1b0",
-    "themes/revayatiran/single-person.php": "d741319d71892f5d73462d0930cac2a95d1ac9482ba9503205d6cf0050a82d06",
-    "themes/revayatiran/single-situation_room.php": "dfa649febb0b8e096611ca5d8e39dbd8fe0545847daf7121875d1d704739afe6",
+    "themes/revayatiran/single-person.php": "82076dcdf428a841bc09acebe2fcb5f47c72a9a5bc45eebcc0947455d08c5788",
+    "themes/revayatiran/single-situation_room.php": "de22fa6ae561f5553aacaad889879707a6a9fdf3e48dfc4e98a53f9a07263c35",
     "themes/revayatiran/single-special_dossier.php": "460022e56fbe793acae401cafaa5e3c1e3c1c834048f16d179e2b849d38edabe",
     "themes/revayatiran/single.php": "cec35d191f4a2ca2e8d72e0d763c69a3ab0876b05292f7accca6d7511ab9baf0",
     "themes/revayatiran/taxonomy-analyst_field.php": "4ef26883bd80b47bbbcdcbee26929f777d8d6d6ff16829eaebd6d7691353352a",
@@ -86,7 +86,6 @@
         "circle-dashed",
         "clipboard-text",
         "clock",
-        "clock-countdown",
         "clock-counter-clockwise",
         "code",
         "columns",
@@ -326,12 +325,11 @@
         60388,
         60580,
         60638,
-        60716,
         60782
       ],
       "file": "Phosphor.woff2",
-      "bytes": 14992,
-      "sha256": "a086d74c0cb3b7e2de4186fde67cc8849188eb52aade45006bdc1eaa43763263"
+      "bytes": 14800,
+      "sha256": "94894ceae9219f904fc603a664b11b6599a7fe00db94021224049c11aac87fda"
     },
     "bold": {
       "names": [
@@ -364,7 +362,6 @@
         "circle-dashed",
         "clipboard-text",
         "clock",
-        "clock-countdown",
         "clock-counter-clockwise",
         "code",
         "columns",
@@ -604,12 +601,11 @@
         60388,
         60580,
         60638,
-        60716,
         60782
       ],
       "file": "Phosphor-Bold.woff2",
-      "bytes": 15276,
-      "sha256": "e0112b0a36003f1f88fd65c7312314b7de85ac508eeaeedceb903148d3a55ecb"
+      "bytes": 15132,
+      "sha256": "2d32217096a5070305b69a42f46b90120cc10c2101e62d80ea7993feed3f147a"
     },
     "fill": {
       "names": [
@@ -642,7 +638,6 @@
         "circle-dashed",
         "clipboard-text",
         "clock",
-        "clock-countdown",
         "clock-counter-clockwise",
         "code",
         "columns",
@@ -882,13 +877,12 @@
         60388,
         60580,
         60638,
-        60716,
         60782
       ],
       "file": "Phosphor-Fill.woff2",
-      "bytes": 12740,
-      "sha256": "28b39684c7975f083c60f08274fa0ee468b4a19b31432e096aa703e78aa69d80"
+      "bytes": 12544,
+      "sha256": "9a452ab925cbda2f72a477fc49092245a392f6ef40f9258a24d24b8f27c2e360"
     }
   },
-  "version": "c558d1eac2fae5c8"
+  "version": "bb195996fe565035"
 }

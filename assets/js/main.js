@@ -1,4 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".footer-accordion").forEach((section, index) => {
+        const button = section.querySelector(".footer-accordion-btn");
+        const content = section.querySelector(".footer-accordion-content");
+        if (!button || !content) return;
+        content.id = `footer-menu-${index + 1}`;
+        button.setAttribute("aria-controls", content.id);
+        const viewport = window.matchMedia("(max-width: 767px)");
+        const setExpanded = expanded => {
+            button.setAttribute("aria-expanded", String(expanded));
+            content.classList.toggle("is-collapsed", !expanded);
+        };
+        const syncViewport = () => setExpanded(!viewport.matches);
+        syncViewport();
+        viewport.addEventListener("change", syncViewport);
+        button.addEventListener("click", () => {
+            if (viewport.matches) setExpanded(button.getAttribute("aria-expanded") !== "true");
+        });
+    });
     const root = document.documentElement;
     const header = document.getElementById("site-header");
     const progressBar = document.getElementById("page-progress-bar");

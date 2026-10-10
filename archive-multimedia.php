@@ -20,16 +20,15 @@ $format_labels = array_column( $filters, 'label', 'slug' );
  <div class="rv-archive-content">
   <?php if ( $filters ) : ?><nav class="rv-filter-row" aria-label="<?php esc_attr_e( 'فیلتر قالب رسانه', 'revayatiran' ); ?>">
    <?php foreach ( $filters as $filter ) : $active = ( $format === ( $filter['slug'] ?? 'all' ) ); ?>
-    <a class="rv-filter-chip <?php echo $active ? 'is-active' : ''; ?>" href="<?php echo esc_url( $filter['url'] ?? '#' ); ?>"><?php echo esc_html( $filter['label'] ?? '' ); ?><span><?php echo esc_html( revayat_en2fa( $filter['count'] ?? 0 ) ); ?></span></a>
+    <a class="rv-filter-chip <?php echo $active ? 'is-active' : ''; ?>" <?php if ($active) : ?>aria-current="page"<?php endif; ?> href="<?php echo esc_url( $filter['url'] ?? '#' ); ?>"><?php echo esc_html( $filter['label'] ?? '' ); ?><span><?php echo esc_html( revayat_en2fa( $filter['count'] ?? 0 ) ); ?></span></a>
    <?php endforeach; ?>
   </nav><?php endif; ?>
   <?php if ( $items ) : ?><div class="rv-media-grid">
    <?php foreach ( $items as $item ) : ?>
     <article class="rv-media-archive-card" data-post-id="<?php echo esc_attr( $item['id'] ?? 0 ); ?>">
-     <?php $story = revayat_adapt_multimedia_story( $item ); $story['duration'] = $item['meta']['duration'] ?? ''; $story['chip_label'] = $format_labels[ $story['media_type'] ] ?? $story['chip_label']; get_template_part( 'template-parts/cards/card-media', null, $story ); ?>
+     <?php $story = revayat_adapt_multimedia_story( $item ); $story['archive_card'] = true; $story['duration'] = $item['meta']['duration'] ?? ''; $story['chip_label'] = $format_labels[ $story['media_type'] ] ?? $story['chip_label']; get_template_part( 'template-parts/cards/card-media', null, $story ); ?>
      <div class="rv-media-archive-card__body">
       <time datetime="<?php echo esc_attr( get_post_time( DATE_W3C, false, $item['id'] ?? 0 ) ); ?>"><?php echo esc_html( $item['date'] ?? '' ); ?></time>
-      <p><?php echo esc_html( wp_trim_words( $item['excerpt'] ?? '', 35 ) ); ?></p>
      </div>
     </article>
    <?php endforeach; ?>

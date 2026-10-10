@@ -171,7 +171,7 @@ html[data-theme="dark"] .rv-dossier-return__action { color:var(--text); }
 /* Compact native discussion, shared across all four public reading types. */
 .rv-discussion .comment-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px 14px; }
 .rv-discussion .comment-form > p { margin:0; min-width:0; }
-.rv-discussion .comment-form > :not(.comment-form-author):not(.comment-form-email) { grid-column:1/-1; }
+.rv-discussion .comment-form > :not(.comment-form-author):not(.comment-form-email):not(.comment-form-comment):not(.form-submit) { grid-column:1/-1; }
 .rv-discussion .comment-form textarea { min-height:96px; height:96px; resize:vertical; padding:10px; font-size:14px; }
 .rv-discussion .comment-form :is(input:not([type=checkbox]):not([type=hidden])) { padding:8px 10px; min-height:38px; font-size:13px; }
 .rv-discussion .comment-form label { margin-bottom:4px; font-size:12px; }

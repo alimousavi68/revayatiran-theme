@@ -353,3 +353,29 @@
 #site-footer .footer-copyright,
 #site-footer .footer-designer,
 #site-footer .footer-designer span { color: #fff; opacity: 1; }
+
+/* Compact footer with a prominent brand and editable WordPress menus. */
+#site-footer .rv-footer-grid { grid-template-columns: 2fr 1fr 1fr; gap: 32px; padding: 28px 24px 24px; }
+#site-footer .rv-footer-brand { gap: 12px; min-width: 0; }
+#site-footer .rv-footer-brand img { width: 240px; height: auto; max-width: 100%; }
+#site-footer .rv-footer-brand p { font-size: 13px; line-height: 1.9; max-width: 42ch; color: #fff; }
+#site-footer .footer-socials { margin-top: 0; }
+#site-footer .footer-socials a { width: 44px; height: 44px; }
+#site-footer .footer-accordion-btn { margin-bottom: 8px; padding-bottom: 10px; letter-spacing: normal; }
+#site-footer .rv-footer-bottom { padding: 16px 24px; gap: 10px; }
+@media (max-width: 1023px) {
+    #site-footer .rv-footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+    #site-footer .rv-footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 767px) {
+    #site-footer { margin-top: 28px; }
+    #site-footer .rv-footer-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 22px 20px 16px; }
+    #site-footer .rv-footer-brand img { width: 200px; }
+    #site-footer .footer-accordion-btn { min-height: 44px; margin-bottom: 0; padding: 8px 0; }
+    #site-footer .rv-footer-bottom { padding: 14px 20px; gap: 6px; }
+}
+
+@media (max-width: 767px) {
+    #site-footer .footer-accordion-content.is-collapsed { display: none; }
+    #site-footer .footer-accordion-btn[aria-expanded="true"] i { transform: rotate(180deg); }
+}

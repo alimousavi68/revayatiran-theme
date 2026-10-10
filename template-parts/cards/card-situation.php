@@ -42,6 +42,10 @@ $media_alt     = $media['alt'] ?? $title;
 $media_srcset  = $media['srcset'] ?? '';
 $variant       = sanitize_key($args['variant'] ?? 'default');
 $uses_fallback = false;
+$archive_card = !empty($args['archive_card']);
+if ($archive_card && trim(wp_strip_all_tags($excerpt)) === trim(wp_strip_all_tags($title))) {
+    $excerpt = '';
+}
 
 if (empty($media_url) && function_exists('revayat_get_situation_fallback_media')) {
     $fallback_media = revayat_get_situation_fallback_media($item);
@@ -89,7 +93,7 @@ $action_text = (isset($access['user_clearance']) && 'normal' === $access['user_c
         </a>
     <?php endif; ?>
     <!-- ═══ نوار وضعیت ترمینال و نشانگر قفل ═══ -->
-    <div class="card-status-bar">
+    <?php if (!$archive_card) : ?><div class="card-status-bar">
         <div class="terminal-dots">
             <span></span><span></span><span></span>
         </div>
@@ -126,11 +130,12 @@ $action_text = (isset($access['user_clearance']) && 'normal' === $access['user_c
         </div>
     </div>
 
+    <?php endif; ?>
     <!-- ═══ هدر آیتم: برچسب تاکتیکال و زمان ═══ -->
     <div class="item-header">
-        <span class="chip chip--tactical <?php echo ('classified' === $canonical_sec) ? 'chip--danger' : ''; ?>">
+        <?php if (!$archive_card) : ?><span class="chip chip--tactical <?php echo ('classified' === $canonical_sec) ? 'chip--danger' : ''; ?>">
             <?php echo esc_html($bulletin_type); ?>
-        </span>
+        </span><?php endif; ?>
 
         <?php if (!empty($update_time)) : ?>
             <span class="item-date">
@@ -166,9 +171,9 @@ $action_text = (isset($access['user_clearance']) && 'normal' === $access['user_c
             </div>
         <?php else : ?>
             <!-- حالت باز شده -->
-            <p class="tactical-desc">
+            <?php if ($excerpt) : ?><p class="tactical-desc">
                 <?php echo esc_html($excerpt); ?>
-            </p>
+            </p><?php endif; ?>
 
             <!-- اسنیپت پیوست‌های سند (در صورت وجود) -->
             <?php if (!empty($attachments) && is_array($attachments)) : 

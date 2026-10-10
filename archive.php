@@ -7,7 +7,7 @@
 
 if (!defined('ABSPATH')) {
     exit;
-}
+} 
 
 get_header();
 $has_sidebar = is_active_sidebar( 'public-archive-sidebar' );
