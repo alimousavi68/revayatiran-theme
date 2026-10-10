@@ -25,6 +25,8 @@
     form.addEventListener('invalid', event => {
       const panel = event.target.closest('details');
       if (panel) panel.open = true;
+      const field = event.target;
+      tell(field.validationMessage || 'موارد ضروری فرم را تکمیل کنید.', true);
     }, true);
     form.addEventListener('input', changed);
     form.addEventListener('change', changed);
@@ -62,7 +64,11 @@
         const response = await fetch(revayatMember.endpoint, {method: 'POST', body: data, credentials: 'same-origin', signal: controller.signal});
         let payload;
         try { payload = await response.json(); } catch (_) { throw new Error('پاسخ سرور معتبر نیست؛ متن شما در فرم محفوظ است. صفحه را نبندید.'); }
-        if (!payload.success) throw new Error(payload.data?.message || 'ثبت انجام نشد. دوباره تلاش کنید.');
+        if (!payload.success) {
+          const field = payload.data?.field && form.elements.namedItem(payload.data.field);
+          if (field?.focus) { const panel = field.closest('details'); if (panel) panel.open = true; field.focus(); }
+          throw new Error(payload.data?.message || 'ثبت انجام نشد. دوباره تلاش کنید.');
+        }
         const result = payload.data;
         for (const [key, value] of Object.entries({version: result.version, post_id: result.id, request_key: result.request_key})) {
           if (value !== undefined && form.elements[key]) form.elements[key].value = value;
@@ -70,7 +76,17 @@
         if (result.id && form.hasAttribute('data-note-editor')) {
           const url = new URL(location.href); url.searchParams.set('post_id', result.id); history.replaceState(null, '', url);
         }
-        if (sentRevision === revision) dirty.delete(form);
+        if (sentRevision === revision) {
+          dirty.delete(form);
+          const avatar = form.querySelector('[data-avatar-preview]');
+          if (avatar && result.avatar_url) {
+            avatar.src = result.avatar_url;
+            const upload = form.querySelector('[data-avatar-input]');
+            if (upload) upload.value = '';
+            if (form.elements.remove_avatar) form.elements.remove_avatar.checked = false;
+            if (previewURL) { URL.revokeObjectURL(previewURL); previewURL = undefined; }
+          }
+        }
         tell(result.message || 'ذخیره شد.');
         if (result.redirect) { dirty.delete(form); location.assign(result.redirect); }
         else if (result.reload) { dirty.delete(form); location.reload(); }
