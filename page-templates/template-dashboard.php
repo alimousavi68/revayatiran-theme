@@ -15,7 +15,29 @@ $title = $views[ $view ][0] ?? ( 'analyst-request' === $view ? 'درخواست �
 $flash = get_transient( 'rv_portal_flash_' . $user->ID ); delete_transient( 'rv_portal_flash_' . $user->ID );
 get_header(); ?>
 <div class="rv-member-page"><div class="container rv-member-layout">
-    <aside class="rv-member-nav" aria-label="منوی پنل"><div class="rv-member-identity"><?php echo get_avatar( $user->ID, 72 ); ?><strong><?php echo esc_html( $user->display_name ); ?></strong><span><?php echo current_user_can( 'revayat_submit_analyst_post' ) ? 'تحلیلگر' : 'عضو روایت ایران'; ?></span></div><nav><?php foreach ( $views as $key => $item ) : ?><a href="<?php echo esc_url( home_url( '/dashboard/?view=' . $key ) ); ?>" <?php if ( $view === $key ) { echo 'aria-current="page"'; } ?>><i class="ph ph-<?php echo esc_attr( $item[1] ); ?>"></i><?php echo esc_html( $item[0] ); ?></a><?php endforeach; ?></nav><a class="rv-member-logout" href="<?php echo esc_url( wp_logout_url( home_url( '/' ) ) ); ?>"><i class="ph ph-sign-out"></i>خروج از حساب</a></aside>
+    <aside class="rv-member-nav" aria-label="منوی پنل">
+        <div class="rv-member-identity"><?php echo get_avatar($user->ID, 72); ?><strong><?php echo esc_html($user->display_name); ?></strong><span><?php echo current_user_can('revayat_submit_analyst_post') ? 'تحلیلگر' : 'عضو روایت ایران'; ?></span></div>
+        <nav class="rv-member-menu" aria-label="بخش‌های حساب">
+            <div class="rv-member-menu__primary">
+                <?php foreach (array('overview' => 'نمای کلی', 'profile' => 'پروفایل', 'notifications' => 'اعلان‌ها') as $key => $short_label) : $item = $views[$key]; ?>
+                    <a href="<?php echo esc_url(home_url('/dashboard/?view=' . $key)); ?>" <?php if ($view === $key) { echo 'aria-current="page"'; } ?> aria-label="<?php echo esc_attr($item[0]); ?>">
+                        <i class="ph ph-<?php echo esc_attr($item[1]); ?>" aria-hidden="true"></i>
+                        <span class="rv-member-menu__full-label"><?php echo esc_html($item[0]); ?></span><span class="rv-member-menu__short-label"><?php echo esc_html($short_label); ?></span>
+                    </a>
+                <?php endforeach; ?>
+            </div>
+            <details open class="rv-member-menu__more<?php echo !in_array($view, array('overview', 'profile', 'notifications'), true) ? ' is-current' : ''; ?>">
+                <summary aria-label="<?php echo esc_attr(!in_array($view, array('overview', 'profile', 'notifications'), true) ? 'بخش‌های بیشتر؛ بخش فعلی: ' . $title : 'بخش‌های بیشتر حساب'); ?>"><span class="rv-member-menu__more-icon" aria-hidden="true">⋯</span><span>بیشتر</span></summary>
+                <div class="rv-member-menu__secondary">
+                    <?php foreach (array('notes', 'note-edit', 'requests', 'review', 'security') as $key) : if (!isset($views[$key])) { continue; } $item = $views[$key]; ?>
+                        <a href="<?php echo esc_url(home_url('/dashboard/?view=' . $key)); ?>" <?php if ($view === $key) { echo 'aria-current="page"'; } ?>><i class="ph ph-<?php echo esc_attr($item[1]); ?>" aria-hidden="true"></i><span><?php echo esc_html($item[0]); ?></span></a>
+                    <?php endforeach; ?>
+                    <a class="rv-member-menu__logout" href="<?php echo esc_url(wp_logout_url(home_url('/'))); ?>"><i class="ph ph-sign-out" aria-hidden="true"></i><span>خروج از حساب</span></a>
+                </div>
+            </details>
+        </nav>
+
+    </aside>
     <section class="rv-member-main"><header class="rv-member-heading"><span>پنل شخصی</span><h1><?php echo esc_html( $title ); ?></h1><p><?php echo esc_html( 'profile' === $view ? 'اطلاعات حساب و نحوه معرفی خود را مدیریت کنید.' : 'از اینجا وضعیت و اقدام بعدی خود را دنبال کنید.' ); ?></p></header>
     <?php if ( $flash ) : ?><div class="rv-member-notice" role="status"><?php echo esc_html( $flash['message'] ); ?></div><?php endif; ?>
     <?php if ( isset( $_GET['notice'] ) ) : ?><p class="rv-member-notice" role="status"><?php echo esc_html( array( 'password_updated' => 'رمز عبور ذخیره شد.', 'invalid_password' => 'رمز و تکرار آن معتبر نیست.', 'notifications_read' => 'اعلان‌ها خوانده شدند.' )[ sanitize_key( $_GET['notice'] ) ] ?? 'وضعیت حساب به‌روزرسانی شد.' ); ?></p><?php endif; ?>

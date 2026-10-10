@@ -319,7 +319,7 @@
   },
   "dashboard": {
     "file": "/assets/css/dist/dashboard.min.css",
-    "version": "1d166b7946f3fa73",
+    "version": "eef3298b4639aa92",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -339,7 +339,7 @@
       "assets/css/modules/analysts-experience.css",
       "assets/css/modules/analysts-refinement.css"
     ],
-    "bytes": 179615
+    "bytes": 182733
   },
   "auth-dialog": {
     "file": "/assets/css/dist/auth-dialog.min.css",

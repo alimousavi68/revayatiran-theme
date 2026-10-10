@@ -17,6 +17,19 @@ document.addEventListener("DOMContentLoaded", () => {
             if (viewport.matches) setExpanded(button.getAttribute("aria-expanded") !== "true");
         });
     });
+    const memberMore = document.querySelector('.rv-member-menu__more');
+    if (memberMore) {
+        const compact = window.matchMedia('(max-width: 900px)');
+        const syncMemberMenu = () => { memberMore.open = !compact.matches; };
+        syncMemberMenu();
+        compact.addEventListener('change', syncMemberMenu);
+        memberMore.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && compact.matches && memberMore.open) {
+                memberMore.open = false;
+                memberMore.querySelector('summary').focus();
+            }
+        });
+    }
     const root = document.documentElement;
     const header = document.getElementById("site-header");
     const progressBar = document.getElementById("page-progress-bar");
