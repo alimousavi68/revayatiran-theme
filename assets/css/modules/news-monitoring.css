@@ -439,3 +439,11 @@ html[data-theme="dark"] .analysts-swiper-next {
         justify-content: center;
     }
 }
+@media (max-width: 767px) {
+    #news-monitoring .section-head--etude-b { flex-direction: row !important; flex-wrap: nowrap; align-items: center; gap: 8px; }
+    #news-monitoring .etude-b__actions { width: auto; flex-shrink: 0; }
+}
+@media (max-width: 767px) {
+    #news-monitoring .tabs { display: none; }
+    #news-monitoring .news-mobile-tabs { display: inline-block; }
+}

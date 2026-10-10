@@ -12,7 +12,7 @@ if (!defined('ABSPATH')) {
 get_header();
 $has_sidebar = is_active_sidebar( 'public-archive-sidebar' );
 ?>
-
+ 
 <section class="container py-8 md:py-12 rv-public-archive">
     <header class="archive-header rv-archive-hero mb-10">
         <div class="flex items-center gap-2 text-xs font-bold text-primary mb-2">

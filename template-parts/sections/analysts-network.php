@@ -33,7 +33,7 @@ $top_analysts = $network_data['analysts']  ?? [];
             </div>
             <div class="etude-b__actions">
                 <a href="<?php echo esc_url(home_url('/analysts/')); ?>" class="section-link">
-                    <span><?php esc_html_e('مشاهده تمام تحلیل‌گران', 'revayatiran'); ?></span>
+                    <span><?php esc_html_e('مشاهده همه', 'revayatiran'); ?></span>
                     <i class="ph ph-arrow-left"></i>
                 </a>
             </div>

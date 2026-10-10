@@ -896,3 +896,11 @@ html[data-theme="dark"] .media-card-podcast__title {
     background: linear-gradient(180deg, rgba(245, 247, 250, 0.95), rgba(255, 255, 255, 0));
 }
 
+@media (max-width: 767px) {
+    #homepage-content #hero .hero-feature .hero-feature__content .hero-feature-title,
+    #homepage-content #hero .hero-feature .hero-feature__content .hero-feature-title a {
+        font-size: 21px !important;
+        font-weight: 700 !important;
+        line-height: 1.65 !important;
+    }
+}
