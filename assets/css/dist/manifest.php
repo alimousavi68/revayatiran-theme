@@ -20,5 +20,5 @@ return [
     'archive' => ['file' => '/assets/css/dist/archive.min.css', 'version' => '15c1d417f5d5279b'],
     'auth' => ['file' => '/assets/css/dist/auth.min.css', 'version' => '28a3af90dac8bf9c'],
     'dashboard' => ['file' => '/assets/css/dist/dashboard.min.css', 'version' => 'b179a85e5f95b2cc'],
-    'auth-dialog' => ['file' => '/assets/css/dist/auth-dialog.min.css', 'version' => 'c7d844cc10bed202'],
+    'auth-dialog' => ['file' => '/assets/css/dist/auth-dialog.min.css', 'version' => '7d70aef2af33ef4c'],
 ];

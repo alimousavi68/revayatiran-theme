@@ -343,10 +343,10 @@
   },
   "auth-dialog": {
     "file": "/assets/css/dist/auth-dialog.min.css",
-    "version": "c7d844cc10bed202",
+    "version": "7d70aef2af33ef4c",
     "sources": [
       "assets/css/modules/auth-dialog.css"
     ],
-    "bytes": 4042
+    "bytes": 5440
   }
 }

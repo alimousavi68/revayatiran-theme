@@ -52,5 +52,33 @@ $code_step = preg_match( '/^09\d{9}$/', $mobile ) && in_array( $notice, array( '
 			<p class="rv-auth-back"><a href="<?php echo esc_url( add_query_arg( 'tab', $tab, get_permalink() ) ); ?>"><?php esc_html_e( 'تغییر شماره یا دریافت کد جدید', 'revayatiran' ); ?></a></p>
 			<?php endif; ?>
 		<?php endif; ?>
+		<?php
+		$support_links = class_exists( 'Revayat_Companion_SMS_Settings' ) ? Revayat_Companion_SMS_Settings::support_links() : array(
+			'text'     => 'در صورت عدم دریافت پیامک یا نیاز به راهنمایی، از طریق پیام‌رسان‌ها با ما در ارتباط باشید:',
+			'bale'     => 'https://ble.ir/revayatiran',
+			'eitaa'    => 'https://eitaa.com/revayatiran',
+			'telegram' => 'https://t.me/revayatiran',
+		);
+		?>
+		<aside class="rv-access-support" style="margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0;text-align:center;">
+			<p style="font-size:12px;color:#64748b;margin-bottom:12px;"><i class="ph ph-headset"></i> <?php echo esc_html( $support_links['text'] ); ?></p>
+			<div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
+				<?php if ( ! empty( $support_links['bale'] ) ) : ?>
+					<a href="<?php echo esc_url( $support_links['bale'] ); ?>" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;text-decoration:none;background:#f1f5f9;color:#0f172a;">
+						<span>پشتیبانی بله</span>
+					</a>
+				<?php endif; ?>
+				<?php if ( ! empty( $support_links['eitaa'] ) ) : ?>
+					<a href="<?php echo esc_url( $support_links['eitaa'] ); ?>" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;text-decoration:none;background:#f1f5f9;color:#0f172a;">
+						<span>پشتیبانی ایتا</span>
+					</a>
+				<?php endif; ?>
+				<?php if ( ! empty( $support_links['telegram'] ) ) : ?>
+					<a href="<?php echo esc_url( $support_links['telegram'] ); ?>" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;text-decoration:none;background:#f1f5f9;color:#0f172a;">
+						<span>پشتیبانی تلگرام</span>
+					</a>
+				<?php endif; ?>
+			</div>
+		</aside>
 	</section>
 </div></div>

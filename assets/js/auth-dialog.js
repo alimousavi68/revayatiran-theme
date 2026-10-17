@@ -24,7 +24,25 @@
     function applyChallenge(card, data, focus = true) {
         const state = states.get(card);
         state.challenge = {...data, monotonic: performance.now()};
-        card.querySelector('[data-auth-mobile]').textContent = data.masked_mobile || '';
+        const mobileTarget = card.querySelector('[data-auth-mobile]');
+        if (mobileTarget) mobileTarget.textContent = data.masked_mobile || '';
+        const prompt = card.querySelector('[data-auth-verify-prompt]');
+        if (prompt) {
+            if (data.channel === 'email' && data.masked_target) {
+                prompt.innerHTML = 'کد تأیید ارسال‌شده به ایمیل <bdi dir="ltr">' + data.masked_target + '</bdi> را وارد کنید.';
+            } else {
+                prompt.innerHTML = 'کد ارسال‌شده به <bdi>' + (data.masked_mobile || '') + '</bdi> را وارد کنید.';
+            }
+        }
+        const noticeNode = card.querySelector('[data-auth-delivery-notice]');
+        if (noticeNode) {
+            if (data.notice) {
+                noticeNode.textContent = data.notice;
+                noticeNode.hidden = false;
+            } else {
+                noticeNode.hidden = true;
+            }
+        }
         const recovery = data.context === 'recover';
         const label = card.querySelector('[data-auth-new-password]');
         label.hidden = !recovery; label.querySelector('input').disabled = !recovery; label.querySelector('input').required = recovery;
@@ -70,13 +88,26 @@
             finally { clearTimeout(timeout); }
             const result = await response.json();
             if (!result.success) {
-                notice(card, result.data?.message || 'درخواست انجام نشد؛ دوباره تلاش کنید.', true);
-                if (result.data?.code === 'invalid_nonce') state.nonce = '';
+                const errData = result.data || {};
+                if (errData.code === 'sms_failed_email_required' || errData.data?.email_required) {
+                    const emailField = card.querySelector('[data-auth-email-field]');
+                    if (emailField) {
+                        emailField.hidden = false;
+                        const emailInput = emailField.querySelector('input');
+                        if (emailInput) {
+                            emailInput.disabled = false;
+                            emailInput.required = true;
+                            emailInput.focus();
+                        }
+                    }
+                }
+                notice(card, errData.message || 'درخواست انجام نشد؛ دوباره تلاش کنید.', true);
+                if (errData.code === 'invalid_nonce') state.nonce = '';
                 return;
             }
             const output = result.data;
             if (output.redirect) { location.assign(output.redirect); return; }
-            notice(card, output.message || 'کد تأیید ارسال شد.');
+            notice(card, output.notice || output.message || 'کد تأیید ارسال شد.');
             if (output.step === 'verify') applyChallenge(card, output);
             else if (output.step) panel(card, output.step);
         } catch (_) { notice(card, 'ارتباط کامل نشد. اطلاعات شما حفظ شده؛ دوباره تلاش کنید.', true); }
@@ -91,7 +122,16 @@
             const state = states.get(card);
             const method = e.target.closest('[data-auth-method]');
             if (method && !state.busy) { notice(card, ''); panel(card, method.dataset.authMethod); }
-            if (e.target.closest('[data-auth-change]') && !state.busy) { notice(card, ''); panel(card, state.challenge?.context === 'recover' ? 'recover' : 'auth'); }
+            if (e.target.closest('[data-auth-change]') && !state.busy) {
+                notice(card, '');
+                const emailField = card.querySelector('[data-auth-email-field]');
+                if (emailField) {
+                    emailField.hidden = true;
+                    const emailInput = emailField.querySelector('input');
+                    if (emailInput) { emailInput.disabled = true; emailInput.required = false; }
+                }
+                panel(card, state.challenge?.context === 'recover' ? 'recover' : 'auth');
+            }
             if (e.target.closest('[data-auth-resend]')) { const data = new FormData(); data.set('operation', 'resend'); send(card, data); }
         });
         card.addEventListener('submit', e => {
