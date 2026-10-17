@@ -27,7 +27,7 @@
   },
   "home": {
     "file": "/assets/css/dist/home.min.css",
-    "version": "7ee4c6938017d91c",
+    "version": "cf9eaf121e4e4723",
     "sources": [
       "assets/css/modules/hero.css",
       "assets/css/modules/layout-shared.css",
@@ -46,7 +46,7 @@
       "assets/css/modules/analysts-mobile.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 201970
+    "bytes": 202052
   },
   "post": {
     "file": "/assets/css/dist/post.min.css",

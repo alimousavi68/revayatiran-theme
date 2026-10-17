@@ -3,7 +3,7 @@
 return [
     'core' => ['file' => '/assets/css/dist/core.min.css', 'version' => 'ea79d0169056eebd'],
     'public' => ['file' => '/assets/css/dist/public.min.css', 'version' => 'bb01c72d4620ea26'],
-    'home' => ['file' => '/assets/css/dist/home.min.css', 'version' => '7ee4c6938017d91c'],
+    'home' => ['file' => '/assets/css/dist/home.min.css', 'version' => 'cf9eaf121e4e4723'],
     'post' => ['file' => '/assets/css/dist/post.min.css', 'version' => 'c4a45d9186279c0b'],
     'dossier' => ['file' => '/assets/css/dist/dossier.min.css', 'version' => 'c4a45d9186279c0b'],
     'dossier-archive' => ['file' => '/assets/css/dist/dossier-archive.min.css', 'version' => '738531b4d05548ca'],

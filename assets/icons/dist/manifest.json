@@ -26,7 +26,7 @@
     "themes/revayatiran/template-parts/auth/legacy.php": "d1f9cdcb8524843276cdded081e968832f967347025fd7fc12ae76c5dfcdb4cb",
     "themes/revayatiran/template-parts/cards/card-analyst.php": "93114048ac5555ac82551ad359b1dabd7b9327d4892b19f3cb468e0aa8089693",
     "themes/revayatiran/template-parts/cards/card-dossier.php": "bac3647b214c89509637b824f8c404a3ecdb4a5a1ffc5ff4b5d9e5dbeb66a58f",
-    "themes/revayatiran/template-parts/cards/card-featured.php": "8037e62dec9616715a84d1c8932bd49da770136846f60d3e5dedd4627539744d",
+    "themes/revayatiran/template-parts/cards/card-featured.php": "cdadbd79d6234e2eedca9a8120b0b0ad4a4fa6f6cbb4f1ac6fb818d8e1b27b20",
     "themes/revayatiran/template-parts/cards/card-media.php": "dd4cd965ee413fedd7cbe73c61be79521343a047a3c3105cd21bb2f4b4fb3df4",
     "themes/revayatiran/template-parts/cards/card-observatory.php": "ce157d1fded4d1c7eddbbe12e4d0da6193b9a1cd10b8f1c62df6d87fadbf36ed",
     "themes/revayatiran/template-parts/cards/card-person.php": "1188ce8643c906c42bbd51856ddfca1aa19d9230929f36c387911fd286d8c26b",
@@ -45,7 +45,7 @@
     "themes/revayatiran/template-parts/member/requests.php": "6e2fc4151fcae064226889acddd6cc333718e66be3f86b5d20c6137bfb0a794e",
     "themes/revayatiran/template-parts/sections/analysts-network.php": "0d21bc9573118b137d39ae1cbdb1ad42581f473a9fce064d98b31a02d1312593",
     "themes/revayatiran/template-parts/sections/daily-narrative.php": "8b73d09015ec46ff776f5323a8236b4b54f47c33b5b07804356178d879ad4755",
-    "themes/revayatiran/template-parts/sections/hero.php": "8037e62dec9616715a84d1c8932bd49da770136846f60d3e5dedd4627539744d",
+    "themes/revayatiran/template-parts/sections/hero.php": "cdadbd79d6234e2eedca9a8120b0b0ad4a4fa6f6cbb4f1ac6fb818d8e1b27b20",
     "themes/revayatiran/template-parts/sections/media-observatory.php": "60f15c50b5e24b22eae22e991ee33c092683bcea41d1a772435c21f06a0499ac",
     "themes/revayatiran/template-parts/sections/multimedia.php": "b6a3c1d130db71aa7b29e6f1bd42f945a4244c5d9a4d98a7c3dc72fc12b21ab4",
     "themes/revayatiran/template-parts/sections/news-monitoring.php": "991025d12671a55dee3c5392239e6e99c607d616b832b199a9e243ad62ba5ac9",
@@ -115,6 +115,7 @@
         "globe",
         "hash",
         "headphones",
+        "heartbeat",
         "house",
         "image",
         "images",
@@ -140,7 +141,6 @@
         "password",
         "path",
         "pen-nib",
-        "pencil-simple",
         "person",
         "play",
         "play-circle",
@@ -238,6 +238,7 @@
         57992,
         58018,
         58022,
+        58028,
         58050,
         58058,
         58062,
@@ -260,7 +261,6 @@
         58268,
         58280,
         58284,
-        58292,
         58320,
         58322,
         58368,
@@ -328,8 +328,8 @@
         60782
       ],
       "file": "Phosphor.woff2",
-      "bytes": 14800,
-      "sha256": "94894ceae9219f904fc603a664b11b6599a7fe00db94021224049c11aac87fda"
+      "bytes": 14976,
+      "sha256": "db235f35e2b5c317de7b221453c390b3d9f14d7103ccc9be9dcc1b69cd7fb5f2"
     },
     "bold": {
       "names": [
@@ -391,6 +391,7 @@
         "globe",
         "hash",
         "headphones",
+        "heartbeat",
         "house",
         "image",
         "images",
@@ -416,7 +417,6 @@
         "password",
         "path",
         "pen-nib",
-        "pencil-simple",
         "person",
         "play",
         "play-circle",
@@ -514,6 +514,7 @@
         57992,
         58018,
         58022,
+        58028,
         58050,
         58058,
         58062,
@@ -536,7 +537,6 @@
         58268,
         58280,
         58284,
-        58292,
         58320,
         58322,
         58368,
@@ -604,8 +604,8 @@
         60782
       ],
       "file": "Phosphor-Bold.woff2",
-      "bytes": 15132,
-      "sha256": "2d32217096a5070305b69a42f46b90120cc10c2101e62d80ea7993feed3f147a"
+      "bytes": 15300,
+      "sha256": "3ebc0c31fa2889826415a2ab624aa12cf06fe155fcc42274e51dff422f79ccf0"
     },
     "fill": {
       "names": [
@@ -667,6 +667,7 @@
         "globe",
         "hash",
         "headphones",
+        "heartbeat",
         "house",
         "image",
         "images",
@@ -692,7 +693,6 @@
         "password",
         "path",
         "pen-nib",
-        "pencil-simple",
         "person",
         "play",
         "play-circle",
@@ -790,6 +790,7 @@
         57992,
         58018,
         58022,
+        58028,
         58050,
         58058,
         58062,
@@ -812,7 +813,6 @@
         58268,
         58280,
         58284,
-        58292,
         58320,
         58322,
         58368,
@@ -880,9 +880,9 @@
         60782
       ],
       "file": "Phosphor-Fill.woff2",
-      "bytes": 12544,
-      "sha256": "9a452ab925cbda2f72a477fc49092245a392f6ef40f9258a24d24b8f27c2e360"
+      "bytes": 12612,
+      "sha256": "8bb556ae361b53801dfdb07c01bed425667930e5b6c342e079d10f3ba7470bdc"
     }
   },
-  "version": "bb195996fe565035"
+  "version": "1703416d61ece4a8"
 }

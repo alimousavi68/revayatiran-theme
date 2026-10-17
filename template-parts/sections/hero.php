@@ -23,7 +23,6 @@ $lead_title     = $lead['title'] ?? '';
 $lead_url       = $lead['url'] ?? home_url('/');
 $lead_thumbnail = revayat_resolve_image_url($lead['thumbnail_url'] ?? null, 'hero');
 $lead_category  = $lead['category'] ?? esc_html__('تحلیل راهبردی', 'revayatiran');
-$lead_tag       = $lead['tag_label'] ?? esc_html__('تحلیل سردبیر', 'revayatiran');
 $lead_date      = $lead['date'] ?? '';
 ?>
 <section class="hero-section" id="hero">
@@ -60,9 +59,6 @@ $lead_date      = $lead['date'] ?? '';
                         <div class="meta-row mt-2">
                             <?php if (!empty($lead_date)) : ?>
                                 <span><i class="ph ph-clock align-middle text-sm"></i> <?php echo esc_html($lead_date); ?></span>
-                            <?php endif; ?>
-                            <?php if (!empty($lead_tag)) : ?>
-                                <span><i class="ph ph-pencil-simple align-middle text-sm"></i> <?php echo esc_html($lead_tag); ?></span>
                             <?php endif; ?>
                         </div>
                     </div>

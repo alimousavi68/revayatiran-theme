@@ -35,7 +35,6 @@ if ($card_post instanceof WP_Post) {
     $card_url       = get_the_permalink($card_post);
     $card_thumbnail = revayat_get_post_image_url($card_post, 'revayat-hero-large', 'hero');
     $card_date      = get_the_date('', $card_post);
-    $card_tag       = $args['tag_label'] ?? esc_html__('تحلیل سردبیر', 'revayatiran');
     $card_category  = $args['category'] ?? '';
 
     if (empty($card_category)) {
@@ -47,7 +46,6 @@ if ($card_post instanceof WP_Post) {
     $card_url       = $args['url'] ?? home_url('/');
     $card_thumbnail = revayat_resolve_image_url($args['thumbnail_url'] ?? null, 'hero');
     $card_date      = $args['date'] ?? '';
-    $card_tag       = $args['tag_label'] ?? esc_html__('تحلیل سردبیر', 'revayatiran');
     $card_category  = $args['category'] ?? esc_html__('تحلیل راهبردی', 'revayatiran');
 }
 
@@ -80,9 +78,6 @@ if (empty($card_title)) {
         <div class="meta-row mt-2">
             <?php if (!empty($card_date)) : ?>
                 <span><i class="ph ph-clock align-middle text-sm"></i> <?php echo esc_html($card_date); ?></span>
-            <?php endif; ?>
-            <?php if (!empty($card_tag)) : ?>
-                <span><i class="ph ph-pencil-simple align-middle text-sm"></i> <?php echo esc_html($card_tag); ?></span>
             <?php endif; ?>
         </div>
     </div>

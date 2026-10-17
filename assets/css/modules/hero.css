@@ -4,6 +4,13 @@
     overflow: clip;
 }
 
+@media (max-width: 767px) {
+    /* Halve the mobile header-to-hero gap: 16px + 10px becomes 13px. */
+    #homepage-content > .hero-section {
+        margin-top: -13px;
+    }
+}
+
 .hero-grid,
 .daily-grid,
 .news-layout,
