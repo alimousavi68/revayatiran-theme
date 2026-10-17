@@ -67,6 +67,130 @@ if ( ! function_exists( 'revayat_render_home_empty_state' ) ) {
 	}
 }
 
+if ( ! function_exists( 'revayat_get_post_origin_label' ) ) {
+	/**
+	 * تشخیص و دریافت برچسب بخش مبدأ نوشته
+	 * (روایت روز، پرونده ویژه، شبکه تحلیلگران، اتاق وضعیت، رصد روز، دیدبان رسانه)
+	 *
+	 * @param mixed $item شیء پست، شناسه عددی یا آرایه هیبریدی.
+	 * @return string برچسب بخش مبدأ.
+	 */
+	function revayat_get_post_origin_label( $item = null ): string {
+		$post_id      = 0;
+		$post_type    = '';
+		$raw_category = '';
+		$placement    = '';
+		$news_source  = '';
+
+		if ( is_array( $item ) ) {
+			$post_id      = ! empty( $item['id'] ) ? absint( $item['id'] ) : 0;
+			$raw_category = $item['category'] ?? '';
+			$placement    = $item['tag_label'] ?? ( $item['taxonomies']['editorial_placement'] ?? '' );
+			$news_source  = $item['source_badge'] ?? ( $item['source_label'] ?? ( $item['taxonomies']['news_source'] ?? '' ) );
+			if ( isset( $item['entity'] ) && $item['entity'] instanceof WP_Post ) {
+				$post_type = $item['entity']->post_type;
+			} elseif ( ! empty( $item['post_type'] ) ) {
+				$post_type = $item['post_type'];
+			}
+		} elseif ( $item instanceof WP_Post ) {
+			$post_id   = $item->ID;
+			$post_type = $item->post_type;
+		} elseif ( is_numeric( $item ) && (int) $item > 0 ) {
+			$post_id = absint( $item );
+		} else {
+			$post = get_post();
+			if ( $post instanceof WP_Post ) {
+				$post_id   = $post->ID;
+				$post_type = $post->post_type;
+			}
+		}
+
+		if ( $post_id > 0 && empty( $post_type ) ) {
+			$post_type = (string) get_post_type( $post_id );
+		}
+
+		// ۱. نگاشت بر اساس Post Type اختصاصی
+		$post_type_map = array(
+			'special_dossier'   => 'پرونده ویژه',
+			'analyst_post'      => 'شبکه تحلیلگران',
+			'situation_room'    => 'اتاق وضعیت',
+			'media_observatory' => 'دیدبان رسانه',
+			'multimedia'        => 'رسانه‌نگار',
+		);
+
+		if ( ! empty( $post_type ) && isset( $post_type_map[ $post_type ] ) ) {
+			return $post_type_map[ $post_type ];
+		}
+
+		// ۲. ارزیابی تاکسونومی‌های اختصاصی
+		if ( $post_id > 0 ) {
+			if ( taxonomy_exists( 'dossier_topic' ) && has_term( '', 'dossier_topic', $post_id ) ) {
+				return 'پرونده ویژه';
+			}
+			if ( taxonomy_exists( 'analyst_field' ) && has_term( '', 'analyst_field', $post_id ) ) {
+				return 'شبکه تحلیلگران';
+			}
+			if ( taxonomy_exists( 'security_level' ) && has_term( '', 'security_level', $post_id ) ) {
+				return 'اتاق وضعیت';
+			}
+			if ( taxonomy_exists( 'observatory_badge' ) && has_term( '', 'observatory_badge', $post_id ) ) {
+				return 'دیدبان رسانه';
+			}
+			if ( taxonomy_exists( 'media_format' ) && has_term( '', 'media_format', $post_id ) ) {
+				return 'رسانه‌نگار';
+			}
+			if ( taxonomy_exists( 'news_source' ) && has_term( '', 'news_source', $post_id ) ) {
+				return 'رصد روز';
+			}
+			if ( taxonomy_exists( 'editorial_placement' ) ) {
+				if ( has_term( array( 'daily_lead', 'daily_side' ), 'editorial_placement', $post_id ) ) {
+					return 'روایت روز';
+				}
+			}
+		}
+
+		// ۳. بررسی فیلدهای نرمال‌شده قرارداد
+		if ( ! empty( $news_source ) ) {
+			return 'رصد روز';
+		}
+
+		if ( in_array( $placement, array( 'daily_lead', 'daily_side' ), true ) ) {
+			return 'روایت روز';
+		}
+
+		// ۴. ارزیابی هوشمند نام دسته‌بندی موضوعی
+		$check_string = mb_strtolower( (string) $raw_category );
+		if ( $post_id > 0 && empty( $check_string ) ) {
+			$cats = get_the_category( $post_id );
+			if ( ! empty( $cats ) && ! is_wp_error( $cats ) ) {
+				$check_string = mb_strtolower( $cats[0]->name . ' ' . $cats[0]->slug );
+			}
+		}
+
+		if ( str_contains( $check_string, 'پرونده' ) || str_contains( $check_string, 'dossier' ) ) {
+			return 'پرونده ویژه';
+		}
+		if ( str_contains( $check_string, 'دیدبان' ) || str_contains( $check_string, 'دیده‌بان' ) || str_contains( $check_string, 'observatory' ) ) {
+			return 'دیدبان رسانه';
+		}
+		if ( str_contains( $check_string, 'تحلیلگر' ) || str_contains( $check_string, 'analyst' ) ) {
+			return 'شبکه تحلیلگران';
+		}
+		if ( str_contains( $check_string, 'وضعیت' ) || str_contains( $check_string, 'situation' ) ) {
+			return 'اتاق وضعیت';
+		}
+		if ( str_contains( $check_string, 'رصد' ) || str_contains( $check_string, 'news' ) || str_contains( $check_string, 'خبر' ) ) {
+			return 'رصد روز';
+		}
+		if ( str_contains( $check_string, 'رسانه' ) || str_contains( $check_string, 'multimedia' ) ) {
+			return 'رسانه‌نگار';
+		}
+
+		// ۵. پیش‌فرض برای مطالب تحریریه
+		return 'روایت روز';
+	}
+}
+
 /** Decide whether multimedia introduction is already present in authored content. */
 function revayat_media_intro_visibility(string $content, string $cover, string $excerpt): array {
     $normalize = static function ($text) {

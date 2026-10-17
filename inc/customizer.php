@@ -235,6 +235,71 @@ function revayat_customize_register( $manager ): void {
             $manager->add_control( $id, $args );
         }
     }
+
+    // بخش اختصاصی فوتر: درباره ما و شبکه‌های اجتماعی
+    $manager->add_section( 'revayat_footer_about', array(
+        'title'       => __( 'درباره ما و شبکه‌های اجتماعی فوتر', 'revayatiran' ),
+        'panel'       => 'revayat_theme',
+        'priority'    => 35,
+        'description' => __( 'تنظیمات ستون معرفی فوتر شامل لوگو، متن درباره ما و پیوندهای شبکه‌های اجتماعی رسانه.', 'revayatiran' ),
+    ) );
+
+    // لوگوی فوتر
+    $manager->add_setting( 'revayat_footer_logo', array(
+        'default'           => '',
+        'type'              => 'theme_mod',
+        'capability'        => 'edit_theme_options',
+        'sanitize_callback' => 'esc_url_raw',
+        'transport'         => 'refresh',
+    ) );
+    $manager->add_control( new WP_Customize_Image_Control( $manager, 'revayat_footer_logo', array(
+        'label'       => __( 'لوگوی اختصاصی فوتر', 'revayatiran' ),
+        'description' => __( 'تصویر لوگو جهت نمایش در ستون معرفی فوتر.', 'revayatiran' ),
+        'section'     => 'revayat_footer_about',
+    ) ) );
+
+    // متن درباره ما در فوتر
+    $manager->add_setting( 'revayat_footer_about_text', array(
+        'default'           => '',
+        'type'              => 'theme_mod',
+        'capability'        => 'edit_theme_options',
+        'sanitize_callback' => 'sanitize_textarea_field',
+        'transport'         => 'refresh',
+    ) );
+    $manager->add_control( 'revayat_footer_about_text', array(
+        'label'       => __( 'متن معرفی / درباره ما در فوتر', 'revayatiran' ),
+        'description' => __( 'متن معرفی یا شعار رسانه جهت نمایش زیر لوگوی فوتر.', 'revayatiran' ),
+        'section'     => 'revayat_footer_about',
+        'type'        => 'textarea',
+    ) );
+
+    // شبکه‌های اجتماعی
+    $social_networks = array(
+        'telegram'  => __( 'لینک تلگرام', 'revayatiran' ),
+        'bale'      => __( 'لینک بله', 'revayatiran' ),
+        'eitaa'     => __( 'لینک ایتا', 'revayatiran' ),
+        'instagram' => __( 'لینک اینستاگرام', 'revayatiran' ),
+        'x'         => __( 'لینک ایکس (توییتر)', 'revayatiran' ),
+        'youtube'   => __( 'لینک یوتیوب', 'revayatiran' ),
+        'aparat'    => __( 'لینک آپارات', 'revayatiran' ),
+        'rubika'    => __( 'لینک روبیکا', 'revayatiran' ),
+    );
+    foreach ( $social_networks as $soc_key => $soc_label ) {
+        $setting_id = 'revayat_footer_social_' . $soc_key;
+        $manager->add_setting( $setting_id, array(
+            'default'           => '',
+            'type'              => 'theme_mod',
+            'capability'        => 'edit_theme_options',
+            'sanitize_callback' => 'esc_url_raw',
+            'transport'         => 'refresh',
+        ) );
+        $manager->add_control( $setting_id, array(
+            'label'       => $soc_label,
+            'description' => __( 'در صورت خالی بودن، آیکون این شبکه در فوتر نمایش داده نمی‌شود.', 'revayatiran' ),
+            'section'     => 'revayat_footer_about',
+            'type'        => 'url',
+        ) );
+    }
 }
 add_action( 'customize_register', 'revayat_customize_register' );
 

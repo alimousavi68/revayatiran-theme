@@ -21,32 +21,49 @@ if (!defined('ABSPATH')) {
         <div class="rv-footer-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.8fr_1fr_1fr] gap-8 md:gap-14 py-8 md:py-10 px-6">
             <!-- ستون برندینگ و معرفی -->
             <div class="rv-footer-brand flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
-                <a href="<?php echo esc_url(home_url('/')); ?>" class="inline-flex transition-opacity duration-240 hover:opacity-90 w-fit" rel="home" aria-label="<?php bloginfo('name'); ?>">
-                    <img src="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?>" srcset="<?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-180-9af21755cde6.webp'); ?> 180w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat-360-3e2fe39acde3.webp'); ?> 360w, <?php echo esc_url(REVAYAT_THEME_URI . '/assets/images/branding/logo-revayat.webp'); ?> 700w" sizes="(max-width: 767px) 200px, 240px"
-                         alt="<?php bloginfo('name'); ?>"
-                         class="h-[52px] w-auto object-contain"
-                         width="700" height="251"
-                         loading="lazy">
-                </a>
-                <p class="text-[12px] leading-[1.8] text-white/85 m-0 max-w-[38ch]">
-                    <?php echo esc_html(get_bloginfo('description') ?: __('روایت ایران؛ رصد رویدادها، روایت‌های تحلیلی و پرونده‌های ویژه.', 'revayatiran')); ?>
-                </p>
+                <?php
+                $footer_logo       = get_theme_mod( 'revayat_footer_logo', '' );
+                $footer_about_text = get_theme_mod( 'revayat_footer_about_text', '' );
 
-                <!-- پیوندهای شبکه‌های اجتماعی فوتر -->
-                <div class="flex items-center gap-2 mt-1 footer-socials">
-                    <a href="https://t.me" class="grid place-items-center w-8 h-8 rounded-xl border border-white/25 bg-white/10 text-white text-lg transition-all duration-200 hover:-translate-y-1 no-underline" aria-label="<?php esc_attr_e('تلگرام', 'revayatiran'); ?>" target="_blank" rel="noopener noreferrer">
-                        <i class="ph ph-telegram-logo"></i>
+                $social_channels = array(
+                    'telegram'  => array( 'label' => __( 'تلگرام', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_telegram', '' ), 'icon' => 'ph ph-telegram-logo' ),
+                    'bale'      => array( 'label' => __( 'بله', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_bale', '' ), 'icon' => 'ph ph-chat-centered-dots' ),
+                    'eitaa'     => array( 'label' => __( 'ایتا', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_eitaa', '' ), 'icon' => 'ph ph-chats-circle' ),
+                    'instagram' => array( 'label' => __( 'اینستاگرام', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_instagram', '' ), 'icon' => 'ph ph-instagram-logo' ),
+                    'x'         => array( 'label' => __( 'ایکس (توییتر)', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_x', '' ), 'icon' => 'ph ph-x-logo' ),
+                    'youtube'   => array( 'label' => __( 'یوتیوب', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_youtube', '' ), 'icon' => 'ph ph-youtube-logo' ),
+                    'aparat'    => array( 'label' => __( 'آپارات', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_aparat', '' ), 'icon' => 'ph ph-video' ),
+                    'rubika'    => array( 'label' => __( 'روبیکا', 'revayatiran' ), 'url' => get_theme_mod( 'revayat_footer_social_rubika', '' ), 'icon' => 'ph ph-chat-teardrop-dots' ),
+                );
+
+                $active_socials = array_filter( $social_channels, static fn( $item ) => ! empty( $item['url'] ) );
+                ?>
+
+                <?php if ( ! empty( $footer_logo ) ) : ?>
+                    <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="inline-flex transition-opacity duration-240 hover:opacity-90 w-fit" rel="home" aria-label="<?php bloginfo( 'name' ); ?>">
+                        <img src="<?php echo esc_url( $footer_logo ); ?>"
+                             alt="<?php bloginfo( 'name' ); ?>"
+                             class="h-[52px] w-auto object-contain"
+                             loading="lazy">
                     </a>
-                    <a href="https://instagram.com" class="grid place-items-center w-8 h-8 rounded-xl border border-white/25 bg-white/10 text-white text-lg transition-all duration-200 hover:-translate-y-1 no-underline" aria-label="<?php esc_attr_e('اینستاگرام', 'revayatiran'); ?>" target="_blank" rel="noopener noreferrer">
-                        <i class="ph ph-instagram-logo"></i>
-                    </a>
-                    <a href="https://x.com" class="grid place-items-center w-8 h-8 rounded-xl border border-white/25 bg-white/10 text-white text-lg transition-all duration-200 hover:-translate-y-1 no-underline" aria-label="<?php esc_attr_e('توییتر', 'revayatiran'); ?>" target="_blank" rel="noopener noreferrer">
-                        <i class="ph ph-x-logo"></i>
-                    </a>
-                    <a href="https://youtube.com" class="grid place-items-center w-8 h-8 rounded-xl border border-white/25 bg-white/10 text-white text-lg transition-all duration-200 hover:-translate-y-1 no-underline" aria-label="<?php esc_attr_e('یوتیوب', 'revayatiran'); ?>" target="_blank" rel="noopener noreferrer">
-                        <i class="ph ph-youtube-logo"></i>
-                    </a>
-                </div>
+                <?php endif; ?>
+
+                <?php if ( ! empty( $footer_about_text ) ) : ?>
+                    <p class="text-[12px] leading-[1.8] text-white/85 m-0 max-w-[38ch]">
+                        <?php echo nl2br( esc_html( $footer_about_text ) ); ?>
+                    </p>
+                <?php endif; ?>
+
+                <?php if ( ! empty( $active_socials ) ) : ?>
+                    <!-- پیوندهای شبکه‌های اجتماعی فوتر -->
+                    <div class="flex items-center flex-wrap gap-2 mt-1 footer-socials">
+                        <?php foreach ( $active_socials as $channel ) : ?>
+                            <a href="<?php echo esc_url( $channel['url'] ); ?>" class="grid place-items-center w-8 h-8 rounded-xl border border-white/25 bg-white/10 text-white text-lg transition-all duration-200 hover:-translate-y-1 no-underline" aria-label="<?php echo esc_attr( $channel['label'] ); ?>" target="_blank" rel="noopener noreferrer">
+                                <i class="<?php echo esc_attr( $channel['icon'] ); ?>"></i>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
             </div>
 
             <!-- ستون سرویس‌های خبری -->

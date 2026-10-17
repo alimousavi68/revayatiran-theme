@@ -22,7 +22,7 @@ $side_items = $hero_data['items'] ?? [];
 $lead_title     = $lead['title'] ?? '';
 $lead_url       = $lead['url'] ?? home_url('/');
 $lead_thumbnail = revayat_resolve_image_url($lead['thumbnail_url'] ?? null, 'hero');
-$lead_category  = $lead['category'] ?? esc_html__('تحلیل راهبردی', 'revayatiran');
+$lead_origin    = ! empty( $lead['origin_label'] ) ? $lead['origin_label'] : ( function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label($lead) : 'روایت روز' );
 $lead_date      = $lead['date'] ?? '';
 ?>
 <section class="hero-section" id="hero">
@@ -41,10 +41,10 @@ $lead_date      = $lead['date'] ?? '';
                              decoding="async">
                     </div>
 
-                    <?php if (!empty($lead_category)) : ?>
+                    <?php if (!empty($lead_origin)) : ?>
                         <div class="absolute top-5 right-5 z-[5]">
                             <span class="bg-primary text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg border border-white/10">
-                                <?php echo esc_html($lead_category); ?>
+                                <?php echo esc_html($lead_origin); ?>
                             </span>
                         </div>
                     <?php endif; ?>
@@ -68,10 +68,10 @@ $lead_date      = $lead['date'] ?? '';
             <!-- ستون کارت‌های جانبی -->
             <div class="hero-stack" data-stagger>
                 <?php foreach ($side_items as $item) :
-                    $item_title = $item['title'] ?? '';
-                    $item_url   = $item['url'] ?? home_url('/');
-                    $item_cat   = $item['category'] ?? esc_html__('عمومی', 'revayatiran');
-                    $item_thumb = revayat_resolve_image_url($item['thumbnail_url'] ?? null, 'hero');
+                    $item_title  = $item['title'] ?? '';
+                    $item_url    = $item['url'] ?? home_url('/');
+                    $item_origin = ! empty( $item['origin_label'] ) ? $item['origin_label'] : ( function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label($item) : 'روایت روز' );
+                    $item_thumb  = revayat_resolve_image_url($item['thumbnail_url'] ?? null, 'hero');
                 ?>
                     <article class="hero-brief-card group">
                         <div class="skeleton-wrapper">
@@ -80,10 +80,10 @@ $lead_date      = $lead['date'] ?? '';
                                  loading="lazy"
                                  decoding="async">
                         </div>
-                        <?php if (!empty($item_cat)) : ?>
+                        <?php if (!empty($item_origin)) : ?>
                             <div class="absolute top-3 right-3 z-[5]">
                                 <span class="bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow border border-white/10">
-                                    <?php echo esc_html($item_cat); ?>
+                                    <?php echo esc_html($item_origin); ?>
                                 </span>
                             </div>
                         <?php endif; ?>

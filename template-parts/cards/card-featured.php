@@ -41,12 +41,14 @@ if ($card_post instanceof WP_Post) {
         $primary_cat   = revayat_get_primary_category($card_post->ID);
         $card_category = $primary_cat ? $primary_cat->name : esc_html__('رصد ویژه', 'revayatiran');
     }
+    $card_origin = function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label($card_post) : $card_category;
 } else {
     $card_title     = $args['title'] ?? '';
     $card_url       = $args['url'] ?? home_url('/');
     $card_thumbnail = revayat_resolve_image_url($args['thumbnail_url'] ?? null, 'hero');
     $card_date      = $args['date'] ?? '';
     $card_category  = $args['category'] ?? esc_html__('تحلیل راهبردی', 'revayatiran');
+    $card_origin    = ! empty($args['origin_label']) ? $args['origin_label'] : ( function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label($args) : $card_category );
 }
 
 if (empty($card_title)) {
@@ -60,10 +62,10 @@ if (empty($card_title)) {
              loading="eager">
     </div>
 
-    <?php if (!empty($card_category)) : ?>
+    <?php if (!empty($card_origin)) : ?>
         <div class="absolute top-5 right-5 z-[5]">
             <span class="bg-primary text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg border border-white/10">
-                <?php echo esc_html($card_category); ?>
+                <?php echo esc_html($card_origin); ?>
             </span>
         </div>
     <?php endif; ?>
