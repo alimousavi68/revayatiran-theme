@@ -100,10 +100,6 @@ $fp_cat     = $first_thumb['category'] ?? '';
                                 <?php echo esc_html($main_title); ?>
                             </a>
                         </h2>
-
-                        <p class="daily-featured__excerpt" id="daily-main-excerpt">
-                            <?php echo esc_html($main_excerpt); ?>
-                        </p>
                     </div>
                 </article>
             </div>
