@@ -22,7 +22,7 @@ $side_items = $hero_data['items'] ?? [];
 $lead_title     = $lead['title'] ?? '';
 $lead_url       = $lead['url'] ?? home_url('/');
 $lead_thumbnail = revayat_resolve_image_url($lead['thumbnail_url'] ?? null, 'hero');
-$lead_origin    = ! empty( $lead['origin_label'] ) ? $lead['origin_label'] : ( function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label($lead) : 'روایت روز' );
+$lead_tag       = ! empty( $lead['hero_tag'] ) ? $lead['hero_tag'] : (string) get_post_meta( (int) ( $lead['id'] ?? 0 ), '_revayat_hero_tag', true );
 $lead_date      = $lead['date'] ?? '';
 ?>
 <section class="hero-section" id="hero">
@@ -32,7 +32,7 @@ $lead_date      = $lead['date'] ?? '';
 
             <!-- هیرو اصلی (Lead Feature) -->
             <?php if (!empty($lead)) : ?>
-                <article class="hero-feature group">
+                <article class="hero-feature group relative cursor-pointer" data-card-link="<?php echo esc_url($lead_url); ?>">
                     <div class="hero-feature__media">
                         <img src="<?php echo esc_url($lead_thumbnail); ?>" <?php echo revayat_responsive_image_attributes((int) ($lead['thumbnail_id'] ?? 0), '(max-width: 1200px) calc(100vw - 32px), 790px'); ?>
                              alt="<?php echo esc_attr($lead_title); ?>"
@@ -41,17 +41,17 @@ $lead_date      = $lead['date'] ?? '';
                              decoding="async">
                     </div>
 
-                    <?php if (!empty($lead_origin)) : ?>
-                        <div class="absolute top-5 right-5 z-[5]">
+                    <?php if (!empty($lead_tag) && in_array($lead_tag, array('فوری', 'مهم', 'ویژه'), true)) : ?>
+                        <div class="absolute top-5 right-5 z-[5] pointer-events-none">
                             <span class="bg-primary text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg border border-white/10">
-                                <?php echo esc_html($lead_origin); ?>
+                                <?php echo esc_html($lead_tag); ?>
                             </span>
                         </div>
                     <?php endif; ?>
 
                     <div class="hero-feature__content">
                         <h2 class="hero-feature-title">
-                            <a href="<?php echo esc_url($lead_url); ?>" class="hover:text-white transition-colors">
+                            <a href="<?php echo esc_url($lead_url); ?>" class="stretched-link hover:text-white transition-colors">
                                 <?php echo esc_html($lead_title); ?>
                             </a>
                         </h2>
@@ -68,29 +68,29 @@ $lead_date      = $lead['date'] ?? '';
             <!-- ستون کارت‌های جانبی -->
             <div class="hero-stack" data-stagger>
                 <?php foreach ($side_items as $item) :
-                    $item_title  = $item['title'] ?? '';
-                    $item_url    = $item['url'] ?? home_url('/');
-                    $item_origin = ! empty( $item['origin_label'] ) ? $item['origin_label'] : ( function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label($item) : 'روایت روز' );
-                    $item_thumb  = revayat_resolve_image_url($item['thumbnail_url'] ?? null, 'hero');
+                    $item_title = $item['title'] ?? '';
+                    $item_url   = $item['url'] ?? home_url('/');
+                    $item_tag   = ! empty( $item['hero_tag'] ) ? $item['hero_tag'] : (string) get_post_meta( (int) ( $item['id'] ?? 0 ), '_revayat_hero_tag', true );
+                    $item_thumb = revayat_resolve_image_url($item['thumbnail_url'] ?? null, 'hero');
                 ?>
-                    <article class="hero-brief-card group">
+                    <article class="hero-brief-card group relative cursor-pointer" data-card-link="<?php echo esc_url($item_url); ?>">
                         <div class="skeleton-wrapper">
                             <img src="<?php echo esc_url($item_thumb); ?>" <?php echo revayat_responsive_image_attributes((int) ($item['thumbnail_id'] ?? 0), '(max-width: 767px) 50vw, 320px'); ?>
                                  alt="<?php echo esc_attr($item_title); ?>"
                                  loading="lazy"
                                  decoding="async">
                         </div>
-                        <?php if (!empty($item_origin)) : ?>
-                            <div class="absolute top-3 right-3 z-[5]">
+                        <?php if (!empty($item_tag) && in_array($item_tag, array('فوری', 'مهم', 'ویژه'), true)) : ?>
+                            <div class="absolute top-3 right-3 z-[5] pointer-events-none">
                                 <span class="bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow border border-white/10">
-                                    <?php echo esc_html($item_origin); ?>
+                                    <?php echo esc_html($item_tag); ?>
                                 </span>
                             </div>
                         <?php endif; ?>
                         <div class="hero-brief-card__content">
                             <h3 class="card-brief-title">
                                 <a href="<?php echo esc_url($item_url); ?>"
-                                   class="hover:text-white transition-colors before:absolute before:inset-0">
+                                   class="stretched-link hover:text-white transition-colors">
                                     <?php echo esc_html($item_title); ?>
                                 </a>
                             </h3>

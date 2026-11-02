@@ -1309,7 +1309,19 @@ html[data-theme="dark"] .tab-button.is-active {
     #news-monitoring .section-summary { display: none; }
     #news-monitoring #news-tab-select { width: 72px; min-height: 44px; }
     #news-monitoring .etude-b__actions > .section-link { display: none; }
-    #daily-narrative .daily-featured__date { display: none; }
     #hero .hero-feature-title,
     .hero-section .hero-feature-title { font-size: 21px !important; font-weight: 700 !important; line-height: 1.65 !important; }
+}
+
+/* Stretched Link: Full Card Clickability */
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    pointer-events: auto;
+    content: "";
+    cursor: pointer;
 }

@@ -126,24 +126,38 @@
         if (!slider || typeof window.Swiper === "undefined" || slider.classList.contains("swiper-initialized")) return;
 
         const slidesCount = slider.querySelectorAll(".swiper-slide").length;
-        new window.Swiper(slider, {
+        const nextBtn = slider.querySelector(".srx-hero-next");
+        const prevBtn = slider.querySelector(".srx-hero-prev");
+
+        const swiper = new window.Swiper(slider, {
             slidesPerView: 1,
             speed: 700,
             loop: slidesCount > 1,
             effect: "fade",
             fadeEffect: { crossFade: true },
             autoplay: slidesCount > 1 ? { delay: 6500, disableOnInteraction: false, pauseOnMouseEnter: true } : false,
-            navigation: {
-                nextEl: ".srx-hero-next",
-                prevEl: ".srx-hero-prev",
-            },
             pagination: {
-                el: ".srx-hero-pagination",
+                el: slider.querySelector(".srx-hero-pagination"),
                 clickable: true,
             },
             keyboard: { enabled: true },
             a11y: { enabled: true },
         });
+
+        if (nextBtn) {
+            nextBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                swiper.slideNext();
+            });
+        }
+        if (prevBtn) {
+            prevBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                swiper.slidePrev();
+            });
+        }
     };
 
     if (document.readyState !== "loading") init();

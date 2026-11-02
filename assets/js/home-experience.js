@@ -163,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (infoPanelTitle && title) infoPanelTitle.textContent = title;
                 if (infoPanelExcerpt && excerpt) infoPanelExcerpt.textContent = excerpt;
                 if (infoPanelLink && link) infoPanelLink.href = link;
+                if (infoPanelInner && link) infoPanelInner.setAttribute("data-card-link", link);
 
                 infoPanelInner.classList.remove("is-updating");
             }, 180);
@@ -189,8 +190,15 @@ document.addEventListener("DOMContentLoaded", () => {
             });
             thumb.addEventListener("mouseleave", startAutoplay);
             thumb.addEventListener("click", () => {
+                const wasActive = thumb.classList.contains("is-active");
                 stopAutoplay();
                 updateInfoPanel(thumb, index);
+                if (wasActive) {
+                    const link = thumb.getAttribute("data-link");
+                    if (link && link !== "#") {
+                        window.location.href = link;
+                    }
+                }
             });
         });
 
@@ -201,5 +209,28 @@ document.addEventListener("DOMContentLoaded", () => {
         // شروع پخش خودکار
         startAutoplay();
     }
+
+    // ═══════════════════════════════════════════════════════════
+    // GLOBAL CARD CLICK DELEGATION ([data-card-link])
+    // Guarantees cross-browser / cross-host clickable cards
+    // ═══════════════════════════════════════════════════════════
+    document.addEventListener("click", (e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) {
+            return;
+        }
+
+        const card = e.target.closest("[data-card-link]");
+        if (!card) return;
+
+        // If user clicked directly on a link or button control, let native behavior handle it
+        if (e.target.closest("a, button, input, select, textarea")) {
+            return;
+        }
+
+        const url = card.getAttribute("data-card-link");
+        if (url && url !== "#") {
+            window.location.href = url;
+        }
+    });
 
 });

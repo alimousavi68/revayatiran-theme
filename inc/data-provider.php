@@ -209,6 +209,7 @@ function revayat_adapt_hybrid_item( array $item ): array {
 		'source_badge'   => $item['taxonomies']['news_source'] ?? '',
 		'source_label'   => $item['taxonomies']['news_source'] ?? '',
 		'origin_label'   => function_exists('revayat_get_post_origin_label') ? revayat_get_post_origin_label( $item ) : 'روایت روز',
+		'hero_tag'       => (string) get_post_meta( $item['id'] ?? 0, '_revayat_hero_tag', true ),
 		'score'          => $score,
 		'sections_count' => $sections_count,
 	);

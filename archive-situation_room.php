@@ -137,22 +137,25 @@ $to_fa           = static function ( $value ) {
 			</section>
 		<?php endif; ?>
 
-		<section class="srx-filter-dock" aria-labelledby="srx-filter-title">
-			<div class="srx-filter-dock__title"><div><i class="ph ph-faders"></i><span><strong id="srx-filter-title"><?php esc_html_e( 'پالایش بولتن‌ها', 'revayatiran' ); ?></strong><small><?php esc_html_e( 'نتایج را با چند انتخاب سریع محدود کنید', 'revayatiran' ); ?></small></span></div><?php if ( 'all' !== $current_security || 'all' !== $current_type || 'all' !== $current_urgency || $active_search ) : ?><a href="<?php echo esc_url( $archive_url ); ?>"><i class="ph ph-arrow-counter-clockwise"></i><?php esc_html_e( 'پاک‌کردن فیلترها', 'revayatiran' ); ?></a><?php endif; ?></div>
+		<section class="srx-filter-dock srx-filter-dock--minimal" aria-labelledby="srx-filter-title">
+			<div class="srx-filter-dock__title">
+				<div>
+					<i class="ph ph-magnifying-glass"></i>
+					<span>
+						<strong id="srx-filter-title"><?php esc_html_e( 'جستجوی بولتن‌ها', 'revayatiran' ); ?></strong>
+						<small><?php esc_html_e( 'جستجوی سریع در عنوان و متن بولتن‌های راهبردی', 'revayatiran' ); ?></small>
+					</span>
+				</div>
+				<?php if ( $active_search ) : ?>
+					<a href="<?php echo esc_url( $archive_url ); ?>"><i class="ph ph-arrow-counter-clockwise"></i><?php esc_html_e( 'نمایش همه بولتن‌ها', 'revayatiran' ); ?></a>
+				<?php endif; ?>
+			</div>
 			<form class="srx-search" role="search" method="get" action="<?php echo esc_url( $archive_url ); ?>">
 				<label class="screen-reader-text" for="situation-search"><?php esc_html_e( 'جستجو در بولتن‌ها', 'revayatiran' ); ?></label>
-				<i class="ph ph-magnifying-glass"></i><input id="situation-search" type="search" name="q" value="<?php echo esc_attr( $active_search ); ?>" maxlength="100" placeholder="<?php esc_attr_e( 'جستجو در بولتن‌ها...', 'revayatiran' ); ?>">
-				<?php foreach ( array( 'security_level' => $current_security, 'bulletin_type' => $current_type, 'urgency_level' => $current_urgency ) as $key => $value ) : if ( 'all' !== $value ) : ?><input type="hidden" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $value ); ?>"><?php endif; endforeach; ?>
+				<i class="ph ph-magnifying-glass"></i>
+				<input id="situation-search" type="search" name="q" value="<?php echo esc_attr( $active_search ); ?>" maxlength="100" placeholder="<?php esc_attr_e( 'عنوان یا کلیدواژه بولتن را بنویسید...', 'revayatiran' ); ?>">
 				<button type="submit"><?php esc_html_e( 'جستجو', 'revayatiran' ); ?></button>
 			</form>
-			<details class="srx-filter-more" <?php echo $active_filter_count ? 'open' : ''; ?>>
-				<summary><span><i class="ph ph-sliders-horizontal"></i><?php esc_html_e( 'فیلترهای بیشتر', 'revayatiran' ); ?></span><?php if ( $active_filter_count ) : ?><small><?php echo esc_html( $to_fa( $active_filter_count ) ); ?></small><?php endif; ?><i class="ph ph-caret-down"></i></summary>
-				<div class="srx-filter-groups">
-					<div class="srx-filter-group"><span><i class="ph ph-shield"></i><?php esc_html_e( 'سطح دسترسی', 'revayatiran' ); ?></span><div><?php foreach ( $security_levels as $option ) : ?><a class="<?php echo $current_security === $option['slug'] ? 'is-active' : ''; ?>" aria-current="<?php echo $current_security === $option['slug'] ? 'true' : 'false'; ?>" href="<?php echo esc_url( $filter_url( 'security_level', $option['slug'] ) ); ?>"><?php echo esc_html( $option['label'] ); ?></a><?php endforeach; ?></div></div>
-					<div class="srx-filter-group"><span><i class="ph ph-tag"></i><?php esc_html_e( 'گونه محتوا', 'revayatiran' ); ?></span><div><?php foreach ( $bulletin_types as $value => $label ) : ?><a class="<?php echo $current_type === $value ? 'is-active' : ''; ?>" aria-current="<?php echo $current_type === $value ? 'true' : 'false'; ?>" href="<?php echo esc_url( $filter_url( 'bulletin_type', $value ) ); ?>"><?php echo esc_html( $label ); ?></a><?php endforeach; ?></div></div>
-					<div class="srx-filter-group"><span><i class="ph ph-lightning"></i><?php esc_html_e( 'درجه فوریت', 'revayatiran' ); ?></span><div><?php foreach ( $urgency_levels as $value => $label ) : ?><a class="<?php echo $current_urgency === $value ? 'is-active' : ''; ?>" aria-current="<?php echo $current_urgency === $value ? 'true' : 'false'; ?>" href="<?php echo esc_url( $filter_url( 'urgency_level', $value ) ); ?>"><?php echo esc_html( $label ); ?></a><?php endforeach; ?></div></div>
-				</div>
-			</details>
 		</section>
 
 		<section class="srx-results" aria-labelledby="srx-results-title">

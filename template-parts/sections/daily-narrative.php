@@ -73,15 +73,14 @@ $fp_cat     = $first_thumb['category'] ?? '';
 
             <!-- ستون راست (۷۰٪): کارت اصلی -->
             <div class="daily-hero-main">
-                <article class="daily-featured-card" id="daily-main-card">
-                    <a href="<?php echo esc_url($main_url); ?>" class="daily-featured__visual block group">
+                <article class="daily-featured-card relative cursor-pointer group" id="daily-main-card" data-card-link="<?php echo esc_url($main_url); ?>">
+                    <div class="daily-featured__visual block">
                         <img src="<?php echo esc_url($main_img); ?>" <?php echo revayat_responsive_image_attributes((int) ($lead['thumbnail_id'] ?? 0), '(max-width: 767px) calc(100vw - 32px), (max-width: 1200px) 50vw, 720px'); ?>
                              alt="<?php echo esc_attr($main_title); ?>"
                              class="daily-featured__img transition-transform duration-500 group-hover:scale-105"
                              id="daily-main-img" loading="eager" fetchpriority="high" decoding="async">
                         <div class="daily-featured__overlay"></div>
-                        <span class="daily-featured__tag" id="daily-main-tag"><?php echo esc_html($main_cat); ?></span>
-                    </a>
+                    </div>
 
                     <div class="daily-featured__content">
                         <div class="daily-featured__author-row">
@@ -103,7 +102,7 @@ $fp_cat     = $first_thumb['category'] ?? '';
                         </div>
 
                         <h2 class="daily-featured__title">
-                            <a href="<?php echo esc_url($main_url); ?>" class="text-inherit hover:text-primary transition-colors">
+                            <a href="<?php echo esc_url($main_url); ?>" id="daily-main-link" class="stretched-link text-inherit hover:text-primary transition-colors">
                                 <?php echo esc_html($main_title); ?>
                             </a>
                         </h2>
@@ -145,9 +144,13 @@ $fp_cat     = $first_thumb['category'] ?? '';
 
             <!-- ستون چپ: info panel تعاملی -->
             <div class="daily-interactive-info" id="interactive-info-panel">
-                <div class="info-panel__inner panel-pad">
+                <article class="info-panel__inner panel-pad relative cursor-pointer group" data-card-link="<?php echo esc_url($fp_url); ?>">
                     <span class="info-panel__tag" id="info-panel-tag"><?php echo esc_html($fp_cat); ?></span>
-                    <h3 class="info-panel__title" id="info-panel-title"><?php echo esc_html($fp_title); ?></h3>
+                    <h3 class="info-panel__title">
+                        <a href="<?php echo esc_url($fp_url); ?>" id="info-panel-link" class="stretched-link hover:text-primary transition-colors">
+                            <span id="info-panel-title"><?php echo esc_html($fp_title); ?></span>
+                        </a>
+                    </h3>
                     <p class="info-panel__excerpt" id="info-panel-excerpt"><?php echo esc_html($fp_excerpt); ?></p>
 
                     <div class="info-panel__meta">
@@ -157,14 +160,7 @@ $fp_cat     = $first_thumb['category'] ?? '';
                         </div>
                         <span class="info-panel__date" id="info-panel-date"><?php echo esc_html($fp_date); ?></span>
                     </div>
-
-                    <a href="<?php echo esc_url($fp_url); ?>"
-                       class="button--compact button--accent info-panel__link"
-                       id="info-panel-link">
-                        <span><?php esc_html_e('ادامه تحلیل', 'revayatiran'); ?></span>
-                        <i class="ph ph-arrow-left"></i>
-                    </a>
-                </div>
+                </article>
             </div>
 
         </div><!-- /.daily-hero-layout -->
