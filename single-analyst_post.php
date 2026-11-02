@@ -336,6 +336,8 @@ while ( have_posts() ) :
 				</header>
 				<ol></ol>
 			</section>
+
+			<?php get_template_part( 'template-parts/single/sidebar', null, array( 'embedded' => true ) ); ?>
 		</aside>
 	</article>
 </main>

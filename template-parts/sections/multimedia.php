@@ -22,16 +22,23 @@ $stories         = $multimedia_data['stories'] ?? [];
     <div class="container">
 
         <!-- هدر بخش رسانه‌نگار -->
+        <?php $archive_url = revayat_archive_menu_url( 'multimedia' ); ?>
         <div class="section-head section-head--etude-b" data-reveal="up">
             <div class="etude-b__leading">
                 <div class="etude-b__icon-badge">
                     <i class="ph ph-circle-dashed"></i>
                 </div>
-                <h2><?php echo esc_html( revayat_home_text( 'multimedia', 'title' ) ); ?></h2>
+                <h2>
+                    <?php if ( $archive_url ) : ?>
+                        <a href="<?php echo esc_url( $archive_url ); ?>"><?php echo esc_html( revayat_home_text( 'multimedia', 'title' ) ); ?></a>
+                    <?php else : ?>
+                        <?php echo esc_html( revayat_home_text( 'multimedia', 'title' ) ); ?>
+                    <?php endif; ?>
+                </h2>
                 <p class="section-summary"><?php echo esc_html( revayat_home_text( 'multimedia', 'description' ) ); ?></p>
             </div>
             <div class="etude-b__actions">
-                <?php $archive_url = revayat_archive_menu_url( 'multimedia' ); if ( $archive_url ) : ?>
+                <?php if ( $archive_url ) : ?>
                 <a href="<?php echo esc_url( $archive_url ); ?>" class="section-link"><span><?php esc_html_e( 'آرشیو رسانه‌نگار', 'revayatiran' ); ?></span><i class="ph ph-arrow-left"></i></a>
                 <?php endif; ?>
                 <div class="story-rail-nav">

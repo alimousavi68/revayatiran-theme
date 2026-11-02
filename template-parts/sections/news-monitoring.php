@@ -26,12 +26,19 @@ $news_items  = $news_data['items'] ?? [];
 ?>
 <section class="section-shell section-shell--warm section-spacing" id="news-monitoring">
     <div class="container">
+        <?php $archive_url = revayat_archive_menu_url( 'news-monitoring' ); ?>
         <div class="section-head section-head--etude-b" data-reveal="up">
             <div class="etude-b__leading">
                 <div class="etude-b__icon-badge">
                     <i class="ph ph-broadcast"></i>
                 </div>
-                <h2><?php echo esc_html( revayat_home_text( 'news-monitoring', 'title' ) ); ?></h2>
+                <h2>
+                    <?php if ( $archive_url ) : ?>
+                        <a href="<?php echo esc_url( $archive_url ); ?>"><?php echo esc_html( revayat_home_text( 'news-monitoring', 'title' ) ); ?></a>
+                    <?php else : ?>
+                        <?php echo esc_html( revayat_home_text( 'news-monitoring', 'title' ) ); ?>
+                    <?php endif; ?>
+                </h2>
                 <p class="section-summary"><?php echo esc_html( revayat_home_text( 'news-monitoring', 'description' ) ); ?></p>
             </div>
             <div class="etude-b__actions flex items-center gap-2">

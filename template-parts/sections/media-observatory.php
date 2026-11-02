@@ -15,21 +15,25 @@ $items    = $obs_data['items'] ?? [];
 ?>
 <section class="section-shell section-shell--gradient section-spacing" id="media-observatory">
     <div class="container">
+        <?php
+        $archive_url = get_post_type_archive_link('media_observatory');
+        if (!$archive_url || is_wp_error($archive_url)) {
+            $archive_url = home_url('/observatory/');
+        }
+        ?>
         <div class="section-head section-head--etude-b" data-reveal="up">
             <div class="etude-b__leading">
                 <div class="etude-b__icon-badge">
                     <i class="ph ph-binoculars"></i>
                 </div>
-                <h2><?php echo esc_html( revayat_home_text( 'media-observatory', 'title' ) ); ?></h2>
+                <h2>
+                    <a href="<?php echo esc_url($archive_url); ?>">
+                        <?php echo esc_html( revayat_home_text( 'media-observatory', 'title' ) ); ?>
+                    </a>
+                </h2>
                 <p class="section-summary"><?php echo esc_html( revayat_home_text( 'media-observatory', 'description' ) ); ?></p>
             </div>
             <div class="etude-b__actions">
-                <?php
-                $archive_url = get_post_type_archive_link('media_observatory');
-                if (!$archive_url || is_wp_error($archive_url)) {
-                    $archive_url = home_url('/observatory/');
-                }
-                ?>
                 <a href="<?php echo esc_url($archive_url); ?>" class="section-link">
                     <span><?php esc_html_e('آرشیو پایش رسانه‌ها', 'revayatiran'); ?></span>
                     <i class="ph ph-arrow-left"></i>

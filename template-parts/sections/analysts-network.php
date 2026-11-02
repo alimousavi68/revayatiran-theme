@@ -28,7 +28,11 @@ $top_analysts = $network_data['analysts']  ?? [];
                 <div class="etude-b__icon-badge">
                     <i class="ph ph-users-three"></i>
                 </div>
-                <h2><?php echo esc_html( revayat_home_text( 'analysts-network', 'title' ) ); ?></h2>
+                <h2>
+                    <a href="<?php echo esc_url(home_url('/analysts/')); ?>">
+                        <?php echo esc_html( revayat_home_text( 'analysts-network', 'title' ) ); ?>
+                    </a>
+                </h2>
                 <p class="section-summary"><?php echo esc_html( revayat_home_text( 'analysts-network', 'description' ) ); ?></p>
             </div>
             <div class="etude-b__actions">

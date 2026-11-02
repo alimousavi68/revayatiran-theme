@@ -42,16 +42,23 @@ $fp_cat     = $first_thumb['category'] ?? '';
 <section class="section-shell section-shell--offwhite section-spacing-top" id="daily-narrative">
     <div class="container">
         <!-- هدر بخش روایت روز -->
+        <?php $archive_url = revayat_archive_menu_url( 'daily-narrative' ); ?>
         <div class="section-head section-head--etude-b">
             <div class="etude-b__leading">
                 <div class="etude-b__icon-badge">
                     <i class="ph ph-newspaper"></i>
                 </div>
-                <h2><?php echo esc_html( revayat_home_text( 'daily-narrative', 'title' ) ); ?></h2>
+                <h2>
+                    <?php if ( $archive_url ) : ?>
+                        <a href="<?php echo esc_url( $archive_url ); ?>"><?php echo esc_html( revayat_home_text( 'daily-narrative', 'title' ) ); ?></a>
+                    <?php else : ?>
+                        <?php echo esc_html( revayat_home_text( 'daily-narrative', 'title' ) ); ?>
+                    <?php endif; ?>
+                </h2>
                 <p class="section-summary"><?php echo esc_html( revayat_home_text( 'daily-narrative', 'description' ) ); ?></p>
             </div>
             <div class="etude-b__actions">
-                <?php $archive_url = revayat_archive_menu_url( 'daily-narrative' ); if ( $archive_url ) : ?>
+                <?php if ( $archive_url ) : ?>
                 <a href="<?php echo esc_url( $archive_url ); ?>" class="section-link">
                     <span><?php esc_html_e('آرشیو روایت‌ها', 'revayatiran'); ?></span>
                     <i class="ph ph-arrow-left"></i>

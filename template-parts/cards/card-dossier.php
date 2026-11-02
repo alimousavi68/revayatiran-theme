@@ -96,26 +96,20 @@ $excerpt      = $item['excerpt'] ?? '';
             </p>
         <?php endif; ?>
 
-        <?php get_template_part('template-parts/dossier/counts', null, ['id' => $item['id'] ?? 0]); ?>
-
-        <!-- فوتر کارت: دبیر پرونده و تاریخ بروزرسانی -->
+        <!-- فوتر کارت: تاریخ بروزرسانی و پیوند مشاهده -->
         <div class="flex items-center justify-between pt-4 border-t border-[var(--border)] mt-auto">
-            <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-[10px] bg-primary/10 text-primary flex items-center justify-center text-xs border border-black/10 dark:border-white/10 shrink-0">
-                    <i class="ph ph-user"></i>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-xs font-bold text-gray-900 dark:text-white"><?php echo esc_html(!empty($editor_lead) ? $editor_lead : __('تحریریه راهبردی', 'revayatiran')); ?></span>
-                    <span class="text-[10px] text-gray-500"><?php esc_html_e('دبیر پرونده', 'revayatiran'); ?></span>
-                </div>
-            </div>
-
             <?php if (!empty($last_update)) : ?>
-                <div class="text-[11px] text-gray-500 flex items-center gap-1">
+                <div class="text-[11px] text-gray-500 flex items-center gap-1.5">
                     <i class="ph ph-clock text-xs text-primary"></i>
                     <span><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($last_update) : $last_update); ?></span>
                 </div>
+            <?php else : ?>
+                <span></span>
             <?php endif; ?>
+            <a href="<?php echo esc_url($url); ?>" class="text-[12px] font-bold text-primary inline-flex items-center gap-1 hover:underline">
+                <span><?php esc_html_e('مشاهده پرونده', 'revayatiran'); ?></span>
+                <i class="ph ph-arrow-left text-xs"></i>
+            </a>
         </div>
     </div>
 </article>

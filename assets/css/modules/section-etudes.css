@@ -194,6 +194,16 @@ html[data-theme="dark"] #daily-narrative .etude-b__icon-badge::after {
     color: var(--text);
 }
 
+.section-head--etude-b h2 a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.section-head--etude-b h2 a:hover {
+    color: var(--primary);
+}
+
 .etude-b__count-badge {
     display: inline-flex;
     align-items: center;

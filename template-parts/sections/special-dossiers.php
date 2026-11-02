@@ -21,7 +21,11 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
                 <div class="etude-b__icon-badge">
                     <i class="ph ph-folder-open"></i>
                 </div>
-                <h2><?php echo esc_html( revayat_home_text( 'special-dossiers', 'title' ) ); ?></h2>
+                <h2>
+                    <a href="<?php echo esc_url(home_url('/dossiers/')); ?>">
+                        <?php echo esc_html( revayat_home_text( 'special-dossiers', 'title' ) ); ?>
+                    </a>
+                </h2>
                 <p class="section-summary"><?php echo esc_html( revayat_home_text( 'special-dossiers', 'description' ) ); ?></p>
             </div>
             <div class="etude-b__actions">
@@ -37,7 +41,7 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
             <!-- پرونده اصلی و فعال -->
             <?php if (!empty($lead)) : ?>
                 <article class="dossier-hero-card">
-                    <div class="dossier-hero-visual">
+                    <a href="<?php echo esc_url($lead['url'] ?? home_url('/dossiers/')); ?>" class="dossier-hero-visual block" aria-label="<?php echo esc_attr($lead['title'] ?? ''); ?>">
                         <img src="<?php echo esc_url(revayat_resolve_image_url($lead['thumbnail_url'] ?? null, 'news')); ?>" alt="<?php echo esc_attr($lead['title'] ?? ''); ?>" class="w-full h-full object-cover" loading="lazy" decoding="async" <?php echo revayat_responsive_image_attributes((int) ($lead['thumbnail_id'] ?? 0), '(max-width: 767px) calc(100vw - 32px), 600px'); ?>>
                         <?php if (!empty($lead['is_live'])) : ?>
                             <div class="dossier-hero-visual__overlay">
@@ -51,7 +55,7 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
                                 <span class="dossier-category-badge"><?php esc_html_e('تکمیل‌شده', 'revayatiran'); ?></span>
                             </div>
                         <?php endif; ?>
-                    </div>
+                    </a>
                     
                     <div class="dossier-hero-content">
                         <?php if (!empty($lead['last_update'])) : ?>
@@ -61,7 +65,9 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
                         <?php endif; ?>
                         
                         <h3 class="dossier-hero-title">
-                            <?php echo esc_html($lead['title'] ?? ''); ?>
+                            <a href="<?php echo esc_url($lead['url'] ?? home_url('/dossiers/')); ?>" class="hover:text-primary transition-colors">
+                                <?php echo esc_html($lead['title'] ?? ''); ?>
+                            </a>
                         </h3>
                         
                         <?php if (!empty($lead['excerpt'])) : ?>
@@ -70,19 +76,11 @@ $sidebar       = $dossiers_data['sidebar'] ?? [];
                             </p>
                         <?php endif; ?>
 
-                        <!-- اقلام داده‌ای و ضمایم پرونده -->
-                        <?php get_template_part('template-parts/dossier/counts', null, ['id' => $lead['id'] ?? 0, 'variant' => 'hero']); ?>
-
                         <div class="dossier-footer">
                             <a href="<?php echo esc_url($lead['url'] ?? home_url('/dossiers/')); ?>" class="btn-dossier-enter">
-                                <span><?php esc_html_e('ورود به پرونده جامع', 'revayatiran'); ?></span>
+                                <span><?php esc_html_e('ورود به پرونده', 'revayatiran'); ?></span>
                                 <i class="ph-bold ph-arrow-left"></i>
                             </a>
-                            <?php if (!empty($lead['editor_lead'])) : ?>
-                                <span class="dossier-lead-author">
-                                    <i class="ph ph-user"></i> <?php esc_html_e('دبیر پرونده:', 'revayatiran'); ?> <strong><?php echo esc_html($lead['editor_lead']); ?></strong>
-                                </span>
-                            <?php endif; ?>
                         </div>
                     </div>
                 </article>

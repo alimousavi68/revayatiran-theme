@@ -30,7 +30,6 @@ while (have_posts()) :
     $is_live         = !empty($meta['is_live']);
     $editor_lead     = !empty($meta['editor_lead']) ? $meta['editor_lead'] : __('تحریریه راهبردی', 'revayatiran');
     $last_update     = $meta['last_update'] ?? '';
-    $timeline_events = $meta['timeline_events'] ?? [];
     $related         = function_exists('revayat_get_related_posts') ? revayat_get_related_posts($post_id, 3) : [];
     $dossier_links   = class_exists('Revayat_Companion_Dossier_Links') ? Revayat_Companion_Dossier_Links::get($post_id) : [];
     ?>
@@ -151,76 +150,127 @@ while (have_posts()) :
             <!-- ═══ گرید اصلی (محتوا + سایدبار ابزارها و پرونده‌های تکمیلی) ═══ -->
             <div class="flex flex-col lg:flex-row gap-10 relative">
 
-                <!-- ستون اصلی محتوای متنی (راست - ۷۰٪) -->
+                <!-- ستون اصلی: فهرست آرشیوی مطالب مرتبط پرونده (راست - ۷۰٪) -->
                 <div class="flex-1 min-w-0 order-1">
-                    <div class="bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] shadow-sm p-6 md:p-8 lg:p-12 mb-10">
-
-                        <div class="border-b border-[var(--border)] pb-4 mb-8">
-                            <h2 class="text-xl md:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2.5">
-                                <i class="ph ph-article text-primary text-2xl"></i>
-                                <?php esc_html_e('متن و ارزیابی تفصیلی پرونده', 'revayatiran'); ?>
-                            </h2>
-                        </div>
-
-                        <!-- متن اصلی مقاله با تایپوگرافی استاندارد سورس -->
-                        <div class="text-gray-900 dark:text-white leading-[2.2] text-[16px] md:text-[17px] space-y-7 font-normal entry-content">
-                            <?php the_content(); ?>
-                        </div>
-
-                        <?php get_template_part('template-parts/dossier/links', null, ['links' => $dossier_links]); ?>
-
-                        <!-- ═══ گاه‌شمار رخدادها و سیر تحولات پرونده (Timeline) ═══ -->
-                        <?php if (!empty($timeline_events) && is_array($timeline_events)) : ?>
-                            <div class="mt-12 pt-8 border-t border-[var(--border)]">
-                                <h3 class="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-8 flex items-center gap-2.5 pb-3 border-b border-[var(--border)]">
-                                    <i class="ph ph-clock-counter-clockwise text-primary text-2xl"></i>
-                                    <?php esc_html_e('گاه‌شمار رخدادها و سیر تحولات پرونده', 'revayatiran'); ?>
-                                </h3>
-                                <div class="relative border-r-2 border-primary/20 mr-4 pr-6 space-y-8">
-                                    <?php foreach ($timeline_events as $event) :
-                                        $event_date  = $event['date'] ?? '';
-                                        $event_title = $event['title'] ?? '';
-                                        $event_desc  = $event['description'] ?? ($event['desc'] ?? '');
-                                    ?>
-                                        <div class="relative group">
-                                            <span class="absolute -right-[31px] top-1 w-5 h-5 rounded-full bg-white dark:bg-[#1a1c23] border-2 border-primary text-primary flex items-center justify-center text-[10px] shadow-sm transition-transform duration-200 group-hover:scale-125">
-                                                <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                                            </span>
-                                            <?php if (!empty($event_date)) : ?>
-                                                <div class="inline-flex items-center gap-1 px-2.5 py-0.5 bg-primary/10 text-primary rounded-md text-xs font-bold mb-2">
-                                                    <i class="ph ph-calendar text-xs"></i>
-                                                    <?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($event_date) : $event_date); ?>
-                                                </div>
-                                            <?php endif; ?>
-                                            <?php if (!empty($event_title)) : ?>
-                                                <h4 class="text-base font-bold text-gray-900 dark:text-white mb-1.5"><?php echo esc_html($event_title); ?></h4>
-                                            <?php endif; ?>
-                                            <?php if (!empty($event_desc)) : ?>
-                                                <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed"><?php echo esc_html($event_desc); ?></p>
-                                            <?php endif; ?>
-                                        </div>
-                                    <?php endforeach; ?>
+                    <?php 
+                    $content_items = $dossier_links['content'] ?? [];
+                    if (!empty($content_items)) : 
+                    ?>
+                        <div class="flex items-center justify-between gap-4 mb-6 pb-3 border-b border-[var(--border)]">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-9 h-9 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg shrink-0">
+                                    <i class="ph ph-article"></i>
+                                </div>
+                                <div>
+                                    <h2 class="text-lg md:text-xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+                                        <?php esc_html_e('مطالب و تحلیل‌های پرونده', 'revayatiran'); ?>
+                                    </h2>
+                                    <p class="text-gray-500 dark:text-gray-400 text-xs mt-0.5">
+                                        <?php 
+                                        printf(
+                                            /* translators: %s: number of items */
+                                            esc_html__('%s مطلب مرتبط در این پرونده', 'revayatiran'),
+                                            function_exists('revayat_en2fa') ? revayat_en2fa(count($content_items)) : count($content_items)
+                                        ); 
+                                        ?>
+                                    </p>
                                 </div>
                             </div>
-                        <?php endif; ?>
-
-                        <!-- برچسب‌ها و دکمه‌های اشتراک‌گذاری -->
-                        <?php if ($topic) : ?>
-                        <div class="mt-12 pt-6 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-4">
-                            <div class="flex items-center gap-2">
-                                <span class="text-sm font-bold text-gray-900 dark:text-white">
-                                    <i class="ph ph-tag text-primary align-middle"></i>
-                                    <?php esc_html_e('محور:', 'revayatiran'); ?>
-                                </span>
-                                <span class="px-3 py-1 bg-gray-100 dark:bg-white/5 text-gray-700 dark:text-gray-300 rounded-lg text-xs font-medium">
-                                    <?php echo esc_html($topic); ?>
-                                </span>
-                            </div>
                         </div>
-                        <?php endif; ?>
 
-                        <?php get_template_part('template-parts/single/engagement'); ?>
-                    </div>
+                        <div class="dossier-post-list">
+                            <?php 
+                            foreach ($content_items as $c_item) :
+                                $c_id    = (int) ($c_item['id'] ?? 0);
+                                $c_post  = $c_id ? get_post($c_id) : null;
+                                if (!$c_post) {
+                                    continue;
+                                }
+                                $c_title = !empty($c_item['title']) ? $c_item['title'] : get_the_title($c_id);
+                                $c_url   = !empty($c_item['url']) ? $c_item['url'] : get_permalink($c_id);
+
+                                // تصویر شاخص
+                                $c_thumb = function_exists('revayat_get_post_image_url') 
+                                    ? revayat_get_post_image_url($c_post, 'medium', 'news') 
+                                    : get_the_post_thumbnail_url($c_id, 'medium');
+                                if (empty($c_thumb) && function_exists('revayat_resolve_image_url')) {
+                                    $c_thumb = revayat_resolve_image_url(null, 'news');
+                                }
+
+                                // چکیده
+                                $c_excerpt = get_the_excerpt($c_post);
+                                if (empty($c_excerpt)) {
+                                    $c_excerpt = wp_trim_words(wp_strip_all_tags($c_post->post_content), 24);
+                                }
+
+                                // تاریخ انتشار
+                                $c_date = get_the_date('', $c_id);
+                            ?>
+                                <article class="dossier-post-card">
+                                    <!-- سمت راست: تصویر شاخص -->
+                                    <a href="<?php echo esc_url($c_url); ?>" class="dossier-post-card__thumb" aria-label="<?php echo esc_attr($c_title); ?>">
+                                        <img src="<?php echo esc_url($c_thumb); ?>" 
+                                             alt="<?php echo esc_attr($c_title); ?>" 
+                                             loading="lazy" decoding="async">
+                                    </a>
+
+                                    <!-- سمت چپ: تاریخ، تیتر، لید و لینک -->
+                                    <div class="dossier-post-card__content">
+                                        <div>
+                                            <!-- ردیف بالای محتوا: تاریخ -->
+                                            <?php if (!empty($c_date)) : ?>
+                                                <div class="dossier-post-card__header">
+                                                    <div class="dossier-post-card__meta">
+                                                        <i class="ph ph-calendar-blank"></i>
+                                                        <span><?php echo esc_html(function_exists('revayat_en2fa') ? revayat_en2fa($c_date) : $c_date); ?></span>
+                                                    </div>
+                                                </div>
+                                            <?php endif; ?>
+
+                                            <!-- تیتر مطلب -->
+                                            <h3 class="dossier-post-card__title">
+                                                <a href="<?php echo esc_url($c_url); ?>">
+                                                    <?php echo esc_html($c_title); ?>
+                                                </a>
+                                            </h3>
+
+                                            <!-- لید / چکیده مطلب -->
+                                            <?php if (!empty($c_excerpt)) : ?>
+                                                <p class="dossier-post-card__excerpt">
+                                                    <?php echo esc_html($c_excerpt); ?>
+                                                </p>
+                                            <?php endif; ?>
+                                        </div>
+
+                                        <!-- فوتر کارت: دکمه مطالعه -->
+                                        <div class="dossier-post-card__footer">
+                                            <a href="<?php echo esc_url($c_url); ?>" class="dossier-post-card__link">
+                                                <span><?php esc_html_e('مشاهده و مطالعه', 'revayatiran'); ?></span>
+                                                <i class="ph ph-arrow-left"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </article>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else : ?>
+                        <!-- وضعیت خالی (Empty State) -->
+                        <div class="text-center py-14 px-6 bg-white dark:bg-[#1a1c23] rounded-2xl border border-[var(--border)] shadow-sm">
+                            <div class="w-14 h-14 rounded-2xl bg-gray-50 dark:bg-white/5 text-gray-400 flex items-center justify-center text-2xl mx-auto mb-3 border border-[var(--border)]">
+                                <i class="ph ph-article"></i>
+                            </div>
+                            <h3 class="text-base md:text-lg font-bold text-gray-900 dark:text-white mb-2">
+                                <?php esc_html_e('هنوز مطلبی به این پرونده متصل نشده است', 'revayatiran'); ?>
+                            </h3>
+                            <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 max-w-md mx-auto mb-5 leading-relaxed">
+                                <?php esc_html_e('مطالب و گزارش‌های تحلیلی مرتبط با این پرونده به زودی توسط تحریریه اضافه خواهند شد.', 'revayatiran'); ?>
+                            </p>
+                            <a href="<?php echo esc_url(home_url('/dossiers/')); ?>" class="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white text-xs font-bold rounded-xl hover:bg-primary-dark transition-colors">
+                                <i class="ph ph-arrow-right"></i>
+                                <span><?php esc_html_e('بازگشت به آرشیو پرونده‌ها', 'revayatiran'); ?></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
                 <!-- ═══ سایدبار (چپ - ۳۰٪ مطابق با orginal source/single.php) ═══ -->

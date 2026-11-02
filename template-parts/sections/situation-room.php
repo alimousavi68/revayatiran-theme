@@ -34,7 +34,12 @@ $gated_target        = is_user_logged_in()
                     </div>
                 </div>
                 
-                <h2 class="sr-sidebar__title"><?php echo esc_html( revayat_home_text( 'situation-room', 'title' ) ); ?></h2>
+                <?php $sr_archive_url = get_post_type_archive_link('situation_room') ?: home_url('/situation-room/'); ?>
+                <h2 class="sr-sidebar__title">
+                    <a href="<?php echo esc_url($sr_archive_url); ?>">
+                        <?php echo esc_html( revayat_home_text( 'situation-room', 'title' ) ); ?>
+                    </a>
+                </h2>
                 <p class="sr-sidebar__desc"><?php echo esc_html( revayat_home_text( 'situation-room', 'description' ) ); ?></p>
                 
                 <div class="sr-sidebar__footer">

@@ -12,7 +12,7 @@
   },
   "public": {
     "file": "/assets/css/dist/public.min.css",
-    "version": "bb01c72d4620ea26",
+    "version": "3890124b1a4510f7",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -23,11 +23,11 @@
       "assets/css/modules/social-fab.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 62033
+    "bytes": 62184
   },
   "home": {
     "file": "/assets/css/dist/home.min.css",
-    "version": "cf9eaf121e4e4723",
+    "version": "5c20ee4880ddc73d",
     "sources": [
       "assets/css/modules/hero.css",
       "assets/css/modules/layout-shared.css",
@@ -46,11 +46,11 @@
       "assets/css/modules/analysts-mobile.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 202052
+    "bytes": 205059
   },
   "post": {
     "file": "/assets/css/dist/post.min.css",
-    "version": "c4a45d9186279c0b",
+    "version": "4222e4b176bfdee5",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -63,11 +63,11 @@
       "assets/css/modules/special-dossiers.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 100346
+    "bytes": 103222
   },
   "dossier": {
     "file": "/assets/css/dist/dossier.min.css",
-    "version": "c4a45d9186279c0b",
+    "version": "4222e4b176bfdee5",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -80,11 +80,11 @@
       "assets/css/modules/special-dossiers.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 100346
+    "bytes": 103222
   },
   "dossier-archive": {
     "file": "/assets/css/dist/dossier-archive.min.css",
-    "version": "738531b4d05548ca",
+    "version": "e7d4be21a4b6724b",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -98,11 +98,11 @@
       "assets/css/modules/public-archives.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 89228
+    "bytes": 92104
   },
   "analyst": {
     "file": "/assets/css/dist/analyst.min.css",
-    "version": "07d75f6501d8bfe0",
+    "version": "ed25dc9386089494",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -119,11 +119,11 @@
       "assets/css/modules/analysts-experience.css",
       "assets/css/modules/analysts-refinement.css"
     ],
-    "bytes": 199018
+    "bytes": 199169
   },
   "analyst-archive": {
     "file": "/assets/css/dist/analyst-archive.min.css",
-    "version": "18751acb84b2b2a8",
+    "version": "4d434fb936c19934",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -139,11 +139,11 @@
       "assets/css/modules/analysts-experience.css",
       "assets/css/modules/analysts-refinement.css"
     ],
-    "bytes": 167160
+    "bytes": 167311
   },
   "author-archive": {
     "file": "/assets/css/dist/author-archive.min.css",
-    "version": "6b0a6ebf5372687b",
+    "version": "2f9edc86526565be",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -156,11 +156,11 @@
       "assets/css/modules/analysts-mobile.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 97387
+    "bytes": 97538
   },
   "person": {
     "file": "/assets/css/dist/person.min.css",
-    "version": "8227623e2a0ef121",
+    "version": "47d4be9f61ac4a30",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -177,11 +177,11 @@
       "assets/css/modules/analysts-experience.css",
       "assets/css/modules/analysts-refinement.css"
     ],
-    "bytes": 192531
+    "bytes": 192682
   },
   "media": {
     "file": "/assets/css/dist/media.min.css",
-    "version": "e096e092cffc590a",
+    "version": "e8ca70b1c3f751e1",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -194,11 +194,11 @@
       "assets/css/modules/vertical-content.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 90488
+    "bytes": 90639
   },
   "media-archive": {
     "file": "/assets/css/dist/media-archive.min.css",
-    "version": "0f63ee734e84a32d",
+    "version": "f5f2f1d8860ccc03",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -211,11 +211,11 @@
       "assets/css/modules/public-archives.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 76286
+    "bytes": 76437
   },
   "observatory": {
     "file": "/assets/css/dist/observatory.min.css",
-    "version": "329accba972bde7d",
+    "version": "4cd35f8e63ddf016",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -228,11 +228,11 @@
       "assets/css/modules/media-observatory.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 96975
+    "bytes": 97126
   },
   "observatory-archive": {
     "file": "/assets/css/dist/observatory-archive.min.css",
-    "version": "806630908b05650e",
+    "version": "5e7ba4791f0e1976",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -245,11 +245,11 @@
       "assets/css/modules/public-archives.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 82773
+    "bytes": 82924
   },
   "room": {
     "file": "/assets/css/dist/room.min.css",
-    "version": "12a86aae56b011ce",
+    "version": "b75114c14232b58a",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -262,11 +262,11 @@
       "assets/css/modules/situation-room.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 132286
+    "bytes": 132568
   },
   "room-archive": {
     "file": "/assets/css/dist/room-archive.min.css",
-    "version": "cdf466201f579b42",
+    "version": "99335b83fa72cfe1",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -280,11 +280,11 @@
       "assets/css/modules/public-archives.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 121168
+    "bytes": 121450
   },
   "archive": {
     "file": "/assets/css/dist/archive.min.css",
-    "version": "15c1d417f5d5279b",
+    "version": "c79aeac81faade87",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -296,11 +296,11 @@
       "assets/css/modules/public-archives.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 70912
+    "bytes": 71063
   },
   "auth": {
     "file": "/assets/css/dist/auth.min.css",
-    "version": "28a3af90dac8bf9c",
+    "version": "66ec93f0cb3d9e9c",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -315,11 +315,11 @@
       "assets/css/modules/user-portal-workflow.css",
       "assets/css/modules/account-menu.css"
     ],
-    "bytes": 71083
+    "bytes": 71234
   },
   "dashboard": {
     "file": "/assets/css/dist/dashboard.min.css",
-    "version": "b179a85e5f95b2cc",
+    "version": "a40b44c736f89ffe",
     "sources": [
       "assets/css/modules/layout-shared.css",
       "assets/css/modules/footer.css",
@@ -339,7 +339,7 @@
       "assets/css/modules/analysts-experience.css",
       "assets/css/modules/analysts-refinement.css"
     ],
-    "bytes": 183317
+    "bytes": 183468
   },
   "auth-dialog": {
     "file": "/assets/css/dist/auth-dialog.min.css",
